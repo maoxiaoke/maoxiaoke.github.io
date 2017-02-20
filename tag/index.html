@@ -1,0 +1,43 @@
+---
+layout: default
+title: 标签目录
+header: Posts By Tag
+---
+
+<div class="container docs-container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="sidebar hidden-print" role="complementary">
+        <div id="navigation">
+        	<h1>标签目录</h1>
+      		<ul class="nav sidenav">
+			  	{% if site.tags.first[0] == null %}
+				  	{% for tag in site.tags %} 
+				  	<li><a href="{{ site.JB.tags_path }}#{{ tag }}-ref">{{ tag }} <span >({{ site.tags[tag].size }})</span></a></li>
+				  	{% endfor %}
+				{% else %}
+				  	{% for tag in site.tags %} 
+				  	<li><a href="{{ site.JB.tags_path }}#{{ tag[0] }}-ref">{{ tag[0] }} <span style="color: #999;" >({{ tag[1].size }})</span></a></li>
+				  	{% endfor %}
+				{% endif %}
+          	</ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9" role="main">
+      <div class="panel docs-content">
+        <div class="wrapper">
+          <div class="home">
+          	{% for tag in site.tags %} 
+			  <h2 class="title-border" id="{{ tag[0] }}-ref">{{ tag[0] }}</h2><hr>
+			  <div>
+			    {% assign pages_list = tag[1] %}  
+			    {% include LessOrMore/pages_list %}
+			  </div><hr>
+			{% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

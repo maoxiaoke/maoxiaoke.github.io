@@ -1,0 +1,39 @@
+---
+layout: default
+---
+<div class="container docs-container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="sidebar hidden-print" role="complementary">
+        {% include lefttree.html %} 
+      </div>
+    </div>
+    <div class="col-md-9" role="main">
+      <div class="panel docs-content">
+        <div class="wrapper">
+            <header class="post-header">
+              <h1 class="post-title">{{ page.title }}</h1>
+              <!--
+                <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
+              -->
+              <div class="meta">Date： <span class="postdate">{{ page.date | date: "%b %d, %Y" }}</span> Author： <a target="_blank" href="{{site.url}}">{{ site.author }}</a></div>
+              <br />
+              <blockquote><p>本文章采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh"> 知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议 </a>进行许可。</p></blockquote>
+            </header>
+            <article class="post-content">
+              {{ content }}
+            </article>
+          <hr>
+          <blockquote><p>对于本文内容有问题或建议的小伙伴，欢迎在文章底部留言交流讨论。</p></blockquote>
+        </div>
+      </div>
+      <div class="panel docs-content">
+        <article class="post-content">
+          <div class="wrapper">
+            {% include LessOrMore/comments %} 
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>

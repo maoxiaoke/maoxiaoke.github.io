@@ -1,0 +1,30 @@
+<div class="nav sidenav">
+    <h3 class="head-t">Categories</h3>
+<table class="table table-striped table-hover">
+    {% if site.categories.first[0] == null %}
+    {% for category in site.categories %}
+    <tr><td><a href="/categories/#{{ category }}-ref">
+        {{ category | join: "/" }} <span class="btn btn-primary btn-xs pull-right">({{ site.categories[category].size }}) </span>
+    </a></td></tr>
+    {% endfor %}
+    {% else %}
+    {% for category in site.categories %}
+    <tr><td><a href="/categories/#{{ category[0] }}-ref">
+        {{ category[0] | join: "/" }} <span class="btn btn-primary btn-xs pull-right">({{ category[1].size }})</span>
+    </a></td></tr>
+    {% endfor %}
+    {% endif %}
+</table>
+<h3 class="head-t">Tags</h3>
+<div>
+    {% if site.tags.first[0] == null %}
+    {% for tag in site.tags %}
+    <div class="btn btn-default btn-sm"><a href="/tag/{{ site.JB.tags_path }}#{{ tag }}-ref">{{ tag }} <span>({{ site.tags[tag].size }})</span></a></div>
+    {% endfor %}
+    {% else %}
+    {% for tag in site.tags %}
+    <div class="btn btn-default btn-sm"><a href="/tag/{{ site.JB.tags_path }}#{{ tag[0] }}-ref">{{ tag[0] }} <span>({{ tag[1].size }})</span></a></div>
+    {% endfor %}
+    {% endif %}
+</div>
+</div>

@@ -1,0 +1,28 @@
+<div id="posts-list">
+{% for node in pages_list %}
+  {% if node.title != null %}
+    {% if group == null or group == node.group %}
+    	{% if page.url == node.url %}
+    	    <div class="posts-list-item">
+                <div class="posts-content">
+                    <span class="posts-list-meta">{{ node.date | date: "%Y-%m-%d" }}</span>
+                    <a class="posts-list-name bubble-float-left active" href="{{ node.url | prepend: site.baseurl }}">{{ node.title }}</a>
+                     <span class='circle'></span>
+                </div>
+            </div>
+    	{% else %}
+    	    <div class="posts-list-item">
+                <div class="posts-content">
+                     <span class="posts-list-meta">{{ node.date | date: "%Y-%m-%d" }}</span>
+                     <a class="posts-list-name bubble-float-left" href="{{ node.url | prepend: site.baseurl }}">{{ node.title }}</a>
+                     <span class='circle'></span>
+                </div>
+            </div>
+    	{% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% assign pages_list = nil %}
+{% assign group = nil %}
+</div>
+
