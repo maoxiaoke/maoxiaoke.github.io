@@ -1,6 +1,6 @@
 ---
 layout: original
-title: "喂，少年"
+title: "喂，少年(1)"
 date: 2015-02-24 19:30:26 +0800 
 categories: 我的小说
 tag: Novel

@@ -17,7 +17,8 @@ layout: default
                 <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
               -->
               <div class="meta">Date： <span class="postdate">{{ page.date | date: "%b %d, %Y" }}</span> Author： <a target="_blank" href="{{site.url}}">{{ site.author }}</a></div>
-              <br />              
+              <br />  
+              <blockquote><p>本文章属原创文章，未经作者许可，禁止转载，复制，下载，以及用作商业用途。原作者保留所有解释权。</p></blockquote>            
             </header>
             <article class="post-content">
               {{ content }}
