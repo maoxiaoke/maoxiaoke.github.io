@@ -1,0 +1,103 @@
+---
+layout: post
+title: "Text formatting"
+date: 2017-03-13 09:00:00 +0800 
+categories: 研究生涯
+tag: JavaScript
+---
+* content
+{:toc}
+
+
+如何使用字符串和文本内容。
+
+<!-- more -->
+
+## 字符串
+
+`JavaScript`中的`String`类型用于表示文本型的数据。它是由无符号整数值（16bit）作为元素而组成的集合。字符串中的每个元素在字符串中占据一个位置。第一个元素的`index`值是`0`, 下一个元素的`index`值是`1`, 以此类推。字符串的长度就是字符串中所含的元素个数。你可以通过**String字面值**或者**String对象**两种方式创建一个字符串。
+
+### String字面值
+
+可以使用单引号或双引号创建简单的字符串:
+
+```javascript
+'foo'
+"bar"
+
+'\xA9' // "©" \x之后的数值将被认为是一个16进制数
+'\u00A9' // "©" Unicode转义序列在\u之后需要至少4个字符
+```
+
+### 字符串对象
+
+String 对象是对原始string类型的封装
+
+```javascript
+var s = new String("foo"); // Creates a String object
+console.log(s); // Displays: { '0': 'f', '1': 'o', '2': 'o'}
+typeof s; // Returns 'object'
+```
+
+你可以在`String`字面值上使用`String`对象的任何方法 -- `JavaScript`自动把`String`字面值转换为一个临时的`String`对象, 然后调用其相应方法,最后丢弃此临时对象。
+
+除非必要, 应该尽量使用`String`字面值, 因为`String`对象的某些行为可能并不与直觉一致:
+
+```javascript
+var s1 = "2 + 2"; // Creates a string literal value
+var s2 = new String("2 + 2"); // Creates a String object
+eval(s1); // Returns the number 4
+eval(s2); // Returns the string "2 + 2"
+```
+
+### string对象的一些方法
+
++ `charAt, charCodeAt, codePointAt` : 返回字符串指定位置的字符或者字符编码
++ `indexOf, lastIndexOf` : 分别返回字符串中指定子串的位置或最后位置
++ `startsWith, endsWith, includes` : 返回字符串是否以指定字符串开始、结束或包含指定字符串
++ `concat` : 连接两个字符串并返回新的字符串
++ `fromCharCode, fromCodePoint` : 从指定的Unicode值序列构造一个字符串。这是一个String类方法，不是实例方法
++ `split` : 通过将字符串分离成一个个子串来把一个String对象分裂到一个字符串数组中
++ `slice` : 从一个字符串提取片段并作为新字符串返回
++ `substring, substr` : 分别通过指定起始和结束位置，起始位置和长度来返回字符串的指定子集
++ `match, replace, search` : 通过正则表达式来工作
++ `toLowerCase, toUpperCase` : 分别返回字符串的小写表示和大写表示
++ `normalize` : 按照指定的一种 Unicode 正规形式将当前字符串正规化
++ `repeat` : 将字符串内容重复指定次数后返回
++ `trim` : 去掉字符串开头和结尾的空白字符
+
+## 多行模板字符串
+
+模板字符串是一种允许内嵌表达式的`String`字面值。
+
+模板字符串使用反分号`(``)`包裹内容而不是单引号或双引号。模板字符串可以包含占位符，占位符用美元符号和花括号标识`${expression}`。
+
+### 多行字符串
+
+```javascript
+console.log("string text line 1\n\
+string text line 2"); //这是通常的做法，使用\n进行转义
+
+//使用多行字符串
+console.log(`string text line 1
+string text line 2`);
+```
+
+### 嵌入表达式
+
+```javascript
+//一般为了嵌入表达式的做法
+var a = 5;
+var b = 10;
+console.log("Fifteen is " + (a + b) + " and\nnot " + (2 * a + b) + ".");
+// "Fifteen is 15 and
+// not 20."
+
+//占位符
+var a = 5;
+var b = 10;
+console.log(`Fifteen is ${a + b} and\nnot ${2 * a + b}.`);
+// "Fifteen is 15 and
+// not 20."
+
+```

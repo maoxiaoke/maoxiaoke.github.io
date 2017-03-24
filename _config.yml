@@ -5,14 +5,14 @@ author: M/J
 # url: http://doubleray.win
 # resume_site: https://wangleileiwangleilei.github.io/resume/
 github: https://github.com/maoxiaoke/
-baseurl: ""
+baseurl: ""  #根目录
 description: 假如生活欺骗了你，不要悲伤，不要哭泣。
 motto: 我们笑着说再见，却深知再见遥遥无期。
 #motto: 如果生活欺骗了你，不要悲伤，不要哭泣。
 banner: 我想带你去看绚丽的山峦，去看秀丽的溪谷，这份心情，人类是如何称呼的呢。
 #permalink: /:categories/:year/:month/:day/:title/
 permalink: /:year/:month/:day/:title/
-excerpt_separator:  '<!-- more -->'
+excerpt_separator:  '<!-- more -->' #文章摘要
 paginate: 8
 paginate_path: "page:num"
 gems: [jekyll-paginate]
