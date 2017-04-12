@@ -2,7 +2,7 @@
 layout: post
 title: "前端面试集锦"
 date: 2017-03-21 09:00:00 +0800 
-categories: 面试经历
+categories: 面试与笔试经历
 tag: Interview
 ---
 * content
