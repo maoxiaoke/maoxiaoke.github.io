@@ -649,6 +649,60 @@ undefined
 
 ---
 
+## 19. Symmetric Difference
+
+#### Description
+
+Create a function that takes two or more arrays and returns an array of the symmetric difference (△ or ⊕) of the provided arrays.
+
+Given two sets (for example set A = {1, 2, 3} and set B = {2, 3, 4}), the mathematical term "symmetric difference" of two sets is the set of elements which are in either of the two sets, but not in both (A △ B = C = {1, 4}). For every additional symmetric difference you take (say on a set D = {2, 3}), you should get the set with elements which are in either of the two the sets but not both (C △ D = {1, 4} △ {2, 3} = {1, 2, 3, 4}).
+
+#### Way to solve it
+
+这里的问题是，是不知传入多少参数。这个我们可以使用`arguments`参数。因为考虑到是两个两个数组处理，如果我们想使用得是`Array.prototype.reduce()`方法。
+
+其次，我们要判断数组`A`的每项元素是否存在`B`当中，反之也是如此。所以我们可以使用`forEach()`遍历，使用`indexOf()`判断某元素是否是数组中，如果不存在，返回`-1`。
+
+`in`操作符可以替代`indexOf()`的操作吗？
+
+#### Code
+
+```javascript
+function sym() {
+    var args = [];
+    for (var i = 0; i < arguments.length; i++) {
+        args.push(arguments[i]);
+    }
+
+    function symDiff(arrayOne, arrayTwo) {
+        var result = [];
+
+        arrayOne.forEach(function(item) {
+            if (arrayTwo.indexOf(item) < 0 && result.indexOf(item) < 0) {
+                result.push(item);
+            }
+        });
+
+        arrayTwo.forEach(function(item) {
+            if (arrayOne.indexOf(item) < 0 && result.indexOf(item) < 0) {
+                result.push(item);
+            }
+        });
+
+        return result.sort();
+    }
+
+    return args.reduce(symDiff);
+}
+
+sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]);
+```
+
+#### Output
+
+[1,4,5]
+
+---
 
 编辑备注：
 
