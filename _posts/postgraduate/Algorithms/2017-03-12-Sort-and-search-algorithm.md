@@ -438,7 +438,7 @@ function swapQuickSort(arr,index1,index2) {
 - 如果待搜索值比选中值要小，返回步骤1并在选中值左边的子数组中寻找
 - 如果待搜索值比选中值要大，返回步骤1并在选中值右边的子数组中寻找
 
-所以，二分查找前，我们需要将数组项排序。
+所以，在二分查找前，我们需要将数组项排序。
 
 ```javascript
 function binarySearch(arr,item){
