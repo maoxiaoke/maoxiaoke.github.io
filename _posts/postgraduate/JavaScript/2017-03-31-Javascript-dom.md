@@ -397,4 +397,4 @@ document.embeds [0]或document.embeds["embedName"]  //访问页面中所有的�
 
 + 捕获型事件： 与冒泡事件相反的过程
 
-上面例子触发的顺序是：`document`、`div`  
+上面例子触发的顺序是：`document`、`div`

@@ -76,7 +76,7 @@ emp[1] = "Phil Lesh";
 emp[2] = "August West";
 ```
 
-> 如果索引值不是一个整型数值，那么将作为代表数组对象的一个属性创建。
+如果索引值不是一个整型数值，那么将作为代表数组对象的一个属性创建。
 
 ```javascript
 var arr = [];
@@ -84,6 +84,18 @@ arr[3.4] = "Oranges";
 console.log(arr.length);                // 0
 console.log(arr.hasOwnProperty(3.4));   // true
 ```
+
+如果创建的是*稀疏数组*，即含有空白或空缺单元的数组，要格外注意。
+
+```javascript
+var a = [];
+a[0] = 1;
+a[2] = 3;
+a[1]; // undefined
+a.length; //3
+```
+
+>另外，值得注意的是：这与显示将`a[1] = undefined`也是有所区别的。
 
 ### 引用数组元素 -- referring to array elements
 
@@ -143,6 +155,10 @@ array.forEach(function(element) {
   console.log(element);
 })
 ```
+
+### 类数组
+
+有一些`DOM`查询操作，会返回`DOM`元素列表，他们并不是真正意义上的数组，十分类似而已。另一个例子是通过`arguments`对象将函数的参数当作列表来访问。这些都是类数组。
 
 ---
 

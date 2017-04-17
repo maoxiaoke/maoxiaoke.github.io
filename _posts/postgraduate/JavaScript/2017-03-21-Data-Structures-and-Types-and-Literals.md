@@ -13,9 +13,11 @@ tag: JavaScript
 
 在`JavaScript`中，对象是语言的中心，连`functions`也被视为对象。
 
-`JavaScript`有两种基本的数据类型： `primitive type` and `reference type`。两者都是通过对象进行访问的。*原始类型*保存为简单的数据值，*引用类型*则保存为对象(`objects`)，其本质是指向内存位置的引用。
+`JavaScript`有两种基本的数据类型： `primitive type` and `reference type`。两者都是通过对象进行访问的。*原始类型*保存为简单的数据值，*引用类型*则保存为对象(`objects`)，其本质是**指向内存位置的引用**。
 
-其它的编程语言用栈(`stack`)来储存原始类型，用堆(`heap`)来储存引用对象。`JavaScript`则完全不同：**它使用一个`variable object`来追踪变量的生存周期**，原始类型的值被直接保存在变量对象中，而引用类型的值作为一个指针保存在变量对象中。
+其它的编程语言用栈(`stack`)来储存原始类型，用堆(`heap`)来储存引用对象。`JavaScript`则完全不同：**它使用一个`variable object`来追踪变量的生存周期**，原始类型的值被直接保存在变量对象中，而引用类型的值作为一个指针保存在变量对象中，该指针指向实际对象在内存中的存储位置[1]。
+
+> [1]: The Principles of Object-Oriented JavaScript. [美]Nicholas C.Zakas
 
 <!-- more -->
 
@@ -38,11 +40,23 @@ tag: JavaScript
 
 #### 鉴别原始类型
 
-鉴别原始类型的最佳方法是使用`typeof`操作符。但以下代码可能需要注意：
+鉴别原始类型的最佳方法是使用`typeof`操作符。但`null`类型和`function`类型可能需要注意：
 
 ``` javascript
 console.log(typeof null);//'object'
+console.log(typeof function a(){/*...*/} === "function" ); //true
 ```
+
+你可以使用复合条件来鉴别`null`类型或者直接与`null`比较。
+
+``` javascript
+var a = null;
+(!a && typeof a === "Object"); //true
+
+// or
+console.log((a === null)); //true
+```
+
 > 这被委员会TC39认定为一个错误。
 
 #### 原始方法(原始变量，原始值)
@@ -51,8 +65,68 @@ console.log(typeof null);//'object'
 
 ``` javascript
 var name = 'Nicholas';
-var lowercaseName = name.toLowerCase(); 
+var lowercaseName = name.toLowerCase();
 ```
+
+#### 变量是没有类型的，只有值才有
+
+在`javaScript`中，变量是没有类型的，只有值才有。所以变量可以持有任何类型的值。
+
+``` javascript
+var  a = 42;
+typeof a; //"number"
+
+a = true;
+typeof a; //"boolean"
+```
+
+#### 基本数据类型的封装
+
+为了方便我们使用一些通用的方法，JavaScript对基本的三个数据类型进行了封装。
+
+* `String()`
+* `Number()`
+* `Boolean()`
+* `Symbol()` -- `ES6`
+
+> 这些**内建函数**也被称为**原生函数**。
+
+当然，我们常见的内建函数还包括：
+
+* `Array()`
+* `Object()`
+* `Function()`
+* `RegExp()`
+* `Date()`
+* `Error()`
+
+由于它们的设计上的一致性，我们会统一来描述。
+
+**原生函数可以被当作构造函数来使用**，所以创建的是封装对象，是对象。
+
+```js
+var a = new String("abc");
+console.log(typeof a); //"object"
+console.log(a instanceof String); //true
+```
+
+所有`typeof`返回值为`object`的对象都包含一个内部属性`[[Class]]`，这个属性无法直接访问，一般通过`Object.prototype.toString()`来查看。
+
+```js
+Object.prototype.toString.call([1,2,3]); //"[object Array]"
+Object.prototype.toString.call(/regex-literal/i); //"[object RegExp]"
+Object.prototype.toString.call("abc"); //"[object String]"
+
+Object.prototype.toString.call(null); //"[object Null]"
+Object.prototype.toString.call(undefined); //"[object Undefined]"
+```
+
+> 虽然`Null()`和`Undefined()`这样的原生构造函数不存在，但内部`[[Class]]`属性值仍然是`Null`和`Undefined`。
+
+由于基本类型值没有`.length`和`.toString()`这样的属性和方法，所以JavaScript会自动为基本类型值进行包装，详见本页面的[原始数据封装](#primitive-wrapper)。
+
+
+---
 
 ### Reference type ###
 
@@ -80,7 +154,7 @@ var object1 = new Object();
 object1 = null;
 ```
 
-#### 内建类型的实例化
+#### 内建类型
 
 + `Array` - 数组类型
 + `Dage` - 日期和时间类型
@@ -136,7 +210,7 @@ var items = [];
 console.log(Array.isArray(items)); //true
 ```
 
-### Primitive Wrapper Types -- 原始封装类型
+#### <a name = 'primitive-wrapper'>Primitive Wrapper Types -- 原始封装类型 </a>
 
 原始封装类型有三种(`String`、`Number`、`Boolean`)，使得原始类型用起来像对象一样方便。原始封装类型时引用类型，**当读取`String`、`Number`、`Boolean`时，原始封装类型会自动创建**。
 
@@ -175,6 +249,8 @@ temp = null;
 
 > 所以说，添加的新的属性是挂载在临时对象上的，试图访问该属性时，另一个不同的临时对象被创建，而新属性并不存在。
 
+---
+
 ### 详解 
 
 #### Number -- 数字
@@ -212,7 +288,22 @@ False values -- 假值
 
 #### 其他类型
 
-`JavaScript`中`null`和`undefined`是不同的，前者表示一个**空值**`non-value`，必须使用`null`关键字才能访问，后者是`undefined`（未定义）类型的对象，**表示一个未初始化的值，也就是还没有被分配的值。**
+`JavaScript`中`null`和`undefined`是不同的。前者表示一个**空值**`non-value`，必须使用`null`关键字才能访问，后者是`undefined`（未定义）类型的对象，**表示一个未初始化的值，也就是还没有被分配的值。**
+
+- `null`: 指空值，或者说曾赋过值，但目前没有值
+- `undefined`: 指没有值，或者说从未赋值
+
+`null`是一个特殊*关键字*，不是标识符，不能将其当作变量来使用和赋值。相反，`undefined`却是一个标识符，可以被当作变量来使用和赋值。
+
+`JavaScript`中`undeclared`和`undefined`也是不同的。`undeclared`是指还没有在作用域内声明过的变量。如：
+
+```javascript
+var a;
+a; //undefined
+b; //ReferenceError: b is not defined.
+```
+
+> 解释器解释成`is not defined`并不是`undefined`的意思，而是指`undeclared`，令人抓狂。
 
 `JavaScript`允许声明变量但不对其赋值，一个未被赋值的变量就是`undefined`类型。还有一点需要说明的是，`undefined`实际上是一个不允许修改的常量。
 

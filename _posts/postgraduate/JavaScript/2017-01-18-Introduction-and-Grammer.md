@@ -119,5 +119,3 @@ Global variables are in fact properties of the *global object*. In web pages the
 
 #### Constants ####
 You can create a read-only, named constant with the `const` keyword.
-
-1/18/2017 10:55:44 AM 

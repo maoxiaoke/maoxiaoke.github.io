@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "JavaScript的map/reduce"
-date: 2017-03-28 19:00:00 +0800 
+date: 2017-04-12 19:00:00 +0800 
 categories: 研究生涯
 tag: JavaScript
 ---
@@ -11,6 +11,8 @@ tag: JavaScript
 最近经常用到`Array.prototype.map()`和`Array.prototype.reduce()`函数，根据自己的理解，在此处记录。
 
 这两个都是内置对象`Array`的两个函数，用法也存在相似性。
+
+<!-- more -->
 
 ## map()
 
@@ -132,7 +134,7 @@ flatten(list2); // [ 0, 1, 2, 3, 4, 5, 6 ]
 
 再看下面这个例子
 
-#### 用reduce()和对象的火花
+#### 用reduce()擦出对象的火花
 
 ```javascript
 cid = [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]];
