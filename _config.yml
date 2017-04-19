@@ -22,13 +22,6 @@ highlighter: rouge
 markdown: kramdown
 FB:
   comments :
-    provider : duoshuo
-    duoshuo:
-        short_name : timi
+    provider : disqus
     disqus :
-        short_name : timi
-    # facebook :
-    #   appid : 123
-    #   num_posts: 5
-    #   width: 580
-    #   colorscheme: light
+        short_name : xiaokedada

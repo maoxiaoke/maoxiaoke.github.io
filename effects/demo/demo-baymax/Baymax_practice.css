@@ -1,0 +1,153 @@
+body {
+    background-color: lightslategrey;
+    margin-top: 60px;
+}
+
+#baymax {
+    margin: 0 auto; /* Horizontal center of block elements*/
+    height: 600px;
+}
+#head {
+    margin: 0 auto;
+    width: 80px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin-bottom: -15px;
+
+    border-bottom: 5px solid #e0e0e0;
+    z-index: 100;
+    position: relative;
+}
+#left-eye ,#right-eye{
+    width: 10px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: black;
+    z-index:101;
+    position: relative;
+    top: 27px;;
+    left: 20px;
+
+    transform: rotate(8deg);
+}
+#right-eye {
+    transform: rotate(-8deg);
+    top: 15px;
+    left: 52px;
+}
+#mouth {
+    width: 30px;
+    height: 1.5px;
+    background-color: black;
+    position: relative;
+    top: 8px;
+    left: 27px;
+}
+
+#torso, #belly{
+    margin: 0 auto;
+    width: 180px;
+    height: 200px;
+    background-color: white;
+    border-radius: 47%;
+    position: relative;
+    border:5px solid #e0e0e0;
+    border-top: none;
+    z-index: 0;
+    margin-bottom: -140px;
+}
+#belly {
+    width: 245px;
+    height: 300px;
+    z-index: 10;
+}
+#cover {
+    width: 190px;
+    background: #fff;
+    height: 150px;
+    margin: 0 auto;
+    position: relative;
+    top: -10px;
+    border-radius: 50%;
+    z-index: auto;
+}
+#heart {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    position: relative;
+
+    box-shadow: 5px 5px 5px 5px #ccc inset;
+    right: -115px;
+    top: 30px;
+    z-index: 111;
+    border:1px solid #ccc;
+}
+#left-arm ,#right-arm {
+    height: 270px;
+    width: 120px;
+    border-radius: 50%;
+    background: #fff;
+    margin: 0 auto;
+    position: relative;
+    top: -220px;
+    right:100px;
+    transform: rotate(20deg);
+    z-index: -1;
+}
+#right-arm {
+    transform: rotate(-20deg);
+    top: -490px;
+    left: 100px;
+}
+#l-bigfinger ,#r-bigfinger {
+    width: 15px;
+    height: 35px;
+    border-radius: 50%;
+    transform: rotate(-50deg);
+    background-color: white;
+    position: relative;
+    z-index: 101;
+    top: 252px;
+    left: 55px;
+}
+#r-bigfinger {
+    transform: rotate(50deg);
+}
+#l-smallfinger,#r-smallfinger {
+    width: 15px;
+    height: 35px;
+    border-radius: 50%;
+    transform: rotate(-40deg);
+    background-color: white;
+    position: relative;
+    z-index: 101;
+    top: 208px;
+    left: 66px;
+}
+#r-smallfinger {
+    transform: rotate(40deg);
+    top: 205px;
+    left: 42px;
+}
+#left-leg, #right-leg {
+    height: 170px;
+    width: 90px;
+    border-radius: 40% 30% 10px 45%;
+    background: white;
+    position: relative;
+    top: -520px;
+    left: -48px;
+    transform: rotate(-1deg);
+    z-index: -2;
+    margin: 0 auto;
+}
+#right-leg {
+    background: #fff;
+    border-radius: 30% 40% 45% 10px;
+    margin: 0 auto;
+    top: -690px;
+    left: 48px;
+    transform: rotate(1deg)
+}

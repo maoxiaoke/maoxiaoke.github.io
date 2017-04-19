@@ -5,8 +5,6 @@
   {% include LessOrMore/comments-providers/disqus %}
 {% when "facebook" %}
   {% include LessOrMore/comments-providers/facebook %}
-{% when "duoshuo" %}
-  {% include LessOrMore/comments-providers/duoshuo %}
 {% when "custom" %}
   {% include custom/comments %}
 {% endcase %}

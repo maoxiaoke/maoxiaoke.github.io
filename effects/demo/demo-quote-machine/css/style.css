@@ -1,0 +1,115 @@
+/*
+* Base
+*/
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    vertical-align: baseline;
+}
+body,
+html {
+    text-align: center;
+    font: normal 100%/1.5 Montserrat, sans-serif;
+}
+
+blockquote, p, cite {
+    display: block;
+    margin-bottom: 1.5rem;
+    font-style: normal;
+}
+a, a:visited {
+    display: inline-block;
+    padding: 1px;
+    text-decoration: none;
+    border-bottom: none;
+    color: #312950;
+}
+.animated {
+    -webkit-transition: all 500ms ease;
+    transition: all 500ms ease;
+}
+
+/*
+* Layout
+*/
+.page {
+    padding-top: 4.5rem;
+    background-color: #312950;
+}
+.wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.page-footer {
+    background: white;
+    padding-top: 3rem;
+    padding-bottom: 1.5rem;
+}
+.cta {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+/*
+* Quote
+*/
+.quote {
+    max-width: 648px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    quotes: "“" "”" "‘" "’";
+}
+.quote-body {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 220%;
+    letter-spacing: 0.085em;
+}
+.quote-cite {
+    margin-top: 1.5rem;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 125%;
+    letter-spacing: 0.085em
+}
+.open-quote{
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+/*
+* Buttons
+*/
+.button {
+    display: inline-block;
+    background: none;
+    border: 0;
+    font: 300 81.25%/1 Open Sans, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.17em;
+    padding: 16px 24px;
+    background-color: #ccc;
+    color: white;
+    border-radius: 3px;
+}
+.button.new-quote {
+    background-color: white;
+    color: #312950;
+}
+.button.button-weibo {
+    position: relative;
+    background-color: #312950;
+    color: white;
+    padding-left: 48px;
+}
+
+/*
+* Credits
+*/
+.credits {
+    margin-top: 1.5rem;
+    font: normal 87.5%/1.4 Consolas, sans-serif;
+    color: #66757f
+}
