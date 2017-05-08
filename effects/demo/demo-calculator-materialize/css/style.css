@@ -1,0 +1,48 @@
+body {
+    margin-top: 20vh;
+    font-family: 'Inknut Antiqua', Roboto, serif;
+    font-size: 1em;
+    font-weight: normal;
+}
+.screen {
+    height: 120px;
+}
+.result {
+    font-size: 2em;
+    margin-top: 10em;
+}
+.btn{
+    float: left;
+    height: 80px;
+    font-size: 1.2em;
+    border: 1px solid;
+    width: 5.4vw;
+    margin-left: -0.6vw;
+}
+.btn-special {
+    width: 10.7vw;
+}
+
+/*置底页脚*/
+body {
+    display: flex;
+    min-height: 80vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+@media (max-width: 600px){
+    body {
+        margin-top: 2vh;
+    }
+    .btn {
+        width:21vw;
+        margin-left: -2vw;
+    }
+    .btn-special {
+        width: 43.5vw;
+    }
+}
