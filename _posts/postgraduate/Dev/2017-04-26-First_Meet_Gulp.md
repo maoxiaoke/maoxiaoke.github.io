@@ -42,7 +42,7 @@ tag: gulp
 
 安装完`Node.js`之后，`Node.js`的包管理工具`npm`也应该安装好了。可以用以下方法测试一下：
 
-```cli
+```bash
 node -v
 npm -v
 ```
