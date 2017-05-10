@@ -3,7 +3,10 @@ layout: post
 title: "全排列的经典算法-heap's algorithms"
 date: 2017-05-05 09:00:00 +0800 
 categories: 研究生涯
-tag: JavaScript
+tags: 
+ - Algorithms
+ - JavaScript
+
 ---
 * content
 {:toc}

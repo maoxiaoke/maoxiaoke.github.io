@@ -140,7 +140,7 @@ Object.prototype.toString.call(undefined); //"[object Undefined]"
 var object1 = new Object();
 var object2 = object1;
 ```
->更多有关创建对象的操作在这里：[`Object`]({{ '/2017/03/14/Objects' | prepend: site.baseurl }})
+>更多有关创建对象的操作在这里：[`Object`]({{ '/2017/03/22/Objects' | prepend: site.baseurl }})
 
 上述代码实例化了一个通用对象，并把它的引用保存在`object1`中。**因为引用类型不在变量中直接保存对象，所以`object1`变量实际上并不包含对象的实例，而是一个指向内存中实际对象所在位置的指针(或者说引用)**，所以将`object1`的值赋值给`object2`变量，使得两个变量各获得一份指针的拷贝，指向内存中同一对象。这是对象与原始值之间的一个基本差别。
 

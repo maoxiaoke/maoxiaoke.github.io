@@ -88,7 +88,7 @@ $(document).ready(function () {
         }
         op = opr == "=" ? "" : opr;
         let scrtxt = res + "";
-        scr.text((scrtxt.length>15)?scrtxt.substr(0,15):scrtxt);
+        scr.text((scrtxt.length>15)?scrtxt.substr(0,14):scrtxt);
     }
 
 });
