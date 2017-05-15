@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 100%"></div>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+    <script type="text/javascript">
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    app.title = '金马奖豆瓣评分';
+
+
+    var data = [[
+        [1962, 7, '《星星月亮太阳》'],
+        [1963, 8.4, '《梁山伯与祝英台》'],
+        [1965, 6.8, '《养鸭人家》'],
+        [1966, 7.1, '《西施》'],
+        [1967, 5.7, '《我女若兰》'],
+        [1968, 0, '《路》'],
+        [1969, 0, '《小镇春回》'],
+        [1970, 6.4, '《家在台北》'],
+        [1971, 7.4, '《缇萦》'],
+        [1972, 7.9, '《秋决》'],
+        [1973, 0, '《忍》'],
+        [1974, 7.3, '《吾土吾民》'],
+        [1975, 6.9, '《梅花》'],
+        [1977, 7.3, '《笕桥英烈传》'],
+        [1978, 7.4, '《汪洋中的一条船》'],
+        [1979, 7.6, '《小城故事》'],
+        [1980, 7.2, '《早安台北》'],
+        [1981, 8.2, '《假如我是真的》'],
+        [1982, 7.2, '《辛亥双十》'],
+        [1983, 8.4, '《小毕的故事》'],
+        [1984, 7.9, '《老莫的第二个春天》'],
+        [1985, 7.9, '《我这样过了一生》'],
+        [1986, 8.6, '《恐怖份子》'],
+        [1987, 8.5, '《稻草人》'],
+        [1988, 7.5, '《七小福》'],
+        [1989, 7.4, '《三个女人的故事》 '],
+        [1990, 8.2, '《滚滚红尘》'],
+        [1991, 8.7, '《牯岭街少年杀人事件'],
+        [1992, 8.9, '《无言的山丘》'],
+        [1993, 8.8, '《喜宴》'],
+        [1994, 7.7, '《爱情万岁》'],
+        [1995, 8.8, '《女人四十》'],
+        [1996, 8.7, '《阳光灿烂的日子》'],
+        [1997, 8.7, '《甜蜜蜜》'],
+        [1998, 0, '《天浴》'],
+        [1999, 0, '《千言万语》'],
+        [2000, 7.9, '《卧虎藏龙》'],
+        [2001, 7.6, '《榴莲飘飘》'],
+        [2002, 7.8, '《美丽时光》'],
+        [2003, 9, '《无间道》'],
+        [2004, 8.6, '《可可西里》'],
+        [2005, 7.8, '《功夫》'],
+        [2006, 6.8, '《父子》'],
+        [2007, 8.1, '《色·戒》'],
+        [2008, 6.8, '《投名状》'],
+        [2009, 8.3, '《不能没有你'],
+        [2010, 7.4, '《当爱来的时'],
+        [2011, 8.7, '《赛德克·巴莱'],
+        [2012, 6.9, '《神探亨特张'],
+        [2013, 7.9, '《爸妈不在家'],
+        [2014, 7.7, '《推拿》'],
+        [2015, 7.2, '《刺客聂隐娘'],
+        [2016, 7.3, '《八月》']
+    ]];
+    option = {
+        title: {
+            text: '1962-2016金马奖获奖影片豆瓣评分',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    precision: 0
+                }
+            }
+
+        },
+        legend: {
+            show: true,
+            data: '获奖影片',
+            z:100
+        },
+        xAxis: {
+            type: 'value',
+            min:1962,
+            splitLine: {
+                lineStyle: {
+                    type: 'dashed'
+                }
+            },
+            name: '年份',
+            nameLocation: 'end'
+        },
+        yAxis: {
+            type: 'value',
+            offset: 10,
+            scale: true,
+            min: 0,
+            splitLine: {
+                lineStyle: {
+                    type: 'dashed',
+                }
+            },
+            name: '豆瓣评分',
+            nameLocation: 'end'
+        },
+        series: {
+            name: '详细',
+            type: 'scatter',
+            symbolSize: function (data) {
+                return Math.pow(data[1],2);
+            },
+            label: {
+                prision: 0,
+                emphasis: {
+                    show: true,
+                    formatter: function (param) {
+                        return param.data[2];
+                    },
+                    position: 'top',
+                    textStyle: {
+                        color: 'green',
+                        fontSize: 16
+                    }
+                }
+            },
+            data: data[0]
+        }
+    };
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+</body>
+</html>
