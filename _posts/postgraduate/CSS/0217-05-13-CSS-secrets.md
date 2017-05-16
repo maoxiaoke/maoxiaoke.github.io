@@ -160,4 +160,38 @@ main {
 
 这里，首先对`<body>`设置弹性盒属性，同时设置`flex-flow: column`，否则子元素会被水平排放在一行上。然后，将`<body>`元素的`min-height`设置为`100vh`，使之至少会占据整个视口的高度。接下来，我们所希望的是，页头和页脚的高度由其内部元素决定，而内容区块的高度可以自由伸展并占满所有的可用空间。而这，只要给`<main>`这个容器的`flex`属性指定一个大于`0`的值。
 
-持续更新中...
+---
+
+## 视觉效果
+
+### 毛玻璃效果
+
+毛玻璃效果经常在`Apple`公司的设计中使用。
+
+<iframe width="100%" height="300" src="//jsfiddle.net/maoxiaoke/bufyh93b/1/embedded/html,css,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+核心代码在这里：
+
+```css
+main::before {
+	content: '';
+	position: absolute;
+	top: 0; right: 0; bottom: 0; left: 0;
+	margin: -30px;
+	z-index: -1;
+	-webkit-filter: blur(20px);
+	filter: blur(20px);
+}
+```
+
++ 首先，我们添加一个伪元素，将其绝对定位，并把所有偏移量置为`0`，这样就可以将它完整地覆盖到`<main>`元素之上
++ 为了防止毛玻璃效果覆盖在字体之上，所以设置`z-index`的值
++ 但是，对伪元素应用`blur()`滤镜，模糊效果在接近边缘处会逐渐消退，这是因为模糊效果会削减实色像素所能覆盖的范围，这个幅度正好是模糊半径的长度(`20px`)。为了补偿这种情况，我们让伪元素相对宿主元素的尺寸再向外扩大至少`20px`，由于不同浏览器对模糊算法存在的差异，所以我们使用一个更大的绝对值`-30px`
++ 但是，这样又出现了一个问题，就是有一圈模糊效果超出了容器，看上去有点问题。解决这个问题也很简单，对`<main>`元素应用`overflow:hidden`，就可以将多余的模糊区域裁切掉了。
+
+
+### 通过模糊来弱化背景
+
+我们通过模糊来把关键元素之外的一切元素都模糊掉，可以营造一种*景深*效果：当我们的实现聚焦再距离较近的物体上是，远处的背景就是虚化的。
+
+<iframe width="100%" height="300" src="//jsfiddle.net/maoxiaoke/Lmuoqtmy/1/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
