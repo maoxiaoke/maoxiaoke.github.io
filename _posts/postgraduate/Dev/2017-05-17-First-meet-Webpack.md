@@ -8,6 +8,10 @@ tag: Webpack
 * content
 {:toc}
 
+其他链接：
+
++ [Webpack第二课 -- HTML、插件和webpack-dev-server篇]({{ '/2017/05/18/Webpack-second' | prepend: site.baseurl }})
+
 想不到`webpack`比我想象中要难一点。
 
 `webpack`是一个现代的`JavaScript`应用程序的**模块打包器**(`module bundler`)。但随着它的发展，有向前端代码管理工具演变的趋势。
