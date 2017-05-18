@@ -34,7 +34,7 @@ audio:not([controls]){display:none;height:0}
 .excerpt{margin:6px 0 20px}
 .tags-title{padding:2px 4px;background:#b9c8e0;border-radius:5px;margin-left:18px;color:#2c4d68}
 .tags-title:hover{text-decoration:none;color:#000}
-html{font-family:'Gotham','Hiragino Sans GB',sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+html{font-family:'Gotham','Microsoft YaHei',sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
 body,button,figure,input,select,textarea{margin:0}
 a{background:0 0}
 .tc{text-align:center;margin:20px 0}
@@ -493,15 +493,6 @@ input[type=button].btn-block,input[type=reset].btn-block,input[type=submit].btn-
        url('fonts/Gotham-Book.woff') format('woff'), /* Pretty Modern Browsers */
        url('fonts/Gotham-Book.ttf')  format('truetype'), /* Safari, Android, iOS */
        url('fonts/Gotham-Book.svg#svgFontName') format('svg'); /* Legacy iOS */
-}
-@font-face{
-    font-family: 'Hiragino Sans GB';
-    src: url('fonts/Hiragino Sans GB'); /* IE9 Compat Modes */
-    src: url('fonts/Hiragino Sans GB.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('fonts/Hiragino Sans GB.woff2') format('woff2'), /* Super Modern Browsers */
-       url('fonts/Hiragino Sans GB.woff') format('woff'), /* Pretty Modern Browsers */
-       url('fonts/Hiragino Sans GB.ttf')  format('truetype'), /* Safari, Android, iOS */
-       url('fonts/Hiragino Sans GB.svg#svgFontName') format('svg'); /* Legacy iOS */
 }
 /*
 @font-face{
@@ -1384,7 +1375,7 @@ pre code{display:block;padding:.5em}
 h1,h2,h3{margin-top:30px;margin-bottom:15px}
 *,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 html{font-size:62.5%;-webkit-tap-highlight-color:rgba(0,0,0,0)}
-body{font-family:'Gotham','Hiragino Sans GB',"Open Sans","Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;font-size:14px;line-height:1.42857143;color:#333}
+body{font-family:'Gotham','Microsoft YaHei',"Open Sans","Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;font-size:14px;line-height:1.42857143;color:#333}
 button,input,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
 a{color:#43759e}
 a:focus,a:hover{color:#2c4d68;text-decoration:underline}
