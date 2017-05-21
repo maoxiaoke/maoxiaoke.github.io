@@ -11,6 +11,11 @@ tag: Webpack
 其他链接：
 
 + [Webpack第二课 -- HTML、插件和webpack-dev-server篇]({{ '/2017/05/18/Webpack-second' | prepend: site.baseurl }})
++ [Webpack第三课 -- HTML、CSS篇]({{ '/2017/05/19/Webpack-third' | prepend: site.baseurl }})
+
+代码`Github`地址：
+
++ [https://github.com/maoxiaoke/You-know-what-is-webpack](https://github.com/maoxiaoke/You-know-what-is-webpack)
 
 想不到`webpack`比我想象中要难一点。
 
