@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Expressions and operators"
+title: "JavaScript的表达式和运算符"
 date: 2017-03-10 09:00:00 +0800 
 categories: 研究生涯
 tag: JavaScript

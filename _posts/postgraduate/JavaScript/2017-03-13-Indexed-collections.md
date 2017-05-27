@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Indexed collections"
+title: "JavaScript数组操作"
 date: 2017-03-13 09:00:00 +0800 
 categories: 研究生涯
 tag: JavaScript
@@ -11,15 +11,15 @@ tag: JavaScript
 
 以索引排序的数据组合，包括**Arrays**、**Array object**和**TypeArray**。
 
-<!-- more -->
-
-## 数组对象 -- Array object
-
 An `array` is an ordered set of values that you refer to with a name(数组名) and an index(索引).
 
 `JavaScript`中没有明确的数组数据类型。但是，我们可以通过使用内置`Array`对象和它的方法对数组进行操作。
 
+<!-- more -->
+
 > 定义了七种数据类型：`Boolean`、`null`、`undefined`、`Number`、`String`、`Symbol`、`Object`
+
+## 数组对象 -- Array object
 
 ### 创建数组
 
