@@ -1,0 +1,51 @@
+body {
+    width: 100vh;
+    height: 100vh;
+    background-color: #222;
+}
+.image-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1200px;
+    height: 400px;
+    overflow: hidden;
+    box-shadow: 0 40 20px rgba(0,0,0,.5);
+    background: #111;
+    img {
+        position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+    }
+    span {
+        float: left;
+        width: 200px;
+        height: 200px;
+        background: #000;
+        z-index: 5;
+        opacity: 1;
+        box-sizing: border-box;
+    }
+}
+.site-footer {
+    text-align: center;
+    .credits {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: 300px;
+        color: white;
+    }
+    a {
+        color: red;
+        text-decoration: none;
+        &:hover {
+            color: green;
+            text-decoration: underline;
+        }
+    }
+}
