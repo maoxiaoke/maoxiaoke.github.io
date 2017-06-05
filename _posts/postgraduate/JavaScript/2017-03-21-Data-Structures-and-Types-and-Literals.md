@@ -333,13 +333,13 @@ Functions [`parseInt()`][parseInt] and [`parseFloat()`][parseFloat] is used for 
 
 - [Array literals](#array-literals)
 - [Boolean literals](#boolean-literals)
-- [Floating-point literals](#floating-pointing)
-- [Integers](#intergers)
+- [Floating-point literals](#floating-point-literals)
+- [Integers](#integers)
 - [Object literals](#object-literals)
 - [RegExp literals](#regexp-literals)
 - [String literals](#string-literals)
 
-### <a name='array-literals'> Array literals </a> ###
+### Array literals ###
 
 An array literal is a list of zero or more expressions, each of which represents an array element, enclosed in square brackets (`[]`).
 
@@ -366,18 +366,18 @@ If you include a trailling(尾随) comma at the end of elements, the comma is ig
 > The length of the array is three. And trailing commas can create errors in older browser versions.
 
 
-### <a name='boolean-literals'> Boolean literals </a> ###
+### Boolean literals ###
 
 The Boolean type has two literal values: `true` and `false`.
 
-### <a name='intergers'> Intergers </a> ###
+### Integers ###
 
 - Decimal integer literal consists of a sequence of digits without a leading 0 (zero).
 - Leading 0 (zero) on an integer literal, or leading 0o (or 0O) indicates it is in octal. Octal integers can include only the digits 0-7.
 - Leading 0x (or 0X) indicates hexadecimal. Hexadecimal integers can include digits (0-9) and the letters a-f and A-F.
 - Leading 0b (or 0B) indicates binary. Binary integers can include digits only 0 and 1.
 
-### <a name='floating-pointing'> Floating-point literals </a> ###
+### Floating-point literals ###
 
 A floating-point literal can have the following parts:
 
@@ -386,7 +386,7 @@ A floating-point literal can have the following parts:
 - A fraction (another decimal number),
 - An exponent.
 
-### <a name='object-literals'> Object literals </a> ###
+### Object literals ###
 An object literal is a list of zero or more pairs of property names and associated values of an object, enclosed in curly braces `{}`.
 
 > You should not use an object literal at the beginning of a statement. This will lead to an error or not behave as you expect.
@@ -419,7 +419,7 @@ Object **property names** can be any string, including the empty string.
 	console.log(unusualPropertyNames["!"]); // Bang!
 ```
 
-### <a name='regexp-literals'> RegExp literals </a> ###
+### RegExp literals ###
 
 A regex literal is a pattern enclosed between slashes.
 
@@ -427,7 +427,7 @@ A regex literal is a pattern enclosed between slashes.
 	var re = /ab+c/;
 ```
 
-### <a name='string-literals'> String literals </a> ###
+### String literals ###
 
 A string literal is zero or more characters enclosed in double `"` or single `'` quotation marks.
 
