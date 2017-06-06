@@ -14,4 +14,27 @@ tag: Interview
 
 <!-- more -->
 
-## JavaScript的继承
+## HTML
+
+1. HTML5新增了哪些内容或API
+
++ 增加了语义性内容标签： `<article>`、`<footer>`、`<header>`、`<nav>`、`<section>`
++ 新的表单控件
++ 用于绘图的`canvas`元素
++ 用于媒体回放的`video`和`audio`元素
++ 对本地离线存储的更好的支持
+
+2. `<input>`和`<textarea>`的区别
+
+`<input>`是一个单行输入框，有value属性，不能自动换行。
+
+`<textarea>`是一个多行输入框，没有value属性，可以自动换行。
+
+
+## JavsScript
+
+1. 图片懒加载
+
+是延迟加载的一种方式。
+
++ 使用jQuery的lazyload插件
