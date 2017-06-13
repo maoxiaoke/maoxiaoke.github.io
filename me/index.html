@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World</title>
+  
+  <meta name="viewport" content="width=device-width, inital-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet prefetch" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet" prefetch>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  <div id="termynal" data-termynal data-ty-typeDelay="65" data-ty-lineDelay="600">
+    <span data-ty="input"  data-ty-prompt="#">hello world. My name is maoxiaoke.</span>
+    <span data-ty="input"  data-ty-prompt="$">npm init</span>
+    <span data-ty="input"  data-ty-prompt=">">name: maoxiaoke</span>
+    <span data-ty="input"  data-ty-prompt=">">version: 1.0.0</span>
+    <span data-ty="input"  data-ty-prompt=">" data-ty-typeDelay="45">entry point: Master, Nanjing University of Aeronautics and Astronautics</span>
+    <span data-ty="input"  data-ty-prompt=">">git repository: Nanjing, China</span>
+    <span data-ty="input"  data-ty-prompt=">">description: ###</span>
+    <span data-ty="input"  data-ty-prompt=">">contacts: maoxiaoke@outlook.com http://xiaokedada.com</span>
+    <span data-ty="input"  data-ty-prompt=">">keywords: geeker full-stack programmer</span>
+    <span data-ty="input"  data-ty-prompt=">">license: MIT</span>
+    <span data-ty="input" data-ty-typeDelay="1000" data-ty-prompt="(y/n)">y</span>
+    <span data-ty></span>
+    
+    <span data-ty="input"  data-ty-prompt="$">npm install --save maoxiaoke</span>
+    <span data-ty="progress" data-ty-progressChar="·"></span>
+    <span data-ty>Successfully installed maoxiaoke</span>
+    <span data-ty></span>
+    <span data-ty="input" data-ty-prompt="$">node</span>
+    <span data-ty="input"  data-ty-prompt=">>>">var xiaoke = require('maoxiaoke');</span>
+    <span data-ty="input"  data-ty-prompt=">>>" data-ty-typeDelay="45">var skills = ['JavaScript', 'HTML', 'CSS', 'C/C++', 'Node', 'Python', 'jQuery', 'Boostrap', 'Materialize', 'Angular', 'Webpack', 'Gulp', 'Git', 'MongoDB', 'TypeScript', 'Sass'];</span>
+    <span data-ty="input"  data-ty-prompt=">>>" data-ty-typeDelay="45">var experience = {blog:'a wonderful website of my own', softerwave:'GUI projects for a company', demo:'many demos released on Github', translation:'one of the main committers of JavaScript tutorial cn'};</span>
+    <span data-ty="input"  data-ty-prompt=">>>">skills.forEach(e => console.log(e));</span>
+    <span data-ty="input"  data-ty-prompt=">>>">for (let ex in experience){</span>
+    <span data-ty="input"  data-ty-prompt=">>>">console.log(ex + ': ' + experience[ex]);}</span>
+    <span data-ty></span>
+
+    <span data-ty="input"  data-ty-prompt="#">For more information on the right.</span>
+    <span data-ty="input"  data-ty-prompt="#">Have a nice day!!!</span>
+
+  </div>
+    
+  <div class="fixed-action-btn horizontal">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">perm_identity</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating red" href="mailto:maoxiaoke@outlook.com"><i class="material-icons">email</i></a></li>
+      <li><a class="btn-floating black" href="http://xiaokedada.com" target="_blank"><i class="material-icons">web</i></a></li>
+      <li><a class="btn-floating green"><i class="fa fa-weibo" aria-hidden="true"></i></a></li>
+      <li><a class="btn-floating blue" href="https://github.com/maoxiaoke" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+      <li><a class="btn-floating blue" ><i class="fa fa-weixin" aria-hidden="true"></i></a></li>     
+    </ul>
+</div>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/316871/termynal.min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script src="js/index.js"></script>
+
+</body>
+</html>
