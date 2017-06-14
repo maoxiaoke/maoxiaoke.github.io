@@ -3,8 +3,8 @@ layout: post
 title: "JavaScript函数式编程"
 date: 2017-06-01 09:00:00 +0800 
 categories: 研究生涯
-tags:
-- JavaScript
+tag: JavaScript
+---
 * content
 {:toc}
 
