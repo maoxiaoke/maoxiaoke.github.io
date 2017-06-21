@@ -13,7 +13,10 @@ permalink: /reference/
 </ol>
 <hr><h4 class="btn btn-primary btn-lg">Node相关</h4><hr>
 <ol class="rounded-list">
+<li><a href="https://nodeschool.io/" target="_blank">NODESCHOOL</a></li>
 <li><a href="http://expressjs.com/" target="_blank">Express</a></li>
+<li><a href="https://github.com/senchalabs/connect" target="_blank">Connect</a></li>
+<li><a href="https://pugjs.org/api/getting-started.html" target="_blank">Pug</a></li>
 </ol>
 <hr><h4 class="btn btn-info btn-lg">CDN</h4><hr>
 <ol class="rectangle-list">
