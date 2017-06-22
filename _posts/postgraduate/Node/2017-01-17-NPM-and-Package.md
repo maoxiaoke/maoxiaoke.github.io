@@ -52,6 +52,6 @@ tag: Node
 
 [package-and-module]:https://docs.npmjs.com/how-npm-works/packages#most-npm-packages-are-modules 
 
-[paceage.json]:https://docs.npmjs.com/getting-started/using-a-package.json#requirements 
+[package.json]:https://docs.npmjs.com/getting-started/using-a-package.json#requirements 
 
 [express.json]:https://github.com/expressjs/express/blob/master/package.json
