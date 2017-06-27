@@ -65,4 +65,5 @@ permalink: /reference/
 <hr><h4 class="btn btn-primary btn-lg">综合站点</h4><hr>
 <ol class="rounded-list">
 <li><a href="https://aotu.io/index.html" target="_blank">凹凸实验室</a></li>
+<li><a href="https://insights.stackoverflow.com/survey/" target="_blank">Stack Overflow Annual Developer Survey</a></li>
 </ol>
