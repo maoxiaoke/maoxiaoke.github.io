@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "这一点点的图论入门"
-date: 2017-06-26 09:00:00 +0800
+title: "这一点点的图论基础"
+date: 2017-06-27 09:00:00 +0800
 categories: 研究生涯
 tag: Algorithms
 
