@@ -10,6 +10,8 @@ permalink: /reference/
 <!--js库-->
 <li><a href="https://threejs.org/" target="_blank">three.js</a></li>
 <li><a href="http://www.jq22.com/" target="_blank">jQuery 插件库</a></li>
+<li><a href="http://www.typescriptlang.org/index.html" target="_blank">TypeScript</a></li>
+<li><a href="https://babeljs.io/" target="_blank">Babel</a></li>
 </ol>
 <hr><h4 class="btn btn-primary btn-lg">Node相关</h4><hr>
 <ol class="rounded-list">
@@ -66,4 +68,5 @@ permalink: /reference/
 <ol class="rounded-list">
 <li><a href="https://aotu.io/index.html" target="_blank">凹凸实验室</a></li>
 <li><a href="https://insights.stackoverflow.com/survey/" target="_blank">Stack Overflow Annual Developer Survey</a></li>
+<li><a href="https://developers.google.com/speed/pagespeed/insights/?hl=zh-CN" target="_blank">PageSpeed Insights</a></li>
 </ol>
