@@ -88,6 +88,8 @@ tag: Algorithms
 
 ### 广度优先搜索
 
+广度优先搜索的动画演示: [Data Structure Visualizations](http://www.cs.usfca.edu/~galles/visualization/BFS.html)
+
 ![广度优先搜索]({{ '/styles/images/algorithms/bfs.png' | prepend: site.baseurl }})
 
 <ol>
@@ -104,6 +106,8 @@ tag: Algorithms
 广度优先搜索的应用: 寻找最短路径
 
 ### 深度优先搜素
+
+深度优先搜索的动画演示: [Data Structure Visualizations](http://www.cs.usfca.edu/~galles/visualization/DFS.html)
 
 深度优先搜索算法将会从第一个指定的顶点开始遍历图，沿着路径直到这条路径最后一个顶点被访问了，接着原路回退并探索下一条路径。
 

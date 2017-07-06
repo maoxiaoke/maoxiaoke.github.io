@@ -10,7 +10,7 @@ tag: Angular
 
 之前有写过AngularJS相关的博客，但是被我一直雪藏在_drafts中。最近开始感觉，Angular经过重构之后，又开始焕发新生了。
 
-新一版只以Angular命名，以区分旧版Angular，新版的每次更新都冠以数字后缀，社区目前已经更新到Angualr 4.0版本，这篇博客也是在这个版本的基础之上的。
+新一版只以Angular命名，以区分旧版AngularJS，新版的每次更新都冠以数字后缀，社区目前已经更新到Angualr 4.0版本，这篇博客也是在这个版本的基础之上的。
 
 Angular整合了TypeScript，但这并不意味着你一定需要使用TypeScript，但是它能极大地提高开发效率，所以也是非常建议的。
 

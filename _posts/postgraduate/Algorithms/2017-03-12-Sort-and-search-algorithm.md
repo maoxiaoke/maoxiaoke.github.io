@@ -8,6 +8,8 @@ tag: Algorithms
 * content
 {:toc}
 
+[Data Structure Visualizations](http://www.cs.usfca.edu/~galles/visualization/Algorithms.html)提供了数据结构和算法的动画演示。
+
 不同的排序算法性质有所不同，衡量算法的效率，通常是用资源，例如`CPU`(时间)占用、内存占用、硬盘占用和网络占用。当讨论大`O`表示法时，一般考虑的是`CPU`占用。
 
 排序算法是重要的，因为排序算法是二分查找的第一个步骤。
@@ -32,7 +34,9 @@ numbers.sort (function(a, b){
 
 我们还是关注排序算法把。
 
-## 冒泡排序
+## 冒泡排序 -- Bubble Sort
+
+冒泡排序的动画演示: [Data Structure Visualizations](http://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html)
 
 冒泡排序在所有的排序算法中是最简单的。因为基础算法包含内外两个循环，所以它的复杂度是 `O(n`<sup>`2`</sup>`)`。
 
@@ -99,7 +103,9 @@ function swap(arr,index1,index2){
 
 ---
 
-## 选择排序
+## 选择排序 -- Selection Sort
+
+选择排序的动画演示: [Data Structure Visualizations](http://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html)
 
 选择排序算法是一种原址比较排序算法。选择排序大致的思路是找到数据结构中的最小值并将其放置在第一位，接着找到第二小的值并将其放在第二位，依次类推。
 
@@ -149,7 +155,9 @@ selectionSort(arr);
 
 ---
 
-## 插入排序
+## 插入排序 -- Insertion Sort
+
+插入排序的动画演示: [Data Structure Visualizations](http://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html)
 
 插入排序比冒泡和选择排序要好。插入排序每次排一个数组项，以此方式构建最后的排序数组。
 
@@ -192,7 +200,9 @@ insertionSort(arr);
 
 ---
 
-## 希尔排序
+## 希尔排序 -- Shell Sort
+
+希尔排序的动画演示: [Data Structure Visualizations](http://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html)
 
 希尔排序是按照设计者`Donald Shell`的名字命名的，该算法是插入排序的改进版本。准确来说，是一种分组的插入排序，能提高排序效率。
 
@@ -265,7 +275,9 @@ shellSort(arr);
 
 ---
 
-## 堆排序
+## 堆排序 -- Heap Sort
+
+堆排序的动画演示: [Data Structure Visualizations](http://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html)
 
 堆排序是利用完全二叉树最大堆和最小堆的原来来进行排序的。[这篇文章描述得很好，可以参看](http://bubkoo.com/2014/01/14/sort-algorithm/heap-sort/)。
 
@@ -328,8 +340,9 @@ console.log(arr);
 
 ---
 
+## 归并排序 -- Merge Sort
 
-## 归并排序
+归并排序的动画演示: [Data Structure Visualizations](http://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html)
 
 归并排序是第一个被实际使用的排序算法。这个算法的复杂度是`O(nlog`<sup>`n`</sup>`)`。
 
@@ -379,7 +392,9 @@ function merge(left,right) {
 
 ---
 
-## 快速排序
+## 快速排序 -- Quck Sort
+
+快速排序的动画演示: [Data Structure Visualizations](http://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html)
 
 快速排序也许是最常用的排序算法了。它的复杂度是`O(nlog`<sup>`n`</sup>`)`，且它的性能通常比其他的复杂度为`O(nlog`<sup>`n`</sup>`)`的排序算法好。
 
@@ -428,6 +443,80 @@ function swapQuickSort(arr,index1,index2) {
     arr[index2] = temp;
 }
 ```
+
+---
+
+## 桶排序 -- Bucket Sort
+
+桶排序的动画演示: [Data Structure Visualizations](http://www.cs.usfca.edu/~galles/visualization/BucketSort.html)
+
+桶排序(Bucket Sort)是通过一定规则将数据放到不同的桶中去，然后对每个桶进行分别排序(使用其他排序方式，或利用递归继续使用桶排序)。排序过程如下:
+
++ 待排的数据分布在一个范围内，对这一范围进行分割，分割为多个小范围
++ 待排的数据归档进入这些小范围，并对小范围的数据进行排序
++ 将各个子桶的数据有序归并
+
+举个栗子，我们有一组数:[29 25 3 49 9 37 21 43]，其中最大数为49。则我们可以设置5个桶，每个桶的范围是[0~9][10~19][20~29][30~39][40~49]。[3,9]放到第一个桶，[21,25,29]放到第三个桶，[37]放到第四个桶，[49,43]放到第五个桶。然后对每个桶的数进行排序，保证每个桶有序，然后将各个桶中的数据有序合并起来。如下图:
+
+![桶排序]({{ '/styles/images/algorithms/bucket-sort.png' | prepend: site.baseurl }})
+
+```js
+'use strict';
+function bucketSort(array, step) {
+    var result = [],
+        bucket = [],
+        bucketCount,
+        l = array.length,
+        i,
+        j,
+        k,
+        s,
+        max = array[0],
+        min = array[0],
+        temp;
+
+    max = array.reduce((a, b) => Math.max(a, b));
+    min = array.reduce((a, b) => Math.min(a, b)) - 1;
+
+    bucketCount = Math.ceil((max - min) / step); // 需要桶的数量
+    for (i = 0; i < l; i++) {
+        temp = array[i];
+        for (j = 0; j < bucketCount; j++) {
+            if (temp > (min + step * j) && temp <= (min + step * (j + 1))) { // 判断放入哪个桶
+                if (!bucket[j]) {
+                    bucket[j] = [];
+                }
+                // 通过插入排序将数字插入到桶中的合适位置
+                s = bucket[j].length;
+                if (s > 0) {
+                    for (k = s - 1; k >= 0; k--) {
+                        if (bucket[j][k] > temp) {
+                            bucket[j][k + 1] = bucket[j][k];
+                        } else {
+                            break;
+                        }
+                    }
+                    bucket[j][k + 1] = temp;
+                } else {
+                    bucket[j].push(temp);
+                }
+            }
+        }
+    }
+    for (i = 0; i < bucketCount; i++) { // 循环取出桶中数据
+        if (bucket[i]) {
+            k = bucket[i].length;
+            for (j = 0; j < k; j++) {
+                result.push(bucket[i][j]);
+            }
+        }
+    }
+    return result;
+}
+console.log(bucketSort([29, 25, 3, 49, 9, 37, 21, 43], 10));
+```
+
+> [代码参考](http://bubkoo.com/2014/01/15/sort-algorithm/bucket-sort/)，健壮性有待提高
 
 ---
 

@@ -48,6 +48,7 @@ permalink: /reference/
 <li><a href="http://www.iconfont.cn/" target="_blank">阿里巴巴矢量图库</a></li>
 <li><a href="http://fontawesome.io/" target="_blank">Font Awesome</a></li>
 <li><a href="https://www.123rf.com/" target="_blank">123rf</a></li>
+<li><a href="http://huaban.com/" target="_blank">花瓣网</a></li>
 </ol>
 <hr><h4 class="btn btn-primary btn-lg">博客</h4><hr>
 <ol class="rounded-list">
