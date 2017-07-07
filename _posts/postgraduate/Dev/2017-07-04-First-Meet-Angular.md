@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Angular4第一课 -- 入门"
+title: "Angular4第一课 -- 启动"
 date: 2017-07-04 09:00:00 +0800 
 categories: 研究生涯
 tag: Angular
@@ -8,15 +8,28 @@ tag: Angular
 * content
 {:toc}
 
+> One framework. Mobile & desktop.<sup>[来源](https://angular.io/)</sup>
+
+而Angular是什么呢？我看到这句话
+
+> Angular is a platform that makes it easy to build applications with the web. Angular combines declarative templates, dependency injection, end to end tooling, and integrated best practices to solve development challenges.<sup>[来源](https://angular.io/docs)</sup>
+
+上面说，Angular是一个框架，还整合了声明式模板、依赖注入和端对端工具。具体点呢？
+
+> Angular is a framework for building client applications in HTML and either JavaScript or a language like TypeScript that compiles to JavaScript.<sup>[来源](https://angular.io/guide/architecture)</sup>
+
+这一段的描述就很到位了。告诉我们，**Angular是使用HTML和JavaScript来构建客户端(前端)应用的框架**。
+
 之前有写过AngularJS相关的博客，但是被我一直雪藏在_drafts中。最近开始感觉，Angular经过重构之后，又开始焕发新生了。
 
 新一版只以Angular命名，以区分旧版AngularJS，新版的每次更新都冠以数字后缀，社区目前已经更新到Angualr 4.0版本，这篇博客也是在这个版本的基础之上的。
+
+<!-- more -->
 
 Angular整合了TypeScript，但这并不意味着你一定需要使用TypeScript，但是它能极大地提高开发效率，所以也是非常建议的。
 
 Angular的学习可能会分成好几节来介绍，这一节主要介绍非常非常简单的概念和起步的内容。
 
-<!-- more -->
 
 学了Angular，还是非常建议[官方网站](https://angular.io/)。
 
