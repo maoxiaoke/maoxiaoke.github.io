@@ -54,7 +54,7 @@
 
 ### 使用tagCloud控件实现云标签效果
 
-[在线演示](http://xiaokedada.com/effects/demo/demo-tagscloud/index.html
+[在线演示](http://xiaokedada.com/effects/demo/demo-tagscloud/index.html)
 
 ---
 
