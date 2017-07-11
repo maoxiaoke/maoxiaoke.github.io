@@ -50,7 +50,11 @@
 
 ### 使用日历控件显示当前日期
 
+[在线演示](http://xiaokedada.com/effects/demo/demo-calender/index.html)
+
 ### 使用tagCloud控件实现云标签效果
+
+[在线演示]http://xiaokedada.com/effects/demo/demo-tagscloud/index.html()
 
 ---
 
@@ -123,7 +127,7 @@ $ jekyll s
 $ jekyll build
 ```
 
-> 备注: 草稿区的内容不会显示，如果想要对草稿去内容进行查看，可参考[参考草稿](http://xiaokedada.com/2017/05/09/Jekyll-second/#jekyll的一些使用技巧)
+> 备注: 草稿区的内容不会显示，如果想要对草稿去内容进行查看，可参考[开启草稿](http://xiaokedada.com/2017/05/09/Jekyll-second/#jekyll的一些使用技巧)
 
 ### 发布
 
@@ -154,24 +158,19 @@ Copyright © 2017 M/J. All rights reserved.
 - [+] 添加云标签控件
 - [+] 添加社会化评论多说
 - [+] 大量优化
+- [+] 添加favicon.ico
 
 ---
 
 ## 打赏
 
------------------------------------------
-
 <p align="center">所以，如果你喜欢这个博客，有些许收获。就请支持我。</p>
-
------------------------------------------
 
 ### 赞助方式1： 支付宝付款
 
 您可以选择手机支付宝扫一扫
 
 <img src="https://github.com/maoxiaoke/maoxiaoke.github.io/blob/master/styles/images/zhifubao.jpg?raw=true" alt="支付宝二维码付款给小可嗒嗒" />
-
------------------------------------------
 
 ### 赞助方式2： 微信扫一扫
 

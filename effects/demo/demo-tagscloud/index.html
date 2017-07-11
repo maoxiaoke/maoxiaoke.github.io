@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #tagscloud{height:200px;position:relative;font-size:12px}
+    #tagscloud a{position:absolute;top:0;left:0;color:#fff;background-color:#2a485d;text-decoration:none;margin:0 10px 15px 0;line-height:18px;padding:1px 5px;display:inline-block;border-radius:3px}
+    #tagscloud a:hover{color:#fff;background:#09f}
+    #tagscloud{text-align:center}
+    </style>
+</head>
+<body>
+    <div id="tagscloud">           
+    <a href="###">Maoxiaoke</a>
+    <a href="###">Maoxiaoke</a>
+    <a href="###">Maoxiaoke</a>
+    <a href="###">Maoxiaoke</a>
+    <a href="###">Maoxiaoke</a>
+    <a href="###">Maoxiaoke</a>
+    <a href="###">Maoxiaoke</a>
+    <a href="###">Maoxiaoke</a>
+    <a href="###">Maoxiaoke</a>
+    <a href="###">Maoxiaoke</a>
+    <a href="###">Maoxiaoke</a>
+    <a href="###">Maoxiaoke</a>
+    </div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>   
+    <script src="./js/tag.js"> </script>
+    <script>
+  var i=0;
+  var oTag=null;
+  oDiv=document.getElementById('tagscloud');
+  aA=oDiv.getElementsByTagName('a');
+  for(i=0;i<aA.length;i++)
+  {
+    oTag={};
+    aA[i].onmouseover = (function (obj) {
+      return function () {
+        obj.on = true;
+        this.style.zIndex = 9999;
+        this.style.color = '#fff';
+        this.style.padding = '5px 5px';
+        this.style.filter = "alpha(opacity=100)";
+        this.style.opacity = 1;
+      }
+    })(oTag)
+    aA[i].onmouseout = (function (obj) {
+      return function () {
+        obj.on = false;
+        this.style.zIndex = obj.zIndex;
+        this.style.color = '#fff';
+        this.style.padding = '0 5px';
+        this.style.filter = "alpha(opacity=" + 100 * obj.alpha + ")";
+        this.style.opacity = obj.alpha;
+        this.style.zIndex = obj.zIndex;
+      }
+    })(oTag)
+    oTag.offsetWidth = aA[i].offsetWidth;
+    oTag.offsetHeight = aA[i].offsetHeight;
+    mcList.push(oTag);
+  }
+  sineCosine( 0,0,0 );
+  positionAll();
+  (function () {
+    update();
+    setTimeout(arguments.callee, 40);
+  })();
+</script>
+</body>
+</html>

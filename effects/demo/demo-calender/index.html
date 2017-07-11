@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calendar</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+
+<body>
+    <div class="calendar"></div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>        
+    <script src="./js/index.js"></script>
+    <script>
+    var year = (new Date()).getFullYear()+1;
+        $('.calendar').calendar({
+	    limitRange:[['today',year+'0101']],
+	    isRange:true
+    });
+    </script>
+</body>
+</html>
