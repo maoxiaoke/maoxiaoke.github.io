@@ -5,8 +5,12 @@ date: 2017-04-01 13:15:15 +0800
 permalink: /reference/
 ---
 
+<style>
+abbr {text-decoration: none;}
+</style>
 <hr><h4 class="btn btn-info btn-lg">JavaScript相关</h4><hr>
 <ol class="rectangle-list">
+<li><a href="http://www.jstips.co/" target="_blank"><abbr title="每天提供一个JavaScript小tip">JS TIPS</abbr></a></li>
 <!--js库-->
 <li><a href="https://threejs.org/" target="_blank">three.js</a></li>
 <li><a href="http://www.jq22.com/" target="_blank">jQuery 插件库</a></li>
@@ -33,6 +37,7 @@ permalink: /reference/
 <hr><h4 class="btn btn-primary btn-lg">CSS/HTML相关</h4><hr>
 <ol class="rounded-list">
 <!--CSS/HTML API-->
+<li><a href="http://www.w3school.com.cn/index.html" target="_blank">W3school</a></li>
 <li><a href="https://tympanus.net/codrops/css_reference/" target="_blank">CSS reference</a></li>
 <li><a href="http://www.dcloud.io/docs/api/index.shtml" target="_blank">HTML5+ API Reference</a></li>
 <li><a href="http://css.doyoe.com/" target="_blank">CSS 参考手册</a></li>
@@ -45,10 +50,13 @@ permalink: /reference/
 <ol class="rectangle-list">
 <li><a href="https://github.com/jobbole/awesome-javascript-cn" target="_blank">awesome-javascript-cn</a></li>
 <!--图库-->
+<li><a href="http://zhitu.isux.us/" target="_blank"><abbr title="高效优质的图片优化平台">智图</abbr></a></li>
 <li><a href="http://www.iconfont.cn/" target="_blank">阿里巴巴矢量图库</a></li>
 <li><a href="http://fontawesome.io/" target="_blank">Font Awesome</a></li>
 <li><a href="https://www.123rf.com/" target="_blank">123rf</a></li>
 <li><a href="http://huaban.com/" target="_blank">花瓣网</a></li>
+<li><a href="https://placeholder.com/" target="_blank"><abbr title="提供占位符图片的网站">PLACEHOLDER.COM</abbr></a></li>
+<li><a href="https://dummyimage.com/" target="_blank"><abbr title="提供多类型占位符图片的网站">Dummy Image Generator</abbr></a></li>
 </ol>
 <hr><h4 class="btn btn-primary btn-lg">博客</h4><hr>
 <ol class="rounded-list">

@@ -87,6 +87,52 @@ tags:
 
 ---
 
+## 加入搜索功能
+
+博客首页有一个搜索栏，使用的是一个[`Simple-Jekyll-Search`](https://github.com/christian-fei/Simple-Jekyll-Search)插件，项目地址在[这里](https://github.com/christian-fei/Simple-Jekyll-Search)。
+
++ 按照使用方法，我们需要创建一个`search.json`文件。如果要进行全文搜索，[就需要这样](https://github.com/christian-fei/Simple-Jekyll-Search/wiki#enabling-full-text-search)。代码参见源码中的`search.json`。
+
++ 如何是使用插件，将下列代码放在你想要具有搜索功能的页面。
+
+```html
+<!-- Html Elements for Search -->
+<div id="search-container">
+<input type="text" id="search-input" placeholder="search...">
+<ul id="results-container"></ul>
+</div>
+```
+
+因为我们只在首页使用，所以我们放进了`./_includes/banner.html`中。
+
+同时，我们将`jekyll-search.js`中的源码拷贝至`./styles/js/function.min.js`文件中。
+
++ 最后配置，我们在`./styles/js/lessismore.js`中进行配置。
+
+```js
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search-input'),
+    resultsContainer: document.getElementById('results-container'),
+    json: '/search.json',
+    searchResultTemplate: '<li><a href="{url}">. {title}</a></li>',
+    noResultsText: '',
+    limit: 5,
+    fuzzy: true,
+    exclude: ['Welcome']
+});
+```
+我们大概就完成了。
+
+---
+
+## Jekyll Plugins
+
+在了解Jekyll插件的过程中，可以查看官网的[这个页面](http://jekyllrb.com/docs/plugins/)。中文[页面在这里](http://jekyll.com.cn/docs/plugins/)。
+
+这个网站集合了很多的Jekyll插件: [Jekyll-Plugins](http://www.jekyll-plugins.com/)。
+
+---
+
 ## Jekyll的一些使用技巧
 
 ### 文章引用

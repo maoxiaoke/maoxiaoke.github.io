@@ -168,7 +168,7 @@ export class AppComponent {
 
 数据绑定有四种形式，这四种形式要么绑定到DOM，要么绑定自DOM或者双向绑定。
 
-+ `{{value}}` 叫插值表达式(interpolation)，在DOM中显示组件的value值
++ `((value))` 叫插值表达式(interpolation)，在DOM中显示组件的value值。注意，我这里用`((value))`代替使用大括号`{}`，实在有难言之隐。看上面的图可好。
 + `[property] = "value"` 叫属性绑定(property binding)
 + `(event) = "handler"` 叫事件绑定(event binding)
 + `[(ng-model)] = "property"` 叫双向数据绑定(two-way binding)
@@ -196,13 +196,13 @@ Angular模板时动态的。当Angular渲染它们时，会根据指令提供的
 指令分为两种: 一种结构型(strctural)，一种属性型(attribute)。
 
 + 结构型指令通过在DOM中添加、移除和替换元素来修改布局
- + `*ngFor`
- + `*ngIf`
- + `*ngSwitch`
+  + `*ngFor`
+  + `*ngIf`
+  + `*ngSwitch`
 + 属性型指令修改一个现有元素的外观或行为
- + `ngModel`
- + `ngStyle`
- + `ngClass`
+  + `ngModel`
+  + `ngStyle`
+  + `ngClass`
 
 > 一般的结构型指令有一个`*`前缀。
 
