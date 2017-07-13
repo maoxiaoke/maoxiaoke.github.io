@@ -11,6 +11,7 @@ abbr {text-decoration: none;}
 <hr><h4 class="btn btn-info btn-lg">JavaScript相关</h4><hr>
 <ol class="rectangle-list">
 <li><a href="http://www.jstips.co/" target="_blank"><abbr title="每天提供一个JavaScript小tip">JS TIPS</abbr></a></li>
+<li><a href="http://javascript-puzzlers.herokuapp.com/" target="_blank"><abbr title="也许你并不太懂JavaScript">JavaScript Puzzlers!</abbr></a></li>
 <!--js库-->
 <li><a href="https://threejs.org/" target="_blank">three.js</a></li>
 <li><a href="http://www.jq22.com/" target="_blank">jQuery 插件库</a></li>
@@ -40,6 +41,7 @@ abbr {text-decoration: none;}
 <li><a href="http://www.w3school.com.cn/index.html" target="_blank">W3school</a></li>
 <li><a href="https://tympanus.net/codrops/css_reference/" target="_blank">CSS reference</a></li>
 <li><a href="http://www.dcloud.io/docs/api/index.shtml" target="_blank">HTML5+ API Reference</a></li>
+<li><a href="http://cssreference.io/" target="_blank">cssreference.io/</a></li>
 <li><a href="http://css.doyoe.com/" target="_blank">CSS 参考手册</a></li>
 <li><a href="https://isux.tencent.com/css3/index.html" target="_blank">CSS 动画手册</a></li>
 <!--CSS库/资源-->
@@ -55,6 +57,8 @@ abbr {text-decoration: none;}
 <li><a href="http://fontawesome.io/" target="_blank">Font Awesome</a></li>
 <li><a href="https://www.123rf.com/" target="_blank">123rf</a></li>
 <li><a href="http://huaban.com/" target="_blank">花瓣网</a></li>
+<li><a href="https://unsplash.it/" target="_blank"><abbr title="利用unsplash免费照片来提供placehoder的网站">Unsplash It</abbr></a></li>
+<li><a href="http://baconipsum.com/" target="_blank"><abbr title="提供文本填充器的网站">Bacon IPsum</abbr></a></li>
 <li><a href="https://placeholder.com/" target="_blank"><abbr title="提供占位符图片的网站">PLACEHOLDER.COM</abbr></a></li>
 <li><a href="https://dummyimage.com/" target="_blank"><abbr title="提供多类型占位符图片的网站">Dummy Image Generator</abbr></a></li>
 </ol>
@@ -78,4 +82,10 @@ abbr {text-decoration: none;}
 <li><a href="https://aotu.io/index.html" target="_blank">凹凸实验室</a></li>
 <li><a href="https://insights.stackoverflow.com/survey/" target="_blank">Stack Overflow Annual Developer Survey</a></li>
 <li><a href="https://developers.google.com/speed/pagespeed/insights/?hl=zh-CN" target="_blank">PageSpeed Insights</a></li>
+<li><a href="http://en.cppreference.com/w/" target="_blank">C++参考手册</a></li>
+<li><a href="https://developers.google.com/web/tools/chrome-devtools/" target="_blank">Chrome DevTools</a></li>
+</ol>
+<hr><h4 class="btn btn-info btn-lg">算法网站</h4><hr>
+<ol class="rectangle-list">
+<li><a href="https://www.codewars.com/" target="_blank">Code Kata</a></li>
 </ol>
