@@ -42,7 +42,9 @@
 
 ### 添加社会化评论功能
 
-博客采用第三方评论平台[网易云跟帖](https://gentie.163.com/info.html)。
+<del>博客采用第三方评论平台[网易云跟帖](https://gentie.163.com/info.html)</del>。
+
+博客采用第三方评论平台[Gitment](https://github.com/imsun/gitment)
 
 相关介绍和操作可参考: [社会化评论](http://xiaokedada.com/2017/05/09/Jekyll-second/#社会化网页评论)
 

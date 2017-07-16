@@ -85,6 +85,57 @@ tags:
 
 按照网站流程获取`Web`代码，对我的博文来讲，我只需要在`post`类别中添加，所以将代码添加到`post.html`的最后面。
 
+2017-07-16更新
+
+前几天收到一封邮件，内容如下:
+
+![网易云跟帖]({{ '/styles/images/jekyll/yungentie.png' | prepend: site.baseurl }})
+
+那么给我的有三条路了，放弃评论系统、更换为DISQUS和选择其他的评论系统。博客本来就没啥访问量，你说放弃吧，如果有一天访问量多起来了呢。被墙的DISQUS也不能用。然后，就看到了一个叫`Gitment`的评论系统，这个东西好像是一个年纪比我还小的程序员开发的，想一想，哎，真是汗颜。地址在这: [Gitment](https://github.com/imsun/gitment)
+
+按照教程，首先。
+
+### 注册 OAuth Application
+
+首先，注册一个新的[OAuth Application](https://github.com/settings/applications/new)。
+
++ Application name : Whatever you like
++ Homepage URL : 主页地址，比如我的是[http://xiaokedada.com](http://xiaokedada.com)
++ Application description : Whatever you like
++ Authorization callback URL : 这个很重要，比如我的就是[http://xiaokedada.com](http://xiaokedada.com)
+
+然后，就会生成client-id和client-secret，后边需要提供该值。
+
+### 引入Gitment
+
+我们把下面这段代码嵌入到`post.html`的后面:
+
+![gitment]({{ '/styles/images/jekyll/gitment.png' | prepend: site.baseurl }})
+
++ owner: Github ID 或者直接账户昵称经测试都是可以的
++ repo: 存放comment仓库的名称，名称就好，不要地址。比如我的comments就直接放在博客仓库maoxiaoke.github.io
++ client-id: 你拥有你自己的
++ client-id: 你拥有你自己的
+
+Github ID如何获取呢，访问https://api.github.com/users/GitHub name。比如想查看我的Github信息，访问[https://api.github.com/users/maoxiaoke](https://api.github.com/users/maoxiaoke)就ok了。
+
+### 上线
+
+每一篇文章都需要进行`Initialize Comments`之后，其他用户才能正常使用。
+
+### 测试
+
+经过测试，这个版本的Gitment问题还比较大。浏览器兼容问题如下:
+
++ Chrome通过
++ Firefox 能正常显示评论，但login时出现[object ProgressEvent]
++ Edge 只显示评论，无法进行评论
++ IE 11完全不显示
+
+移动端没有进行测试。
+
+版本问题很大，但作为一个过渡，我还是可以接受的。大家也可以参与进去，更好地完善它。
+
 ---
 
 ## 加入搜索功能

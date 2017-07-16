@@ -12,6 +12,7 @@ abbr {text-decoration: none;}
 <ol class="rectangle-list">
 <li><a href="http://www.jstips.co/" target="_blank"><abbr title="每天提供一个JavaScript小tip">JS TIPS</abbr></a></li>
 <li><a href="http://javascript-puzzlers.herokuapp.com/" target="_blank"><abbr title="也许你并不太懂JavaScript">JavaScript Puzzlers!</abbr></a></li>
+<li><a href="https://jsperf.com/" target="_blank"><abbr title="js性能测试网站">js perf</abbr></a></li>
 <!--js库-->
 <li><a href="https://threejs.org/" target="_blank">three.js</a></li>
 <li><a href="http://www.jq22.com/" target="_blank">jQuery 插件库</a></li>
