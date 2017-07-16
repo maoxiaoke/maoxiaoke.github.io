@@ -565,3 +565,5 @@ console.log(unique(arr));
 
 <p data-height="265" data-theme-id="light" data-slug-hash="bRZzwo" data-default-tab="css,result" data-user="maoxiake" data-embed-version="2" data-pen-title="a flex layout" class="codepen">See the Pen <a href="https://codepen.io/maoxiake/pen/bRZzwo/">a flex layout</a> by maoxiaoke (<a href="https://codepen.io/maoxiake">@maoxiake</a>) on <a href="https://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+可参考: [Flexbox的完全教程]({{ '/2017/07/15/Flex' | prepend: site.baseurl }})
