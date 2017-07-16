@@ -31,10 +31,10 @@ layout: default
         </div>
       </div>
       <!--comment-->
+      <!--code for 网易云跟帖
       <div class="panel docs-content">
         <article class="post-content">
           <div class="wrapper">
-            <!--{% include LessOrMore/comments %}-->
             <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
             <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
             <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
@@ -50,7 +50,24 @@ layout: default
             </script>
           </div>
         </article>
-      </div> 
+      </div> -->
+
+      <div id="container"></div>
+      <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+      <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+      <script>
+        var gitment = new Gitment({
+          id: window.location.pathname, 
+          owner: 'maoxiaoke',
+          repo: 'maoxiaoke.github.io',
+          oauth: {
+          client_id: 'a884d93361c09d5c03b3',
+          client_secret: '73f1de789521db427d431e9f8488db2f974ee0ba',
+          },
+        })
+        gitment.render('container')
+      </script>
+      
     </div>
   </div>
 </div>
