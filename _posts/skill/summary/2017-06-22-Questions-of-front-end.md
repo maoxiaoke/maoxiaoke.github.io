@@ -391,7 +391,7 @@ CSRF的防御可以从服务端和客户端两方面着手，防御效果是从�
 
 ## 浏览器加载转圈结束是哪个时间点
 
-![timing-overview]({{ '/styles/images/timing-overview.png' | prepend: site.baseurl }})
+![timing-overview]({{ '/styles/images/interview/timing-overview.png' | prepend: site.baseurl }})
 
 > [图片来源](https://www.w3.org/TR/navigation-timing/)
 
@@ -470,3 +470,98 @@ clearTimeout(timerId);
 ```
 
 > [参考](https://stackoverflow.com/questions/729921/settimeout-or-setinterval)
+
+---
+
+## 数组去重
+
+#### ES6的Set
+
+```js
+let arr=[1,1,2,2,'1','1','11',NaN,NaN,,,];
+[...new Set(arr)];  //[ 1, 2, '1', '11', NaN, undefined ]
+```
+
+#### 普通方法
+
+```js
+function unique(array){
+    var n = [];//临时数组
+    for(var i = 0;i < array.length; i++){
+        if(n.indexOf(array[i]) == -1) n.push(array[i]);
+    }
+    return n;
+}
+let arr=[1,1,2,2,'1','1','11',NaN,NaN,,,];
+console.log(unique(arr));   //[ 1, 2, '1', '11', NaN, NaN, undefined ]
+```
+
+> 这个有一个问题，就是`NaN`无法去重，可以单独列出来。
+
+#### hash
+
+```js
+function unique(arr) {
+  var ret = [];
+  var hash = {};
+
+  for (var i = 0; i < arr.length; i++) {
+    var item = arr[i];
+    var key = typeof(item) + item;
+    if (hash[key] !== 1) {
+      ret.push(item);
+      hash[key] = 1;
+    }
+  }
+
+  return ret;
+}
+let arr=[1,1,2,2,'1','1','11',NaN,NaN,,,];
+console.log(unique(arr));
+```
+
+> [参考](http://sentsin.com/web/63.html)
+
+---
+
+## http状态码401和403区别？
+
+1xx消息: 这一类状态码，代表请求已被接受，需要继续处理。这类响应是临时响应。
+
+2xx**成功**: 代表请求被服务器接收，理解和接受。
+
++ 200 OK 请求成功
++ 201 Accepted 服务器接受请求，但尚未处理
++ 2034 No Content 服务器成功处理请求，没有返回任何内容
+
+3xx**重定向**
+
++ 301 Moved Permanently 被请求的资源已永久移动到新位置
++ 302 Found 要求客户端执行临时重定向
+
+4xx**客户端错误**
+
++ 400 Bad Request 明显的错误，服务器不能或不会处理该请求
++ 401 Unauthorized 未认证，即用户没有必要的凭据。该请求码表示当前请求需要用户验证
++ 403 Forbidden 服务器已经理解请求，但是拒绝执行它
++ 404 Not Found 请求失败
++ 407 Request Timeout 请求超时
+
+5xx**服务器错误**
+
++ 500 Internal Server Error 通用错误信息
+
+现在我们谈一下401和403的区别，这个问题在Stack Overflow上获得很大的关注: [403 Forbidden vs 401 Unauthorized HTTP responses](https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses)
+
+401: Unauthorized，未认证。收到一个401状态码意味着服务器告诉你`你没有认证或者认证错误，但是还可以再试一边，重新认证`。
+
+402: Forbidden，未授权。收到一个403状态码意味着服务器告诉你`我知道你是谁，但是对不起，你没有访问资源的权限你也许可以向管理员询问权限，但是在此之前，不要来烦我了`。
+
+> 其他有关状态码的，你可以参考[HTTP Diagram and Status Codes](https://www.loggly.com/blog/http-status-code-diagram/)
+
+## 使用flex布局实现三等分
+
+题目要求: 使用flex布局实现三等分，左右两个元素分别贴到左边和右边，垂直居中
+
+<p data-height="265" data-theme-id="light" data-slug-hash="bRZzwo" data-default-tab="css,result" data-user="maoxiake" data-embed-version="2" data-pen-title="a flex layout" class="codepen">See the Pen <a href="https://codepen.io/maoxiake/pen/bRZzwo/">a flex layout</a> by maoxiaoke (<a href="https://codepen.io/maoxiake">@maoxiake</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
