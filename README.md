@@ -147,6 +147,7 @@ Copyright © 2017 M/J. All rights reserved.
 
 - [-] 删除网易云跟帖
 - [+] 将网易云跟帖更改为gitment
+- [+] 添加一个新模块: TalkToMe
 
 ### 2017.06.17
 
