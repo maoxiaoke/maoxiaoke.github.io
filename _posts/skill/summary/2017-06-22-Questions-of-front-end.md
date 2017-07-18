@@ -567,3 +567,17 @@ console.log(unique(arr));
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
 可参考: [Flexbox的完全教程]({{ '/2017/07/15/Flex' | prepend: site.baseurl }})
+
+---
+
+## BOM和DOM的区别
+
+- BOM (Browser Object Model) 浏览器对象模型
+
+核心对象是`window`，它表示浏览器的一个实例。window下又包括`navigator`, `history`, `screen`, `location` 和 `document`等对象，其中`document`就是`DOM`。
+
+- DOM (Document Object Model) 文档对象模型，完整写法应该是`window.document`，形成的DOM树可以使用JavaScript来操纵。
+
+![BOM和DOM]({{ '/styles/images/interview/bomanddom.png' | prepend: site.baseurl }})
+
+> 参考: [JavaScript中的BOM与DOM详解](http://m.blog.csdn.net/Sornets/article/details/46999227) [What is the DOM and BOM in JavaScript?](https://stackoverflow.com/questions/4416317/what-is-the-dom-and-bom-in-javascript)
