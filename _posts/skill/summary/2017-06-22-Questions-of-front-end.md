@@ -16,6 +16,43 @@ tag: Interview
 
 <!-- more -->
 
+<!-- TOC -->
+
+- [HTML5新增了哪些内容或API](#html5新增了哪些内容或api)
+- [`<input>`和`<textarea>`的区别](#input和textarea的区别)
+- [图片懒加载 -- Lazy Load](#图片懒加载----lazy-load)
+- [移动端性能优化](#移动端性能优化)
+        - [加载优化 -- 优化重点](#加载优化----优化重点)
+        - [图片优化](#图片优化)
+        - [CSS优化](#css优化)
+        - [脚本优化](#脚本优化)
+        - [渲染优化](#渲染优化)
+- [repaint/reflow 区别](#repaintreflow-区别)
+- [CSS盒模型](#css盒模型)
+- [前端安全](#前端安全)
+        - [XSS攻击](#xss攻击)
+        - [CSRF攻击](#csrf攻击)
+- [实现布局:左边一张图片，右边一段文字](#实现布局左边一张图片右边一段文字)
+        - [行内元素](#行内元素)
+        - [块级元素](#块级元素)
+- [伪类和伪元素的区别](#伪类和伪元素的区别)
+- [window.onload和$(document).ready()的区别](#windowonload和documentready的区别)
+- [浏览器加载转圈结束是哪个时间点](#浏览器加载转圈结束是哪个时间点)
+- [setTimeout和setInterval区别](#settimeout和setinterval区别)
+        - [setTimeout 超时调用](#settimeout-超时调用)
+        - [setInterval 间歇调用](#setinterval-间歇调用)
+        - [如何转化](#如何转化)
+- [数组去重](#数组去重)
+        - [ES6的Set](#es6的set)
+        - [普通方法](#普通方法)
+        - [hash](#hash)
+- [http状态码401和403区别？](#http状态码401和403区别)
+- [使用flex布局实现三等分](#使用flex布局实现三等分)
+- [BOM和DOM的区别](#bom和dom的区别)
+- [类数组转化为数组](#类数组转化为数组)
+
+<!-- /TOC -->
+
 `2017-04-25`
 
 ## HTML5新增了哪些内容或API
@@ -581,3 +618,27 @@ console.log(unique(arr));
 ![BOM和DOM]({{ '/styles/images/interview/bomanddom.png' | prepend: site.baseurl }})
 
 > 参考: [JavaScript中的BOM与DOM详解](http://m.blog.csdn.net/Sornets/article/details/46999227) [What is the DOM and BOM in JavaScript?](https://stackoverflow.com/questions/4416317/what-is-the-dom-and-bom-in-javascript)
+
+---
+
+## 类数组转化为数组
+
+类数组，具有指向对象元素的数字索引下标以及length属性，但是却不具有常见的`push()`、`forEach()`、`sort()`等数组对象具有的方法。
+
+常见的类数组对象有: `NodeList`和`HTMLCollection`对象，通过以下方式获得。
+
++ document.getElementsByTagName()
++ document.getElementsByClassName()
++ document.getElementsByName()
++ parentNode.chidlNodes
++ arguments
+
+使用`slice()`将类数组对象和集合转换成一个数组。方法是:
+
+```js
+Array.prototype.slice.call(array-like);
+//or
+[].slice.call(arguments);
+```
+
+> 参考: [javascript类数组转换为数组](http://www.zuojj.com/archives/218.html)  [Array.prototype.slice()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
