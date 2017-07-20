@@ -50,6 +50,7 @@ tag: Interview
 - [使用flex布局实现三等分](#使用flex布局实现三等分)
 - [BOM和DOM的区别](#bom和dom的区别)
 - [类数组转化为数组](#类数组转化为数组)
+- [Bootstrap栅格系统](#bootstrap栅格系统)
 
 <!-- /TOC -->
 
@@ -642,3 +643,23 @@ Array.prototype.slice.call(array-like);
 ```
 
 > 参考: [javascript类数组转换为数组](http://www.zuojj.com/archives/218.html)  [Array.prototype.slice()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+
+---
+
+## Bootstrap栅格系统
+
+Bootstrap提供了一套响应式、移动设备优先的流式栅格系统，随着屏幕或视口(viewport)尺寸的增加，系统会自动分为最多12列。大概的方式如下:
+
+```html
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"> .col-md-1 </div>
+    ...
+  </div>
+</div>
+```
+
++ 行必须包含在`.container`或`.container-fluid`中。
++ 内容放在列中，列是作为行(`row`)的直接子元素。
+
+当然，最首先是使用媒体查询来创建分界点。
