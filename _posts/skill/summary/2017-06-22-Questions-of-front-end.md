@@ -51,6 +51,10 @@ tag: Interview
 - [BOM和DOM的区别](#bom和dom的区别)
 - [类数组转化为数组](#类数组转化为数组)
 - [Bootstrap栅格系统](#bootstrap栅格系统)
+- [实现三栏布局](#实现三栏布局)
+    - [flex实现](#flex实现)
+    - [传统方法实现](#传统方法实现)
+    - [双飞翼布局](#双飞翼布局)
 
 <!-- /TOC -->
 
@@ -663,3 +667,222 @@ Bootstrap提供了一套响应式、移动设备优先的流式栅格系统，�
 + 内容放在列中，列是作为行(`row`)的直接子元素。
 
 当然，最首先是使用媒体查询来创建分界点。
+
+---
+
+## 实现三栏布局
+
+这里的三栏布局，指的是常见的一种网站布局。**左右两栏宽度固定，中间栏宽度自适应**。这种布局方式也称为**Holy Grail**(圣杯)布局。也就是下面的样子。
+
+![圣杯布局](https://bitsofco.de/content/images/2016/03/Holy_Grail_CSS_Grid.gif)
+
+有了`flex`，所以这个实现就变得很简单。
+
+### flex实现
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Holy Grail Layout</title>
+    <style media="screen">
+      body {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        min-width: 400px;
+      }
+      .header, .footer {
+        width: 100%;
+        clear: both;
+        height: 40px;
+        background: yellow;
+        line-height: 40px;
+      }
+      .body-wrap {
+        display: flex;
+      }
+      .center {
+        order: 0;
+        flex: 1;
+        background:  orange;
+      }
+      .left {
+        order: -1;
+        flex: 0 0 100px;
+        background: red;
+      }
+      .right {
+        order: 1;
+        flex: 0 0 12em;
+        background:  green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">Header</div>
+    <div class="body-wrap">
+      <div class="center">
+        Center
+      </div>
+      <div class="left column">
+        Left
+      </div>
+      <div class="right column">
+        right column
+      </div>
+    </div>
+    <div class="footer">
+      footer
+    </div>
+  </body>
+</html>
+```
+
+当然，我们也可以使用传统方法实现。
+
+### 传统方法实现
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Holy Grail Layout</title>
+    <style media="screen">
+      body {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        min-width: 400px;
+      }
+      .header, .footer {
+        width: 100%;
+        clear: both;
+        height: 40px;
+        background: yellow;
+        line-height: 40px;
+      }
+      .body-wrap {
+      padding-left: 100px;
+      padding-right: 200px;
+      box-sizing: border-box;
+     }
+      .center {
+      width: 100%;
+      float: left;
+      background-color: #b3d1c1;
+      }
+      .left {
+      float: left;
+      width: 100px;
+      margin-left: -100%;
+      position: relative;
+      right: 100px;
+      background-color: #e57b85;
+      }
+      .right {
+      float: left;
+      width: 200px;
+      margin-left: -200px;
+      position: relative;
+      left: 200px;
+      background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">Header</div>
+    <div class="body-wrap">
+      <div class="center column">
+        Center
+      </div>
+      <div class="left column">
+        Left
+      </div>
+      <div class="right column">
+        right column
+      </div>
+    </div>
+    <div class="footer">
+      footer
+    </div>
+  </body>
+</html>
+```
+
+值得注意的是，中间栏我们放在流式布局的最开始。
+
+### 双飞翼布局
+
+如果我们使用传统的方法来实现圣杯布局，它使用了相对定位，以后的布局就有局限性。双飞翼布局是增加一个`<div>`就可以不使用相对定位了。
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Holy Grail Layout</title>
+    <style media="screen">
+      body {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        min-width: 400px;
+      }
+      .header, .footer {
+        width: 100%;
+        clear: both;
+        height: 40px;
+        background: yellow;
+        line-height: 40px;
+      }
+      .body-wrap {
+      box-sizing: border-box;
+     }
+      .center {
+      width: 100%;
+      float: left;
+      background-color: #b3d1c1;
+      }
+      .center .inner {
+        margin-left: 100px;
+        margin-right: 200px;
+      }
+      .left {
+      float: left;
+      width: 100px;
+      margin-left: -100%;
+      background-color: #e57b85;
+      }
+      .right {
+      float: left;
+      width: 200px;
+      margin-left: -200px;
+      background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">Header</div>
+    <div class="body-wrap">
+      <div class="center column">
+        <div class="inner">
+          Center
+        </div>
+      </div>
+      <div class="left column">
+        Left
+      </div>
+      <div class="right column">
+        right column
+      </div>
+    </div>
+    <div class="footer">
+      footer
+    </div>
+  </body>
+</html>
+
+```
