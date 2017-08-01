@@ -19,6 +19,8 @@ tag: Interview
 <!-- TOC -->
 
 - [HTML5新增了哪些内容或API](#html5新增了哪些内容或api)
+- [怎么理解HTML语义化](#怎么理解html语义化)
+- [HTML5的`<!DOCTYPE>`标签](#html5的doctype标签)
 - [`<input>`和`<textarea>`的区别](#input和textarea的区别)
 - [图片懒加载 -- Lazy Load](#图片懒加载----lazy-load)
 - [移动端性能优化](#移动端性能优化)
@@ -46,15 +48,26 @@ tag: Interview
         - [ES6的Set](#es6的set)
         - [普通方法](#普通方法)
         - [hash](#hash)
-- [http状态码401和403区别？](#http状态码401和403区别)
+- [http状态码401和403区别，01和302的区别](#http状态码401和403区别01和302的区别)
 - [使用flex布局实现三等分](#使用flex布局实现三等分)
 - [BOM和DOM的区别](#bom和dom的区别)
 - [类数组转化为数组](#类数组转化为数组)
 - [Bootstrap栅格系统](#bootstrap栅格系统)
+- [实现两栏布局](#实现两栏布局)
 - [实现三栏布局](#实现三栏布局)
     - [flex实现](#flex实现)
     - [传统方法实现](#传统方法实现)
     - [双飞翼布局](#双飞翼布局)
+- [JavaScript为什么是单线程](#javascript为什么是单线程)
+- [从输入URL到页面加载发生了什么](#从输入url到页面加载发生了什么)
+- [进程和线程的区别](#进程和线程的区别)
+- [JavaScript的严格模式](#javascript的严格模式)
+        - [开启严格模式](#开启严格模式)
+        - [严格模式举例](#严格模式举例)
+- [文本不换行](#文本不换行)
+- [事件冒泡和事件流](#事件冒泡和事件流)
+- [事件代理或委托](#事件代理或委托)
+        - [事件代理/委托](#事件代理委托)
 
 <!-- /TOC -->
 
@@ -67,6 +80,30 @@ tag: Interview
 + 用于绘图的`canvas`元素
 + 用于媒体回放的`video`和`audio`元素
 + 对本地离线存储的更好的支持
+
+---
+
+## 怎么理解HTML语义化
+
+简而言之，语义化的含义就是使用正确的标签做正确的事。其主要目的还是想让机器读懂网页，而程序员次之。HTML语义化让页面内容结构化，便于搜索引擎的机器人(爬虫)解析，利于SEO。
+
+> 参考: [如何理解Web语义化？](https://www.zhihu.com/question/20455165)
+
+---
+
+## HTML5的`<!DOCTYPE>`标签
+
+html5文档的声明如下:
+
+```html
+<!DOCTYPE HTML>
+````
+
+为什么html5只需这样定义就好？？？
+
+因为html5不在基于`SGML`(Standard Generalized Markup Language, 标准通用标记语言)，所以不需要对DTD(Document Type Definition)进行引用。
+
+> 参考: [HTML <!DOCTYPE> Declaration](https://www.w3schools.com/tags/tag_doctype.asp)
 
 ---
 
@@ -328,7 +365,7 @@ Web应用未对用户提交请求的数据做充分的检查过滤，允许用�
 
 CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。
 
-可以这样简单的理解：攻击者可以盗用你的登陆信息，以你的身份模拟发送各种请求。举个栗子，一家银行用于执行转账操作的URL地址如下: http://www.examplebank.com/withdraw?account=AccoutName&amount=1000&for=PayeeName。一个恶意攻击者在另一个网站放置如下放置如下代码: <img src="http://www.examplebank.com/withdraw?account=Alice&amount=1000&for=Badman">。如果有一个用户访问了这个恶意站点，而他之前刚访问过银行不久，登陆信息尚未过期。攻击者并不能通过CSRF攻击来直接获取用户的账户控制权，也不能直接窃取用户的任何信息。他们能做到的，是**欺骗用户浏览器，让其以用户的名义执行操作**。
+可以这样简单的理解：攻击者可以盗用你的登陆信息，以你的身份模拟发送各种请求。举个栗子，一家银行用于执行转账操作的URL地址如下: http://www.examplebank.com/withdraw?account=AccoutName&amount=1000&for=PayeeName。一个恶意攻击者在另一个网站放置如下放置如下代码: `<img src="http://www.examplebank.com/withdraw?account=Alice&amount=1000&for=Badman">`。如果有一个用户访问了这个恶意站点，而他之前刚访问过银行不久，登陆信息尚未过期。攻击者并不能通过CSRF攻击来直接获取用户的账户控制权，也不能直接窃取用户的任何信息。他们能做到的，是**欺骗用户浏览器，让其以用户的名义执行操作**。
 
 从上图可以看出，要完成一次CSRF攻击，受害者必须依次完成两个步骤 ：
 
@@ -566,7 +603,7 @@ console.log(unique(arr));
 
 ---
 
-## http状态码401和403区别？
+## http状态码401和403区别，01和302的区别
 
 1xx消息: 这一类状态码，代表请求已被接受，需要继续处理。这类响应是临时响应。
 
@@ -574,7 +611,7 @@ console.log(unique(arr));
 
 + 200 OK 请求成功
 + 201 Accepted 服务器接受请求，但尚未处理
-+ 2034 No Content 服务器成功处理请求，没有返回任何内容
++ 203 No Content 服务器成功处理请求，没有返回任何内容
 
 3xx**重定向**
 
@@ -597,7 +634,13 @@ console.log(unique(arr));
 
 401: Unauthorized，未认证。收到一个401状态码意味着服务器告诉你`你没有认证或者认证错误，但是还可以再试一边，重新认证`。
 
-402: Forbidden，未授权。收到一个403状态码意味着服务器告诉你`我知道你是谁，但是对不起，你没有访问资源的权限你也许可以向管理员询问权限，但是在此之前，不要来烦我了`。
+403: Forbidden，未授权。收到一个403状态码意味着服务器告诉你`我知道你是谁，但是对不起，你没有访问资源的权限你也许可以向管理员询问权限，但是在此之前，不要来烦我了`。
+
+301和302的区别也获得很大的关注:[HTTP redirect: 301 (permanent) vs. 302 (temporary)](https://stackoverflow.com/questions/1393280/http-redirect-301-permanent-vs-302-temporary)
+
+301: Moved Permanently 永久重定向。意味着页面(或资源)被永久移动到新地址了，浏览器不会去试图请求原来的地址，而是直接请求新地址。对于搜索引擎爬虫而言，直接使用新URL将原来的URL替换，同时保留原来网页的流量、排名等等
+
+302: Found 临时重定向。意味着页面(或资源)被临时移动到新地址了。原来的地址URL仍然存在搜索引擎的数据库里，浏览器总是会试图访问原来的地址。
 
 > 其他有关状态码的，你可以参考[HTTP Diagram and Status Codes](https://www.loggly.com/blog/http-status-code-diagram/)
 
@@ -668,6 +711,72 @@ Bootstrap提供了一套响应式、移动设备优先的流式栅格系统，�
 
 当然，最首先是使用媒体查询来创建分界点。
 
+---
+
+## 实现两栏布局
+
+这里的两栏布局，指的是**左边定宽，右边自适应**。方法以是可以用浮动布局，然后用`margin-left`设定左边的距离。第二种方法是利用`flex`布局。
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>two rows</title>
+    <style media="screen">
+    /*
+      .body-wrap {
+        box-sizing: border-box;
+      }
+      .left{
+        width: 200px;
+        background: yellow;
+        float: left;
+      }
+      .right {
+        margin-left: 200px;
+        background: red;
+      }*/
+      .body-wrap {
+        display: flex;
+      }
+      .left{
+        flex: 0 1 100px;
+        background: yellow;
+      }
+      .right {
+        flex: 1;
+        background: red;
+      }
+      /*
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      .left{
+        position: fixed;
+        width: 200px;
+        background: yellow;
+      }
+      .right {
+        margin-left: 200px;
+        background: red;
+      }*/
+    </style>
+  </head>
+  <body>
+    <div class="body-wrap">
+      <div class="left">
+        A
+      </div>
+      <div class="right">
+        B
+      </div>
+    </div>
+
+  </body>
+</html>
+```
 ---
 
 ## 实现三栏布局
@@ -886,3 +995,229 @@ Bootstrap提供了一套响应式、移动设备优先的流式栅格系统，�
 </html>
 
 ```
+
+---
+
+## JavaScript为什么是单线程
+
+> 单线程最大的好处是不用像多线程那样处处在意状态的同步问题，没有死锁的存在，也没有线程上下文交换带来的性能上的开销。 -- <<深入浅出node>>
+
+所以，单线程的优点是针对多线程而来的，指的就是同一时间只能做一件事情。JavaScript作为脚本语言，主要用途是交互和操纵DOM，这决定于它是单线程，否则会带来很多同步问题。假如JavaScript是多线程，有两个线程，一个想在DOM一个节点上添加内容，一个想删除这个节点，这个时候浏览器以谁为准呢？
+
+单线程也有自身的缺点。
+
++ 无法使用多核CPU
++ 一个错误会导致整个应用退出
++ CPU被长时间占用和空闲，大量计算的时候，CPU会被长时间占用。而I/O设备读取很慢，会造成CPU长时间空闲
+
+HTML5制订了Web Worker标准解决了大计算的问题，允许JavaScript创建工作线程来进行计算。工作线程通过消息传递的方式(如工作线程`postmessage()`，而主线程`onmessage()`的方式)来传递结果。这也就是说，工作线程无法访问主线程的UI，也就是说子线程无法操纵DOM。本质仍然是单线程。
+
+也因为JavaScript单线程的原因，也延伸出**异步编程**的概念。在这里[Node异步编程]({{ '/2017/06/07/Asyn-Programing' | prepend: site.baseurl }})
+
+---
+
+## 从输入URL到页面加载发生了什么
+
+要说清楚，东西还挺多。
+
+1. 在浏览器输入URL
+2. 如果请求对象在缓存且还未过期，直接到第八步
+3. 连接到DNS(域名系统)，找到域名对应的IP地址
+  
+有时候我们会说，为啥需要ip地址呢，除了便于记忆外，对于很多大型网站，在不同地点有多个服务器。所以，我们输入域名，可以让Google自己决定使用哪个服务器。DNS的步骤如下:
+
+  + 查看浏览器缓存，看是否保留DNS记录
+  + 查看操作系统缓存
+  + 查看路由缓存
+  + 查看ISP缓存
+4. 浏览器和服务器启动TCP连接
+5. 浏览器向服务器发送一个HTTP请求
+6. 服务器处理请求(一般先返回一个HTML文档)
+7. 浏览器收到HTTP响应
+8. 浏览器开始渲染页面
+9. 浏览器请求HTML文件里的其他资源
+10. 用户和服务器交互，比如通过表单提交，另一种通过AJAX请求。
+
+> 参考: [What happens when you type a URL in browser](http://edusagar.com/articles/view/70/What-happens-when-you-type-a-URL-in-browser)  [What really happens when you navigate to a URL](http://igoro.com/archive/what-really-happens-when-you-navigate-to-a-url/)  [从输入URL到页面加载发生了什么？](https://segmentfault.com/a/1190000006879700)
+
+---
+
+## 进程和线程的区别
+
+简单说，线程是进程的子集。所有的线程都共享内存空间(进程创建的)，而不同的进程有自己的内存空间。线程的开销小，进程的开销大。一个应用程序包含一个或多个进程，最简单的讲，是一个执行程序；一个或多个线程运行在进程的上下文中，线程是操作系统配置处理器时间的基本单元。
+
+> [What is the difference between a process and a thread?](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread)
+
+---
+
+## JavaScript的严格模式
+
+ECMAScript 5引入了严格模式(strict mode)的概念，严格模式对正常的JavaScript语义做了一些修改。
+
+1. 首先，严格模式消除了JavaScript的一些silent errors，通过改变它们来抛出一些错误；
+2. 第二，严格模式修复了JavaScript引擎难以执行优化的错误；
+3. 第三，严格模式禁用了一些ECMAScript的未来版本中可能会定义的一些语法。
+
+#### 开启严格模式
+
+严格模式可以应用到整个script标签中，在顶部添加:
+
+```js
+"use strict";
+```
+
+也可以指定函数在严格模式下执行:
+
+```js
+function doSomething(){
+  "use strict";
+  //函数体
+}
+```
+
+#### 严格模式举例
+
++ 严格模式下无法再意外创建全局变量 比如`"use strict"; mist = 17`会抛出ReferenceError错误。
++ 严格模式下会引起silently fail的赋值操作都会抛出异常。
++ 严格模式下，试图删除不可删除的属性时会抛出异常(之前这种操作不会产生任何效果)。
++ 严格模式下要求函数的参数名唯一。比如，`function sum(a,a,c){...}`会抛出异常
++ 严格模式禁止八进制数字语法
++ 等等
+
+参考[严格模式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode)
+
+---
+
+## 文本不换行
+
+问题是这样描述的，如果有一个被`<div>`包裹的文本，如何做到取消自动换行。方式是使用`white-space`属性。这个属性有一下几个属性值:
+
++ normal: 默认，空白会被浏览器忽略
++ pre: 空白会被浏览器保留
++ nowrap: 文本不会换行，直到遇到`<br>`标签
+
+然后溢出的文本可以用`overflow: hidden`处理。
+
+```css
+div {
+  width: 200px;
+  height: 200px;
+  white-space: nowrap;;
+  overflow: hidden;
+}
+```
+
+---
+
+## 事件冒泡和事件流
+
+事件流描述的是从页面中接收事件的顺序。事件冒泡是(event bubbling)IE提出来的，**即事件 开始时由最具体的元素接收，然后逐级向上传播到较为不具体的节点**。比如点击一个`div`，冒泡顺序是`div -> body -> html -> document`。有些浏览器会直接冒泡到`window`对象。
+
+“DOM2级事件”规定的事件流包括三个阶段: 事件捕获阶段、处于目标阶段和事件冒泡阶段。和上面这个例子类似，点击一个`div`。首先发生的是事件捕获，为截获事件提供机会，这个阶段从  `document -> html -> body`就停止了。然后是实际的目标接收事件，事件在`div`上发生，并在事件处理中被看成是冒泡阶段的一部分。最后冒泡阶段对事件做出响应，事件按照`div -> body -> html -> document`传回文档。
+
+---
+
+## 事件代理或委托
+
+在这之前，先说一下事件处理程序。分为三种，一种是HTML事件处理程序。
+
+比如这种
+
+```html
+<input type="button" value="Click me" onclick="showMessage()"/>
+<script>
+  function showMessage(){
+    //do something
+  }
+</script>
+```
+
+第二种是DOM0级事件处理函数，就是将一个函数赋值给一个事件处理程序的属性。每个元素都有自己的事件处理程序事件。如:
+
+```js
+var btn = document.getElementById("myBtn");
+btn.onclick = function() {
+  // do something
+}
+```
+
+第三种就是DOM2级事件处理程序。定义了两个方法`addEventListener()`和`removeEventListener()`。接收三个参数: 要处理的事件名、作为事件处理程序的函数和一个布尔值。布尔值最好是`false`，否则表示在捕获阶段调用处理函数。如
+
+```js
+var btn = document.getElementById("myBtn");
+btn.addEventListener("click", function(){
+  //do something
+}, false);
+
+/* 这样写最好了
+var btn = document.getElementById("myBtn");
+var handler = function (){
+  do something;
+}
+btn.addEventListener("click", handler, false);
+
+btn.removeEventListener("click",handler,false);
+*/
+```
+
+但是IE非要不一样。使用`attachEvent()`和`detachEvent()`，只接受两个参数: 事件处理程序名称和事件处理程序函数。
+
+```js
+var btn = document.getElementById("myBtn");
+btn.attachEvent("onclick", function(){
+  //do something
+});
+````
+
+对于跨浏览器，最好将它们用一个对象封装起来。
+
+```js
+var EventUtil = {
+  addHandler: function (element, type, handler){
+    if (element.addEventLister){
+      element.addEventLister(type, handler, false);
+    }else if (element.attachEvent){
+      element.attachEvent("on"+type, handler);
+    }else {
+      element["on"+type] = handler;
+    }
+  },
+  removeHandler: function (element,type, handler){
+    if (element.addEventLister){
+      element.removeEventLister(type, handler, false);
+    }else if (element.attachEvent){
+      element.detachEvent("on"+type, handler);
+    }else {
+      element["on"+type] = null;
+    }
+  }
+}
+```
+
+#### 事件代理/委托
+
+事件代理/委托的意思就是，将自己要做的事情交给别人来做。即，某个事件A是元素a的事件，但是该事件转交给元素b(主要是父元素)来监听并完成。举个例子，事件监听器只能绑定在当前DOM已有的元素上，比如这样的结构:
+
+```html
+<ul>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+```
+
+我们要向所有的`<li>`添加事件，尤其是实际需求中，往往渲染出来的元素也需要监听事件。这种情况下，我们就可以实现一个事件代理，即通过`<ul>`去代理`<li>`的事件。
+
+使用的方法就是target属性，通过event这个对象将target传进去。这个属性永远指代最精确的那个对象(元素)。
+
+```js
+var ul = document.querySelector('ul');
+ul.addEventLister("click", e => {
+  if (e.target && e.target.nodeName.toUpperCase == 'LI'){
+    // do something
+  }
+}, false);
+```
+
+参考: [事件代理 delegate 的实现](https://zhuanlan.zhihu.com/p/27554181)  [手写事件模型及事件代理/委托](http://www.w3cmark.com/2016/439.html)  [JavaScript事件委托原理&实现](JavaScript事件委托原理&实现)

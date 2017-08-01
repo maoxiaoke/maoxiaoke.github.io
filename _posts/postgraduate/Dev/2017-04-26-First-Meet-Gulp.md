@@ -163,6 +163,27 @@ $ gulp
 
 ---
 
+## 常见的gulp插件
+
+话不多说。
+
++ gulp-uglify : 解析、最小化、压缩和美化JavaScript文件
++ gulp-cssnano : 压缩css
++ gulp-autoprefixer : 解析css和提供供应商前缀
++ gulp-htmlmin : 压缩HTML
++ gulp-imagemin : 压缩图片
++ gulp-concat : 合并JavaScript文件
++ gulp-clean : 删除文件和文件夹
++ gulp-rename : 重命名文件
++ gulp-if : 判断语句
++ run-sequence : 控制顺序执行的任务
++ gulp-sourcemaps
++ browser-sync : 浏览器同步
++ require-dir : 对gulpfile进行分文件处理
++ gulp-changed : 仅仅让更改过的文件经过管道
++ gulp-sass : 编译sass文件成css文件
+---
+
 ## gulp的应用
 
 ### 我的第一个应用 -- autoprefixer给常规css文件加厂商前缀
@@ -231,3 +252,15 @@ $ gulp testAutoFx
 #### 福利
 
 `autoprefixer`还有一个`online`服务，网址是：[https://autoprefixer.github.io/](https://autoprefixer.github.io/)。
+
+---
+
+## gulp有关的问题
+
+### 为啥有些要return 有些不需要
+
+> 参考: [Running tasks in series](https://github.com/gulpjs/gulp/blob/master/docs/recipes/running-tasks-in-series.md#running-tasks-in-series-ie-task-dependency) [Does a gulp task have to return anything?
+
+](https://stackoverflow.com/questions/26079118/does-a-gulp-task-have-to-return-anything) [Gulp.js task, return on src?
+
+](https://stackoverflow.com/questions/21699146/gulp-js-task-return-on-src)
