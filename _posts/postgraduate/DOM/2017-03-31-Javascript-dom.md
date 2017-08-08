@@ -3,7 +3,7 @@ layout: post
 title: "原生JavaScript的DOM操作"
 date: 2017-03-31 19:00:00 +0800 
 categories: 研究生涯
-tag: JavaScript
+tag: DOM
 ---
 * content
 {:toc}
