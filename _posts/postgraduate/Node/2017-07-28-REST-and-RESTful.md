@@ -12,7 +12,7 @@ tag: Node
 
 REST: Resource Representational State Transfer。采用正译，叫*资源表征状态转移*。挨个理解:
 
-+ Resource : 资源，也就是data(数据)。需要说明的是，资源的表征方式不是一个具体的物理文件，而是特定的格式类型。在HTTP中，由`content-type`描述，比如: `image/jpeg`、`video/mpeg`、`text/html`、`applicaiton/json`、`text/xml`等等。每一份资源都有特定的URL来标识。
++ Resource : 资源，也就是data(数据)。需要说明的是，资源的表征方式不是一个具体的物理文件，而是特定的格式类型。在HTTP中，由`content-type`描述。每一份资源都有特定的URL来标识。
 + Representational: 指的就是资源的表征形式。比如，json、xml、jpeg等等
 + State Transfer: 状态转移，即通过HTTP谓词来实现资源的状态变化。参考阮一峰的文章，他说。HTTP是一个无状态协议。这意味着，所有的状态都保存在服务器端。因此，如果客户端想要操作服务器，必须通过某种手段，让服务器端发生"状态转化"。而这种手段，就是HTTP谓词。这种转化是建立在表现层之上的，所以就是"表现层状态转化"。
 
