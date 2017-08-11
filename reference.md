@@ -40,6 +40,7 @@ abbr {text-decoration: none;}
 <hr><h4 class="btn btn-primary btn-lg">CSS/HTML相关</h4><hr>
 <ol class="rounded-list">
 <!--CSS/HTML API-->
+<li><a href="https://www.w3.org/TR/tr-technology-stds" target="_blank">W3C标准协议</a></li>
 <li><a href="http://www.w3school.com.cn/index.html" target="_blank">W3school</a></li>
 <li><a href="https://tympanus.net/codrops/css_reference/" target="_blank">CSS reference</a></li>
 <li><a href="http://www.dcloud.io/docs/api/index.shtml" target="_blank">HTML5+ API Reference</a></li>
@@ -87,8 +88,10 @@ abbr {text-decoration: none;}
 <li><a href="https://aotu.io/index.html" target="_blank">凹凸实验室</a></li>
 <li><a href="https://insights.stackoverflow.com/survey/" target="_blank">Stack Overflow Annual Developer Survey</a></li>
 <li><a href="https://developers.google.com/speed/pagespeed/insights/?hl=zh-CN" target="_blank">PageSpeed Insights</a></li>
-<li><a href="http://en.cppreference.com/w/" target="_blank">C++参考手册</a></li>
+<li><a href="http://en.cppreference.com/w/" target="_blank">C++ 参考手册</a></li>
 <li><a href="https://developers.google.com/web/tools/chrome-devtools/" target="_blank">Chrome DevTools</a></li>
+<li><a href="http://code.flickr.net/" target="_blank">Flickr 技术博客</a></li>
+
 </ol>
 <hr><h4 class="btn btn-info btn-lg">算法网站</h4><hr>
 <ol class="rectangle-list">

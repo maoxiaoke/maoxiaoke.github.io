@@ -48,7 +48,7 @@ tag: Interview
         - [ES6的Set](#es6的set)
         - [普通方法](#普通方法)
         - [hash](#hash)
-- [http状态码401和403区别，01和302的区别](#http状态码401和403区别01和302的区别)
+- [http状态码401和403区别，301和302的区别](#http状态码401和403区别301和302的区别)
 - [使用flex布局实现三等分](#使用flex布局实现三等分)
 - [BOM和DOM的区别](#bom和dom的区别)
 - [类数组转化为数组](#类数组转化为数组)
@@ -66,8 +66,21 @@ tag: Interview
         - [严格模式举例](#严格模式举例)
 - [文本不换行](#文本不换行)
 - [事件冒泡和事件流](#事件冒泡和事件流)
+        - [如何取消事件的冒泡](#如何取消事件的冒泡)
 - [事件代理或委托](#事件代理或委托)
         - [事件代理/委托](#事件代理委托)
+- [JavaScript 的内存泄露](#javascript-的内存泄露)
+    - [JavaScript 的内存管理](#javascript-的内存管理)
+    - [常见的造成内存泄露](#常见的造成内存泄露)
+        - [意外的全局变量](#意外的全局变量)
+        - [被遗忘的计时器或回调函数](#被遗忘的计时器或回调函数)
+        - [脱离 DOM 的引用](#脱离-dom-的引用)
+        - [闭包](#闭包)
+    - [检测内存占用的工具](#检测内存占用的工具)
+- [清除浮动](#清除浮动)
+    - [使用带 clear 属性的空元素](#使用带-clear-属性的空元素)
+    - [使用 overflow: hidden;](#使用-overflow-hidden)
+- [Cookies 和 Sessions](#cookies-和-sessions)
 
 <!-- /TOC -->
 
@@ -603,7 +616,7 @@ console.log(unique(arr));
 
 ---
 
-## http状态码401和403区别，01和302的区别
+## http状态码401和403区别，301和302的区别
 
 1xx消息: 这一类状态码，代表请求已被接受，需要继续处理。这类响应是临时响应。
 
@@ -617,6 +630,7 @@ console.log(unique(arr));
 
 + 301 Moved Permanently 被请求的资源已永久移动到新位置
 + 302 Found 要求客户端执行临时重定向
++ 304 Not Modified 资源未被修改。客户端执行了 GET，服务器从缓存中调用访问内容发现内容没有更新，返回一个 304 状态码
 
 4xx**客户端错误**
 
@@ -1115,6 +1129,12 @@ div {
 
 “DOM2级事件”规定的事件流包括三个阶段: 事件捕获阶段、处于目标阶段和事件冒泡阶段。和上面这个例子类似，点击一个`div`。首先发生的是事件捕获，为截获事件提供机会，这个阶段从  `document -> html -> body`就停止了。然后是实际的目标接收事件，事件在`div`上发生，并在事件处理中被看成是冒泡阶段的一部分。最后冒泡阶段对事件做出响应，事件按照`div -> body -> html -> document`传回文档。
 
+#### 如何取消事件的冒泡
+
+触发 DOM 上的某个事件时，会产生一个事件对象 event，这个对象中包含着所有与事件有关的信息。`bubbles` 属性 **表明事件是否冒泡**。 其中有个函数，`event.stopPropagation()` 可以取消事件的进一步捕获和冒泡，前提是 bubbles 为 true。在 IE 中，event 是作为 window 对象的一个属性存在的。有一个 `cancelBubble()` 方法可以取消事件冒泡。
+
+如果是取消特定元素的默认行为，可以使用 `preventDefault()` 来实现。
+
 ---
 
 ## 事件代理或委托
@@ -1221,3 +1241,135 @@ ul.addEventLister("click", e => {
 ```
 
 参考: [事件代理 delegate 的实现](https://zhuanlan.zhihu.com/p/27554181)  [手写事件模型及事件代理/委托](http://www.w3cmark.com/2016/439.html)  [JavaScript事件委托原理&实现](JavaScript事件委托原理&实现)
+
+---
+
+## JavaScript 的内存泄露
+
+内存泄露指的就是**一块被分配的内容既不能被回收，也不被使用**。也就是说局部变量被使用后，无法被垃圾回收器回收，就会造成内存泄露。
+
+### JavaScript 的内存管理
+
+Make-and-Weep (标记和清除)
+
+这是最常见的现代浏览器进行垃圾回收的方式。方法是，垃圾收集器在运行时给存储在内存中的所有变量都加上标记，然后，去掉进入“环境”中的变量和被环境中变量引用的变量的标记。如果之后这些变量被加上了标记，就被视为准备删除的变量。
+
+还有一种回收方式是 reference counting，不常用。
+
+### 常见的造成内存泄露
+
+#### 意外的全局变量
+
+浏览器对未被声明的变量的处理是，在全局对象内创建一个新的变量，对浏览器而言，就是 window。(非严格的说起来，未使用 var 声明的变量算是 window 的一个属性，所以可以使用 delete 删除)
+
+> 怎么去理解未被声明的变量会造成内存泄露呢？因为使用了 var 声明的全局变量虽然是全局的，但是在页面被卸载之后会被垃圾回收期清除，而未使用 var 声明的则会一直存在。是这样解释吗？？？有待讨论。
+
+这类错误，可以添加 `use strict` 进行防止。
+
+#### 被遗忘的计时器或回调函数
+
+JavaScript 经常使用 setInterval 函数。如果该计时器不再需要的时候，计时器应该被回收。老版本的 IE 无法检测 DOM 节点和 JavaScript 代码之间的循环引用，所以会导致内存泄漏。现代浏览器一般是没有问题了。
+
+#### 脱离 DOM 的引用
+
+#### 闭包
+
+闭包会保存其外部函数的作用域，所以会造成内存泄露。
+
+### 检测内存占用的工具
+
+timeline 和 profiles
+
+参考： [4 Types of Memory Leaks in JavaScript and How to Get Rid Of Them](https://auth0.com/blog/four-types-of-leaks-in-your-javascript-code-and-how-to-get-rid-of-them/)
+
+中文翻译： [4种JavaScript内存泄漏浅析及如何用谷歌工具查内存泄露](https://github.com/wengjq/Blog/issues/1)
+
+---
+
+## 清除浮动
+
+当容器的高度为 auto 时，且容器的内容中有浮动的元素。因为浮动元素不占据空间，所以容器的高度不能自动伸长以适应内容的高度，使得内容溢出到容器外面而影响布局。这种现象叫做浮动溢出，所以这种情况通常使用 CSS 处理，就叫 CSS 清除浮动。
+
+下面的栗子就是这种情况：
+
+![内容溢出到外面了](https://segmentfault.com/image?src=http://images.cnitblog.com/blog/349636/201310/23224343-9668661a8f63445699e0a8c24a64662b.jpg&objectId=1190000004865198&token=554e24d525d3a82a18721e9d6489337f)
+
+```html
+  <head>
+    <meta charset="utf-8">
+    <title>clear float</title>
+    <style media="screen">
+      .main {
+        background-color: yellow;
+        border: solid 1px black;
+      }
+      .main img {
+        float: right;
+      }
+      .clear {
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <img src="http://via.placeholder.com/150x150" alt="">
+      <p>pork c sirlfsafdsafsadfsafsafsfoin rihort loin. Corned bf chicken cupim beef tenderloin, biltong ham turducken shankle
+    </p>
+    <div class="clear"></div>
+    </div>
+  </body>
+```
+
+### 使用带 clear 属性的空元素
+
+在浮动元素后使用一个空元素如 `<div class="clear"></div>`，并在 CSS 中赋予`.clear{clear:both;}` 属性即可清理浮动。如上面。
+
+优点：简单，代码少，浏览器兼容性好。
+缺点：需要添加大量无语义的 html 元素，代码不够优雅，后期不容易维护。
+
+### 使用 overflow: hidden;
+
+overflow: hidden; 是 CSS 的诡异表现之一，它能够强制外层容器扩大，以包含浮动的元素。一般说来，这种方法是最好的，可是，容器中绝对定位的元素会消失。
+
+```html
+  <head>
+    <meta charset="utf-8">
+    <title>clear float</title>
+    <style media="screen">
+      .main {
+        background-color: yellow;
+        border: solid 1px black;
+        overflow: hidden;
+      }
+      .main img {
+        float: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <img src="http://via.placeholder.com/150x150" alt="">
+      <p>pork c sirlfsafdsafsadfsafsafsfoin rihort loin. Corned bf chicken cupim beef tenderloin, biltong ham turducken shankle
+    </p>
+    </div>
+  </body>
+```
+
+还有其他的方法，可参考 [CSS-清除浮动](https://segmentfault.com/a/1190000004865198)
+
+---
+
+## Cookies 和 Sessions
+
+两者都是用于状态管理的。
+
+cookie 是保存再浏览器中的数据，通过每次请求发送到服务端。
+
+session 是保存在服务器端，与给定用户相关联的的一个数据集合。session 是基于 cookie 来工作的。
+
+cookie 不是很安全，可能被篡改；另外，HTTP 对 cookie 的数量和大小有限制。
+
+而 session 不易于在很多的服务器中进行共享。
+
+> 参考 [深入理解cookie与session](http://blog.csdn.net/j903829182/article/details/39855221)  [What is the difference between Sessions and Cookies in PHP?](https://stackoverflow.com/questions/6339783/what-is-the-difference-between-sessions-and-cookies-in-php)

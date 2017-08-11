@@ -27,6 +27,8 @@ bar();
 
 <!-- more -->
 
+![event-model]({{ '/styles/images/node/event-model.svg' | prepend: site.baseurl }})
+
 + 对象被分配在`Heap`(堆)中
 
 对象，也就是我们的引用类型。
