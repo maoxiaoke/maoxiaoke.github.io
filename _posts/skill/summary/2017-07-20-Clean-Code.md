@@ -27,6 +27,11 @@ tag: Interview
         - [1.1.2. es6的...操作符](#112-es6的操作符)
         - [1.1.3. Array.reduce()](#113-arrayreduce)
         - [1.1.4. 排序](#114-排序)
+- [2. 对象操作](#2-对象操作)
+    - [2.1. 对象的深拷贝](#21-对象的深拷贝)
+        - [2.1.1. Underscore.js 的实现](#211-underscorejs-的实现)
+        - [2.1.2. 利用 JSON 的解析和序列化](#212-利用-json-的解析和序列化)
+        - [第三方库的实现](#第三方库的实现)
 
 <!-- /TOC -->
 
@@ -95,3 +100,92 @@ let max = arr[arr.length-1]; //23
 ```
 
 >参考: [Math.max()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max)
+
+---
+
+# 2. 对象操作
+
+## 2.1. 对象的深拷贝
+
+由于 Object 是引用类型，所以对对象的简单拷贝是引用拷贝，也就是浅拷贝。所谓深拷贝，指的就是我们将对象所在的内存空间的内容重新拷贝了一份。
+
+> 拓展，有些数组方法不会对原数组造成影响的原因，就是因为在内部对数组进行了一次深拷贝处理。
+
+### 2.1.1. Underscore.js 的实现
+
+Underscore.js 库有一个 `snapshot` 是进行对象的深拷贝处理。代码的实现如下(自己有重构)。
+
+```js
+function deepClone(obj) {
+  var temp = {};
+  //If obj is primary types
+  if (obj == null || typeof(obj) != "object"){
+    return obj;
+  }
+  //If obj is an object
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)){ //Make sure key is not from of Prototype
+      temp[key] = deepClone(obj[key]);  //Recursion
+    }
+  }
+  return temp;
+}
+```
+
+但还是有点问题，如果传入的是一个 Array 类型、Date 类型和 RegExp 类型会将它们转换为简单对象(虽然它们也是对象，如数组只是属性从 0 开始逐个递增的对象而已)，但我们还是不太想这样。这种情况下，我们可以对 Array 类型和 Date 类型进行一次判定。
+
+> 需要额外注意的是，如果是嵌套 Array 类型，也要进行递归。
+
+```js
+function deepClone(obj) {
+  var temp;
+  //If obj is primary types
+  if (obj == null || typeof(obj) != "object"){
+    return obj;
+  }
+  //If obj is Date type
+  if (obj instanceof Date) {
+    temp = new Date();
+    temp.setTime(obj.getTime());
+    return temp;
+  }
+  //If obj is Array type
+  if (obj instanceof Array){
+    temp = [];
+    for (var item of obj){
+      temp.push(deepClone(item)); //Considering nested array
+    }
+    return temp;
+  }
+  //Otherwise
+  temp = {};
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)){ //Make sure key is not from of Prototype
+      temp[key] = deepClone(obj[key]);  //Recursion
+    }
+  }
+  return temp;
+}
+```
+
+> 即便如此，上述代码对于对象方法还是无能为力
+
+### 2.1.2. 利用 JSON 的解析和序列化
+
+JSON 对象有两个方法: `stringify()` 和 `parse()`。stringfy() 用于将 JavaScript 对象序列化为 JSON 字符串，而 parse() 用于将 JSON 字符串解析为原生 JavaScript 字符串。
+
+```js
+var cloneObj = JSON.parse(JSON.stringify(obj));
+```
+
+但是它也有缺点，会忽略掉值为 undefined 以及函数表达式。
+
+### 第三方库的实现
+
+Underscore -- `_.clone()`
+jQuery -- `&.extend()` 调用 `$.extend(true, {}, obj);`就可以进行深复制
+lodash -- `_.clone()` 和 `_.cloneDeep()`，这个库效果要更好。
+
+参考:
++ [深入剖析 JavaScript 的深复制](https://segmentfault.com/a/1190000002801042)
++ [How to Deep clone in javascript](https://stackoverflow.com/questions/4459928/how-to-deep-clone-in-javascript)
