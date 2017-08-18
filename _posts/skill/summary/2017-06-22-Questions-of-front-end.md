@@ -81,6 +81,7 @@ tag: Interview
     - [使用带 clear 属性的空元素](#使用带-clear-属性的空元素)
     - [使用 overflow: hidden;](#使用-overflow-hidden)
 - [Cookies 和 Sessions](#cookies-和-sessions)
+- [隐藏页面元素的 CSS 方法](#隐藏页面元素的-css-方法)
 
 <!-- /TOC -->
 
@@ -1373,3 +1374,21 @@ cookie 不是很安全，可能被篡改；另外，HTTP 对 cookie 的数量和
 而 session 不易于在很多的服务器中进行共享。
 
 > 参考 [深入理解cookie与session](http://blog.csdn.net/j903829182/article/details/39855221)  [What is the difference between Sessions and Cookies in PHP?](https://stackoverflow.com/questions/6339783/what-is-the-difference-between-sessions-and-cookies-in-php)
+
+---
+
+## 隐藏页面元素的 CSS 方法
+
++ display: none; //不占据空间，无法点击
++ visibility: hidden; //占据空间，无法点击
++ opacity: 0; //占据空间，可以点击
+
+重点1: display:none 和 visibility: hidden 的区别
++ 前者不占据空间，后者占据空间
++ 前者隐藏产生 reflow 和 repaint，后者没有这个问题
++ 前者一旦父节点应用了 display: none，父节点和子孙节点无一幸免，后代元素无论怎样想尽办法都无能为力。虽然后者在父节点上应用 visibility:hidden，则其子孙后代也会全部不可见，但是一旦某个子孙元素应用 visibility: visible，则该子孙元素就显现出来了。
+
+重点2: visibility:hidden 和 opacity: 0的区别
++ 前者无法响应点击事件，后者可以。
+
+参考: [您可能不知道的CSS元素隐藏“失效”以其妙用](http://www.zhangxinxu.com/wordpress/2012/02/css-overflow-hidden-visibility-hidden-disabled-use/)
