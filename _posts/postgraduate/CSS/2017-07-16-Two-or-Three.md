@@ -367,6 +367,8 @@ flex 真的是非常方便，对于这种布局，跟普通的两栏是一致的
 
 ### 圣杯布局
 
+![圣杯布局](https://bitsofco.de/content/images/2016/03/Holy_Grail_CSS_Grid.gif)
+
 ```html
 <!DOCTYPE html>
 <html>

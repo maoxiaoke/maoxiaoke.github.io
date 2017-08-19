@@ -10,7 +10,7 @@
         btn.click(function(){
             $('body,html').animate({scrollTop:0},1000);
         });
-    })($('#gotop'));
+    })($('#gotop')); //回到顶部
   $(function () {
       orderTheLeftNavigations();
     function orderTheLeftNavigations(){

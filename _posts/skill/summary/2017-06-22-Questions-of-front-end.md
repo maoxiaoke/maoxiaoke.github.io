@@ -55,9 +55,6 @@ tag: Interview
 - [Bootstrap栅格系统](#bootstrap栅格系统)
 - [实现两栏布局](#实现两栏布局)
 - [实现三栏布局](#实现三栏布局)
-    - [flex实现](#flex实现)
-    - [传统方法实现](#传统方法实现)
-    - [双飞翼布局](#双飞翼布局)
 - [JavaScript为什么是单线程](#javascript为什么是单线程)
 - [从输入URL到页面加载发生了什么](#从输入url到页面加载发生了什么)
 - [进程和线程的区别](#进程和线程的区别)
@@ -82,6 +79,7 @@ tag: Interview
     - [使用 overflow: hidden;](#使用-overflow-hidden)
 - [Cookies 和 Sessions](#cookies-和-sessions)
 - [隐藏页面元素的 CSS 方法](#隐藏页面元素的-css-方法)
+- [设计一个点击回到顶部的方法](#设计一个点击回到顶部的方法)
 
 <!-- /TOC -->
 
@@ -732,284 +730,15 @@ Bootstrap提供了一套响应式、移动设备优先的流式栅格系统，�
 
 这里的两栏布局，指的是**左边定宽，右边自适应**。方法以是可以用浮动布局，然后用`margin-left`设定左边的距离。第二种方法是利用`flex`布局。
 
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>two rows</title>
-    <style media="screen">
-    /*
-      .body-wrap {
-        box-sizing: border-box;
-      }
-      .left{
-        width: 200px;
-        background: yellow;
-        float: left;
-      }
-      .right {
-        margin-left: 200px;
-        background: red;
-      }*/
-      .body-wrap {
-        display: flex;
-      }
-      .left{
-        flex: 0 1 100px;
-        background: yellow;
-      }
-      .right {
-        flex: 1;
-        background: red;
-      }
-      /*
-      body {
-        margin: 0px;
-        padding: 0px;
-      }
-      .left{
-        position: fixed;
-        width: 200px;
-        background: yellow;
-      }
-      .right {
-        margin-left: 200px;
-        background: red;
-      }*/
-    </style>
-  </head>
-  <body>
-    <div class="body-wrap">
-      <div class="left">
-        A
-      </div>
-      <div class="right">
-        B
-      </div>
-    </div>
+我有总结过，看这里。[两栏布局]({{ '/2017/07/16/Two-or-Three' | prepend: site.baseurl }})
 
-  </body>
-</html>
-```
 ---
 
 ## 实现三栏布局
 
 这里的三栏布局，指的是常见的一种网站布局。**左右两栏宽度固定，中间栏宽度自适应**。这种布局方式也称为**Holy Grail**(圣杯)布局。也就是下面的样子。
 
-![圣杯布局](https://bitsofco.de/content/images/2016/03/Holy_Grail_CSS_Grid.gif)
-
-有了`flex`，所以这个实现就变得很简单。
-
-### flex实现
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Holy Grail Layout</title>
-    <style media="screen">
-      body {
-        text-align: center;
-        margin: 0;
-        padding: 0;
-        min-width: 400px;
-      }
-      .header, .footer {
-        width: 100%;
-        clear: both;
-        height: 40px;
-        background: yellow;
-        line-height: 40px;
-      }
-      .body-wrap {
-        display: flex;
-      }
-      .center {
-        order: 0;
-        flex: 1;
-        background:  orange;
-      }
-      .left {
-        order: -1;
-        flex: 0 0 100px;
-        background: red;
-      }
-      .right {
-        order: 1;
-        flex: 0 0 12em;
-        background:  green;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="header">Header</div>
-    <div class="body-wrap">
-      <div class="center">
-        Center
-      </div>
-      <div class="left column">
-        Left
-      </div>
-      <div class="right column">
-        right column
-      </div>
-    </div>
-    <div class="footer">
-      footer
-    </div>
-  </body>
-</html>
-```
-
-当然，我们也可以使用传统方法实现。
-
-### 传统方法实现
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Holy Grail Layout</title>
-    <style media="screen">
-      body {
-        text-align: center;
-        margin: 0;
-        padding: 0;
-        min-width: 400px;
-      }
-      .header, .footer {
-        width: 100%;
-        clear: both;
-        height: 40px;
-        background: yellow;
-        line-height: 40px;
-      }
-      .body-wrap {
-      padding-left: 100px;
-      padding-right: 200px;
-      box-sizing: border-box;
-     }
-      .center {
-      width: 100%;
-      float: left;
-      background-color: #b3d1c1;
-      }
-      .left {
-      float: left;
-      width: 100px;
-      margin-left: -100%;
-      position: relative;
-      right: 100px;
-      background-color: #e57b85;
-      }
-      .right {
-      float: left;
-      width: 200px;
-      margin-left: -200px;
-      position: relative;
-      left: 200px;
-      background-color: red;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="header">Header</div>
-    <div class="body-wrap">
-      <div class="center column">
-        Center
-      </div>
-      <div class="left column">
-        Left
-      </div>
-      <div class="right column">
-        right column
-      </div>
-    </div>
-    <div class="footer">
-      footer
-    </div>
-  </body>
-</html>
-```
-
-值得注意的是，中间栏我们放在流式布局的最开始。
-
-### 双飞翼布局
-
-如果我们使用传统的方法来实现圣杯布局，它使用了相对定位，以后的布局就有局限性。双飞翼布局是增加一个`<div>`就可以不使用相对定位了。
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Holy Grail Layout</title>
-    <style media="screen">
-      body {
-        text-align: center;
-        margin: 0;
-        padding: 0;
-        min-width: 400px;
-      }
-      .header, .footer {
-        width: 100%;
-        clear: both;
-        height: 40px;
-        background: yellow;
-        line-height: 40px;
-      }
-      .body-wrap {
-      box-sizing: border-box;
-     }
-      .center {
-      width: 100%;
-      float: left;
-      background-color: #b3d1c1;
-      }
-      .center .inner {
-        margin-left: 100px;
-        margin-right: 200px;
-      }
-      .left {
-      float: left;
-      width: 100px;
-      margin-left: -100%;
-      background-color: #e57b85;
-      }
-      .right {
-      float: left;
-      width: 200px;
-      margin-left: -200px;
-      background-color: red;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="header">Header</div>
-    <div class="body-wrap">
-      <div class="center column">
-        <div class="inner">
-          Center
-        </div>
-      </div>
-      <div class="left column">
-        Left
-      </div>
-      <div class="right column">
-        right column
-      </div>
-    </div>
-    <div class="footer">
-      footer
-    </div>
-  </body>
-</html>
-
-```
+我有总结过，看这里。[三栏布局]({{ '/2017/07/16/Two-or-Three' | prepend: site.baseurl }})
 
 ---
 
@@ -1392,3 +1121,102 @@ cookie 不是很安全，可能被篡改；另外，HTTP 对 cookie 的数量和
 + 前者无法响应点击事件，后者可以。
 
 参考: [您可能不知道的CSS元素隐藏“失效”以其妙用](http://www.zhangxinxu.com/wordpress/2012/02/css-overflow-hidden-visibility-hidden-disabled-use/)
+
+---
+
+## 设计一个点击回到顶部的方法
+
+最简单的方法是直接使用 锚，但不是很好的方法。
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Scroll Top</title>
+  </head>
+  <style media="screen">
+    #btn {
+      position: fixed;
+      bottom: 0px;
+      right: 0px;
+      display: none;
+    }
+    .pictures {
+      max-width: 1190px;
+      margin: 0 auto;
+    }
+  </style>
+  <body>
+    <div class="pictures">
+      <img src="./1.png" alt="">
+      <img src="./1.png" alt="">
+      <img src="./1.png" alt="">
+    </div>
+    <div class="scrolltop">
+      <a href="#" id="btn" title="Return Top">Return Top</a>
+    </div>
+    <script type="text/javascript">
+      window.onload = function(){
+        var btn = document.getElementById('btn');
+        var timer = null;
+        var isTop = true;  //触发scroll 就停止
+
+        btn.onclick = function(event) {
+          event.preventDefault();   // 阻止链接的默认行为
+        };
+
+        var handler = function () {
+          var scrollHeight = document.documentElement.scrollTop || document.body.scrollTop; // 获得滚动条高度
+          if (scrollHeight >= 400){
+            btn.style.display = 'block';
+          }else {
+            btn.style.display = 'none';
+          }
+
+          if (!isTop) {
+              clearInterval(timer);
+          }
+          isTop = false;
+
+        }
+        window.addEventListener ("scroll", handler,false);
+        btn.addEventListener("click",function(){
+          timer = setInterval(function(){
+            var scro = document.documentElement.scrollTop || document.body.scrollTop;
+            var speed = Math.floor(-scro/4);
+            document.documentElement.scrollTop = document.body.scrollTop = scro + speed;
+
+            isTop = true;
+
+            if (scro == 0){
+              clearInterval(timer);
+            }
+          },100);
+        },false)
+      }
+    </script>
+  </body>
+</html>
+```
+
+此外，可以使用 jQuery 的 animate() 方法。就好比这样:
+
+```js
+(function (btn) {
+        $(window).scroll(function(){
+            if ($(window).scrollTop()>400){
+                btn.fadeIn(400);
+            } else {
+                btn.fadeOut(600);
+            }
+        });//按钮消失和出现
+        btn.click(function(){
+            $('body,html').animate({scrollTop:0},1000);
+        });
+    })($('#gotop')); //回到顶部
+```
+
+参考: [用Javascript实现回到顶部效果](http://www.cnblogs.com/foodoir/p/5885174.html)
+
+---
