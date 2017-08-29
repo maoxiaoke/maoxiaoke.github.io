@@ -166,7 +166,7 @@ sessionStorage 对象存储特定于某个会话的数据，该数据只保持�
 
 #### localStorage
 
-存储在 localStorage 中的数据保留到通过 JavaScript 删除或者是用户清除浏览器缓存。同时，要访问同一个 localStorage 对象，页面必须来自同一个域。
+存储在 localStorage 中的数据保留到通过 JavaScript 删除或者是用户清除浏览器缓存。同时，localStorage 支持同源策略。也就是说，要访问同一个 localStorage 对象，页面必须来自同一个域。
 
 同理，和其他客户端存储方案类似，Web Storage 也有大小限制，因浏览器而异。
 
@@ -174,4 +174,7 @@ sessionStorage 对象存储特定于某个会话的数据，该数据只保持�
 
 IndexedDB 是在浏览器中保存结构化数据的一种数据库。
 
-参考: 《JavaScript 高级程序设计》
+参考:
+
++ 《JavaScript 高级程序设计》
++ [What is the difference between localStorage, sessionStorage, session and cookies?](https://stackoverflow.com/questions/19867599/what-is-the-difference-between-localstorage-sessionstorage-session-and-cookies)
