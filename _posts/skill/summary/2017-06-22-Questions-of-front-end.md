@@ -960,7 +960,7 @@ var EventUtil = {
 
 我们要向所有的`<li>`添加事件，尤其是实际需求中，往往渲染出来的元素也需要监听事件。这种情况下，我们就可以实现一个事件代理，即通过`<ul>`去代理`<li>`的事件。
 
-使用的方法就是target属性，通过event这个对象将target传进去。这个属性永远指代最精确的那个对象(元素)。
+使用的方法就是target属性，通过 event 这个对象将 target 传进去。这个属性永远指代最精确的那个对象(元素)。
 
 ```js
 var ul = document.querySelector('ul');
@@ -970,6 +970,10 @@ ul.addEventLister("click", e => {
   }
 }, false);
 ```
+
+优点:
++ 减少处理时间，因为处理程序需要的 DOM 引用更少，所花的时间也更少
++ 整个页面占用的内存空间更少
 
 参考: [事件代理 delegate 的实现](https://zhuanlan.zhihu.com/p/27554181)  [手写事件模型及事件代理/委托](http://www.w3cmark.com/2016/439.html)  [JavaScript事件委托原理&实现](JavaScript事件委托原理&实现)
 

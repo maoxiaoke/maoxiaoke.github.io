@@ -350,6 +350,350 @@ ReactDOM.render(
 
 ## this
 
-在 JavaScript，class 内部的方法并不会默认绑定。所以，通常会使用 `bind()` 进行强绑定。
+在 JavaScript，class 内部的方法并不会默认绑定(`this` 的绑定丢失情况)。所以，通常会使用 `bind()` 进行强绑定。有三种方法可以解决:
+
+1. 在 `constructor()` 使用 `bind()` 进行强制绑定。
+```js
+constructor(props){
+  super(props);
+  ...
+  this.foo = this.foo.bind(this);
+}
+foo() {
+  //...
+}
+```
+2. 使用 ES7 的新语法，这种规避方法是因为 `=>` 的 `this` 指向包裹它的函数。
+```js
+foo = ()=>{
+  //...
+}
+```
+3. 这种方法和 2 是一致的，只不过是在回调阶段使用 `=>`。
+```js
+reder() {
+  return (
+    <button onClick={(e)=>this.foo(e)}>
+  )
+};
+```
 
 ---
+
+## Todo-list
+
+最终的效果图如下:
+
+![todo-list]({{ '/styles/images/react/todolist.png' | prepend: site.baseurl }})
+
+材料：
++ 脚手架工具 访问[React+Webpack+ES6+JSX 脚手架工具]({{ '/2017/08/20/React-Second' | prepend: site.baseurl }}) 或者 [`github` 主页](https://github.com/maoxiaoke/react-webpack-es6-jsx)
++ Sass
++ Bootstap
+
+### 组件分割
+
+为了合成一个 `<TodoList />` 组件，我们将组件分割成
+1. `<TodoForm />` ，由 `<input>` 输入框和 `<submit>` 按钮组成
+2. `<ItmesList />` 构成 lists
+
+### 入口文件
+
+入口文件 `app.js` 引入 `ReactDOM.render()` 进行渲染。
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TodoList from './components/TodoList.jsx';
+import './css/style.scss';
+
+ReactDOM.render(
+    <TodoList />,
+    document.getElementById('app')
+);
+```
+
+### 父组件 TodoList.jsx
+
+```js
+//TodoList.jsx
+import React from 'react';
+import TodoForm from './TodoForm.jsx';
+import ItemsList from './ItemsList.jsx';
+
+export default class TodoList extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            items:[
+                'yuer love xiaoke',
+                'xiaoke love yuer'
+            ]
+        };
+        this.addItem = this.addItem.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
+    }
+    addItem (item) {
+        let newItems = this.state.items;
+        newItems.push(item);
+        this.setState({item: newItems});
+    }
+    deleteItem (idx) {
+        let newItems = this.state.items;
+        newItems.splice(idx,1);
+        this.setState({item: newItems});
+    }
+
+    render(){
+        return (
+            <div className="main">
+                <div className="todo-list">
+                    <h1>To-Do <small>List</small></h1>
+                    <TodoForm submitAction={this.addItem} />
+                    <ItemsList items={this.state.items} clickAction={this.deleteItem} />
+                </div>
+            </div>
+        )
+    }
+}
+```
+
+### 子组件 TodoForm.jsx
+
+```js
+//TodoForm.jsx
+import React from 'react';
+
+export default class TodoForm extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {task:''};
+        this.updateText = this.updateText.bind(this);
+        this.submitForm = this.submitForm.bind(this);
+    }
+
+    updateText (e){
+        this.setState({task:e.target.value});
+    }
+    submitForm (e){
+        e.preventDefault();
+        let item = e.target[0].value;
+
+        if(!item) {
+            alert('Please enter a task');
+        }else {
+            this.props.submitAction(item);
+            this.setState({task: ''});
+        }
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.submitForm} className="todo-form">
+                <input type="text" className="form-control" placeholder="enter task" onChange={this.updateText} value={this.state.task} />
+                <input type="submit" className="btn btn-primary self-btn" />
+            </form>
+        );
+    }
+
+}
+```
+
+### 子组件 ItemsList.jsx
+
+```js
+//ItemsList.jsx
+import React from 'react';
+
+export default class ItemsList extends React.Component {
+    render() {
+        let listItems = this.props.items.map((item,i) => {
+            return (
+                <li key={i}>
+                    <div className="text">{item}</div>
+                    <button onClick={this.props.clickAction.bind(this,i)} className="btn btn-danger">Del</button>
+                </li>
+            );
+        });
+        return <ul>{listItems}</ul>
+    }
+}
+```
+
+### 敲黑板，父子组件的通信
+
+在我们的上面的父子组件中，涉及到父子组件的通信。组件 `<TodoForm />` 每添加一个 todo，就要传回 `<TodoList />`，再由 `<ItemsList />` 显示出来。
+
+思路是这样的:
+
++ 父组件可以向子组件传递 props, props 带有初始化子组件的数据或者回调函数。
++ 子组件的 state 发生变化时，在子组件的事件处理函数中，手动触发父函数传递进来的回调函数，同时将子组件的数据传递出去。
+
+也就是说，父子组件的通信是通过 `props` 和 `state` 来完成的。
+
+我们仔细看一下父组件的代码:
+
+```js
+//TodoList.jsx
+render(){
+        return (
+            <div className="main">
+                <div className="todo-list">
+                    <h1>To-Do <small>List</small></h1>
+                    <TodoForm submitAction={this.addItem} />
+                    <ItemsList items={this.state.items} clickAction={this.deleteItem} />
+                </div>
+            </div>
+        )
+    }
+```
+
+对于，`<TodoForm />` 我们传递了一个 `submitAction` 函数(submitAction 实际上是 addItem 的一个引用)。向 `<ItemList />` 传递了一个 `items` 数组 和一个 `clickAction` 函数。这样，这些内容都可以被 props 捕获。我们可以用 `console.log(props)` 验证一下。
+
+在 `TodoForm.jsx` 加入:
+
+```js
+constructor(props){
+        super(props);
+        this.state = {task:''};
+        this.updateText = this.updateText.bind(this);
+        this.submitForm = this.submitForm.bind(this);
+        // add this
+        console.log(props); /*{submitAction: ƒ}*/
+    }
+```
+
+在 `ItemsList.jsx` 加入:
+
+```js
+//add this
+constructor(props){
+        super(props);
+        console.log(props);/*{items: Array(2), clickAction: ƒ}*/
+    }
+```
+
+那么，子组件怎么向父组件通信呢。这里，只存在 `<TodoForm />` 向 `<TodoList />` 通信，也就是当我们点击提交按钮的时候，`<TodoForm />` 应该将保存在自己 state 的内容传回 `<TodoList />`。
+
+```js
+//TodoForm.jsx
+submitForm (e){
+        e.preventDefault();
+        let item = e.target[0].value;
+
+        if(!item) {
+            alert('Please enter a task');
+        }else {
+            this.props.submitAction(item);  //通过回调函数传递参数给父组件
+            this.setState({task: ''});
+        }
+    }
+```
+
+### 敲黑板，处理列表 `<li>`
+
+使用 `map()` 函数。
+
+在我们的 `<ItemsList />` 是一个基本的 List Component。
+
+```js
+//ItemsList.jsx
+import React from 'react';
+export default class ItemsList extends React.Component {
+    render() {
+        let listItems = this.props.items.map((item,i) => {
+            return (
+                <li key={i}>
+                    <div className="text">{item}</div>
+                    <button onClick={this.props.clickAction.bind(this,i)} className="btn btn-danger">Del</button>
+                </li>
+            );
+        });
+        return <ul>{listItems}</ul>
+    }
+}
+```
+
+根据我们前面所解释的，`this.props.items` 初始状态是 `['yuer love xiaoke', 'xiaoke love yuer']`。也就是说，我们对这两个数组元素进行遍历，很简单，正常的 `map()` 函数是这样的:
+
+```js
+let listItems = this.props.items.map((item) =>{//...});
+```
+
+也就是说，这里平白出现的 `i` 和 `key` 属性是什么呢。`key` 是一个特殊的属性，用来帮助 React 辨认哪些项改变了、添加了、删除了。
+
+当然，最好的方法是父组件传递过来一个 `object`，使用自定义唯一的 `id` 标识。但是我们如果没有这个 `id`，你可以像我们的例子中这样使用。
+
+`key` 必须是 唯一的，唯一的意思指的是同属的 `<li>` 之间唯一，并不要求 globally 唯一。
+
+### 敲黑板，受控组件
+
+Controlled component，在 HTML 中，表单元素比如 `<input>` 、`<textarea>` 和 `<select>` 元素会根据用户输入维持并更新自己的状态。但是在 React 中，只能用 `setState()` 更新。在 `<TodoForm />` 中，我们就是这样处理的。
+
+```js
+//TodoForm.jsx
+import React from 'react';
+
+export default class TodoForm extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {task:''}; //look here
+        this.updateText = this.updateText.bind(this);
+        this.submitForm = this.submitForm.bind(this);
+    }
+
+    updateText (e){
+        this.setState({task:e.target.value}); //处理改变
+    }
+    submitForm (e){
+        e.preventDefault();
+        let item = e.target[0].value;
+
+        if(!item) {
+            alert('Please enter a task');
+        }else {
+            this.props.submitAction(item);
+            this.setState({task: ''});
+        }
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.submitForm} className="todo-form">
+                <input type="text" className="form-control" placeholder="enter task" onChange={this.updateText} value={this.state.task} />
+                <input type="submit" className="btn btn-primary self-btn" />
+            </form>
+        );
+    }
+
+}
+```
+
+`<input>` 元素设置了 `value` 属性，值一直都是 `this.state.task`。每次按键都会触发 `updateText` 函数，所以展示的值也会随着用户输入而更新。
+
+### 引入 Bootstrap
+
+为了非常非常简单，我们是直接在 `index.html` 引入 bootstrap。
+
+```html
+<!--index.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <title>todo-list</title>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+</html>
+```
+
+### Github 地址
+
+在这里:
+
+[todoList](https://github.com/maoxiaoke/React-es6-demo/tree/master/todoList)
