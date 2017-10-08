@@ -81,6 +81,37 @@ tag: Interview
 - [隐藏页面元素的 CSS 方法](#隐藏页面元素的-css-方法)
 - [设计一个点击回到顶部的方法](#设计一个点击回到顶部的方法)
 - [稳定排序和不稳定排序](#稳定排序和不稳定排序)
+- [移动端和 pc 端的区别归纳](#移动端和-pc-端的区别归纳)
+        - [click 和 touch 事件](#click-和-touch-事件)
+        - [需要设置 viewport](#需要设置-viewport)
+        - [rem/em](#remem)
+        - [-webkit-appearance: none](#-webkit-appearance-none)
+        - [手机端字体显示](#手机端字体显示)
+        - [iphone6 和 iphone 6s 的三倍屏](#iphone6-和-iphone-6s-的三倍屏)
+        - [设备分界点的阈值](#设备分界点的阈值)
+        - [最小点击区域](#最小点击区域)
+        - [一像素边框的问题](#一像素边框的问题)
+        - [一行和多行文本溢出](#一行和多行文本溢出)
+        - [Tap 事件和点透问题](#tap-事件和点透问题)
+- [CSS3 新特性](#css3-新特性)
+    - [弹性盒 flex](#弹性盒-flex)
+    - [边框](#边框)
+        - [border-radius](#border-radius)
+        - [box-shadow](#box-shadow)
+        - [border-image](#border-image)
+    - [CSS3 背景](#css3-背景)
+        - [background-size](#background-size)
+        - [background-origin](#background-origin)
+    - [CSS3 文本和字体](#css3-文本和字体)
+        - [text-shadow](#text-shadow)
+        - [text-wrap](#text-wrap)
+        - [@font-face](#font-face)
+    - [CSS3 transform](#css3-transform)
+    - [CSS3 transition](#css3-transition)
+    - [CSS3 @keyframes](#css3-keyframes)
+    - [CSS3 文本多列](#css3-文本多列)
+    - [box-sizing](#box-sizing)
+- [HTML5 的 history API](#html5-的-history-api)
 
 <!-- /TOC -->
 
@@ -273,7 +304,7 @@ html5文档的声明如下:
 
 #### 渲染优化
 
-+ HTML使用Viewport -- <meta name="viewport" content="width=device-width, initial-scale=1">
++ HTML使用Viewport -- `<meta name="viewport" content="width=device-width, initial-scale=1">`
 + 减少DOM节点
 + 尽量使用CSS3动画
 + 合理使用requestAnimationFrame动画代替setTimeout
@@ -452,10 +483,8 @@ CSRF的防御可以从服务端和客户端两方面着手，防御效果是从�
 
 虽然”块级“在新的 HTML5 元素中没有明确定义
 
-`<article>  <aside>  <audio>  <canvas>  <figcaption>  <figure>  <footer>  <header>  <hgroup>  <output>   <section>  <video> `(html5)
-
-
-`<blockquote> <address> <dd> <div> <dl> <fieldset> <form> <h1>, <h2>, <h3>, <h4>, <h5>, <h6> <hr> <noscript> <ol> <p> <pre> <table> <tfoot> <ul>`
++ article, aside, audio, canvas, figcaption, figure, footer, header, hgroup, output, section, video
++ blockquote, address, dd, div, dl, fieldset, form, h1, h2, h3, h4, h5, h6, hr, noscript, ol, p, pre, table, tfoot, ul
 
 ---
 
@@ -972,6 +1001,7 @@ ul.addEventLister("click", e => {
 ```
 
 优点:
+
 + 减少处理时间，因为处理程序需要的 DOM 引用更少，所花的时间也更少
 + 整个页面占用的内存空间更少
 
@@ -1118,11 +1148,13 @@ cookie 不是很安全，可能被篡改；另外，HTTP 对 cookie 的数量和
 + opacity: 0; //占据空间，可以点击
 
 重点1: display:none 和 visibility: hidden 的区别
+
 + 前者不占据空间，后者占据空间
 + 前者隐藏产生 reflow 和 repaint，后者没有这个问题
 + 前者一旦父节点应用了 display: none，父节点和子孙节点无一幸免，后代元素无论怎样想尽办法都无能为力。虽然后者在父节点上应用 visibility:hidden，则其子孙后代也会全部不可见，但是一旦某个子孙元素应用 visibility: visible，则该子孙元素就显现出来了。
 
 重点2: visibility:hidden 和 opacity: 0的区别
+
 + 前者无法响应点击事件，后者可以。
 
 参考: [您可能不知道的CSS元素隐藏“失效”以其妙用](http://www.zhangxinxu.com/wordpress/2012/02/css-overflow-hidden-visibility-hidden-disabled-use/)
@@ -1238,3 +1270,272 @@ cookie 不是很安全，可能被篡改；另外，HTTP 对 cookie 的数量和
 + 希尔排序: 不稳定
 + 堆排序: 不稳定
 
+---
+
+## 移动端和 pc 端的区别归纳
+
+#### click 和 touch 事件
+
+移动端使用 touch 来代替 click 事件。触发的步骤是: touchstart -> touchmove -> touchend。而移动端并不是不能响应 click 事件，正常情况下，也就是说当用手去触碰屏幕时，要过 300ms 左右才会触发 mousedown 事件。也就是表现过来，移动页面的 click 反应比 pc 端要慢上 300 毫秒左右。这样设计的目的是，在移动端上 **双击**代表放大页面，为了确认用户是单击还是双击，因此有了这黄金 300ms。
+
+#### 需要设置 viewport
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
++ content = "width=device-width" 表示 viewport 宽度是 设备宽度。
++ initial-scale=1.0 来控制屏幕全屏显示，且不被缩放。
+
+#### rem/em
+
+rem 相对于文档的 根元素(html) 的 font-size。相对于父元素的 font-size。
+
+#### -webkit-appearance: none
+
+iphone 上 submit 的按钮 bug。iphone 上的控件 `<button>、<input>` 之类的。若不写 `-webkit-appearance: none`，就是做好了控件的样式，iphone 还是会使用自身默认的样式。
+
+#### 手机端字体显示
+
+iphone 上最小字体显示可以显示 10px，安卓大部分手机由于不是高清显示屏，像素不够只能最小显示 12px 的字体。
+
+#### iphone6 和 iphone 6s 的三倍屏
+
+则尺寸需要按照设计稿的 三分之一 进行计算；如果是两倍屏，比如 iphone 5，就按照设计稿尺寸的 二分之一 计算。
+
+#### 设备分界点的阈值
+
+按照 Bootstrap，分为 576px、768px、992px、1200px。写法:
+
+```css
+@media screen and (min-width: 992px) and (max-width: 1199){
+  /*...*/
+}
+```
+
+#### 最小点击区域
+
+移动端由最小点击识别区，即为 44px*44px。元素大小低于这个值被点击是不会触发 click 事件的。
+
+#### 一像素边框的问题
+
+一像素边框的问题也是由于 iphone 的二倍/三倍屏 造成的，使得一像素的边框用2倍渲染，造成视觉上不太像 1px 边框的样子。我们无法设置 boder-width 的边框设置为 0.5px，浏览器不会支持。所以对于我们设计的目的，就是希望通过什么方式把 1px 的缩放到 0.5px。可以是用 `transform` 属性。
+
+```css
+div{
+    height:1px;
+    background:#000;
+    -webkit-transform: scaleY(0.5);
+    -webkit-transform-origin:0 0;
+    overflow: hidden;
+}
+```
+
+#### 一行和多行文本溢出
+
+一行文本溢出:
+
+```css
+.oneline{
+overflow:hidden;
+white-space:nowrap;
+text-overflow: ellipsis;
+```
+
+多行文本溢出:
+
+```css
+.multiline{
+display:-webkit-box !important;
+overflow:hidden;
+
+text-overflow:ellipsis;
+word-break:break-all;
+
+-webkit-box-orient:vertical;
+-webkit-line-clamp:2;
+}
+```
+
+#### Tap 事件和点透问题
+
+在 touchstart、touchend 时记录时间、手指位置，并进行比较，如果手指位置为同一位置（或允许移动一个非常小的位移值）且时间间隔较短（一般认为是200ms），且过程中未曾触发过 touchmove，即可认为触发了手持设备上的 click，一般称它为 tap 事件。tap 事件的点透问题也是因为 click 事件在移动端的 300ms 左右的延迟引发的。在蒙层触发 tap 事件之后，蒙层如果消失，随后 click 就会触发被蒙层遮盖的下方的可以响应 click 事件的元素。
+
++ 使用缓动动画，过渡 300ms 的延迟
++ 都使用 `tap` 事件，避免使用 `click` 事件。
++ 或者在蒙层监听 `touchend` 时添加 `e.preventDefault()` 取消 click 事件。
+
+参考:
+
++ [Hello，移动WEB](http://www.imooc.com/learn/494)
++ [移动端前端开发与PC端比有哪些不同？](https://www.zhihu.com/question/34364365)
++ [移动web 1像素边框 瞧瞧大公司是怎么做的](https://segmentfault.com/a/1190000007604842)
++ [移动端的touch click事件的理解+点透](http://www.jianshu.com/p/dc3bceb10dbb)
++ [移动端页面开发，到底用Click多还是Touch事件多？](https://segmentfault.com/q/1010000008376883?_ea=1643695)
+
+---
+
+## CSS3 新特性
+
+### 弹性盒 flex
+
+### 边框
+
+#### border-radius
+
+添加圆角边框。
+
+```css
+div {
+  border: 1px solid;
+  border-radius: 30px;
+  /*border-radius: 10px 15px 20px 30px / 20px 30px 10px 15px*/
+}
+```
+
+设置顺序分别是左上、右上、右下、左下的逆时针顺序。`/` 分割水平半径和垂直半径。
+
+#### box-shadow
+
+边框阴影。语法:
+
+```css
+{
+  box-shadow: [inset] x-offset y-offset blur-radius extension-radius spread-radiuscolor;
+}
+```
+
+分别是: [投影方式(内投影/外投影)] 水平偏移量 垂直偏移量 阴影模糊半径 阴影扩展半径 阴影颜色
+
+#### border-image
+
+添加边框图片。
+
+### CSS3 背景
+
+#### background-size
+
+更改背景的尺寸。
+
+#### background-origin
+
+规定背景图片的定位区域，包括 content-box、padding-box、border-box。
+
+### CSS3 文本和字体
+
+#### text-shadow
+
+给文本添加阴影。分别是水平阴影、垂直阴影、模糊距离以及阴影的颜色。
+
+```css
+{
+  text-shadow: 5px 5px 5px #FF0000;
+}
+```
+
+#### text-wrap
+
+设置区域内的自动换行。
+
+#### @font-face
+
+可以添加自定义字体。
+
+### CSS3 transform
+
++ translate(x,y): 元素根据给定的 x 和 y 值在水平和垂直方向移动。x 正值向右移动，y 正值向下移动。
++ rotate(): 控制元素顺时针旋转给定的角度。为正值，元素顺时针旋转。
++ scale(): 根据给定的宽度 (X轴) 和高度 (Y轴)，控制元素的尺寸的增加，减少。
++ skew(): 根据给定的水平线 (X轴) 和垂直线 (Y轴) 设置元素翻转给定的角度。
++ matrix(): 把所有 2D 转换方法组合在一起。
++ rotateX(): 3D 转换绕 x 轴以给定度数进行旋转。
++ rotateY(): 3D 转换绕 y 轴以给定度数进行旋转。
+
+### CSS3 transition
+
+为元素添加过渡效果。语法:
+
+```css
+{
+  transition : transition-property | transition-duration | transition-timing-function | transition-delay;
+}
+```
+
+transition 是四个属性的简写方式:
+
++ transition-property: 规定应用过渡的 CSS 属性的名称
++ transition-duration: 过渡花费的时间
++ transisition-timing-function: 规定过渡的时间曲线。默认是 ease
++ transisition-delay: 规定过渡效果何时开始。默认是 0
+
+### CSS3 @keyframes
+
+通过 @keyframes 规则来创建动画。动画属性是 animation，是除了 animation-play-state 属性所有动画属性的简写方式。语法:
+
+```css
+{
+  animation : animation-name | animation-duration | animation-timing-function | animation-delay | animation-iteration-count | animation-direction
+}
+```
+
+分别是:
+
++ animation-name: @keyframes 动画的名称
++ animation-duration: 规定动画完成一个周期所花费的秒或毫秒
++ animation-timing-function: 规定动画的速度曲线。默认是 ease
++ animation-delay: 规定动画何时开始。默认是 0
++ animation-iteration-count: 规定动画被播放的次数。默认是 1
++ animation-direction: 规定动画是否在下一周期逆向地播放。默认是 normal
+
+animation-play-state 属性规定动画正在运行或暂停。默认是 running"。
+
+举例:
+
+```css
+@keyframes myfirst{
+  from {background: red;}
+  to {background: yellow;}
+  /*
+  0%   {background: red;}
+  25%  {background: yellow;}
+  50%  {background: blue;}
+  100% {background: green;}
+  */
+}
+div{
+  animation: myfirst 5s;
+}
+```
+
+### CSS3 文本多列
+
+column-count 属性规定元素应该被分隔的列数。
+
+column-gap 属性规定列之间的间隔。
+
+column-rule 属性设置列之间的宽度、样式和颜色规则。
+
+### box-sizing
+
+参考: 
+
++ [CSS3 新特性学习](http://www.jianshu.com/p/d61bf4f36235)
++ [10 CSS3 Properties you Need to be Familiar With](https://code.tutsplus.com/tutorials/10-css3-properties-you-need-to-be-familiar-with--net-16417)
+
+---
+
+## HTML5 的 history API
+
+ajax 可以实现页面的无刷新操作，但是也造成了另外的问题，就是无法前进和后退。举个例子，视频下面的评论而言，使用 ajax 是非常合适的，但是，在翻到十几页的时候，你发现一个写得稍长，但非常有趣的评论。正当你想要停下滚轮细看的时候，手残按到了F5。然后，页面刷新了，评论又回到了第一页，所以你又要重新翻一次。
+
+所以，HTML5 history API 就是为了解决这一问题而提出来的。包括两个方法: `history.pushState()` 和 `history.replaceState()`，还有一个事件 `window.onpopstate`。
+
+`history.pushState(stateObject, title, url)`，该方法新生成一条历史纪录，方便用浏览器的后退和前进来导航。
+`history.replaceState()` 和 `history.pushState()` 方法基本相同，区别就是前者不会生成历史纪录，而是将当前历史记录替换掉。
+
+上述两个方法通常搭配 `popstate` 来使用，该事件再浏览器取出历史记录并加载时触发。
+
+参考：
+
++ [HTML5 history API，创造更好的浏览体验](https://segmentfault.com/a/1190000002447556)
++ [ajax与HTML5 history pushState/replaceState实例](http://www.zhangxinxu.com/wordpress/2013/06/html5-history-api-pushstate-replacestate-ajax/)

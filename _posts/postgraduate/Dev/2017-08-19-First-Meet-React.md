@@ -590,6 +590,12 @@ submitForm (e){
     }
 ```
 
+### 敲黑板，子组件间的通信
+
+为了实现子组件间的通信，React 使用 State 提升，将需要共享的 state 提升到最近共同的祖先组件。
+
+上面的例子中，我们需要将新建的 todo，传递给 `<ItemsList />`，而新建的 todo 是 `<TodoForm />` 中的 state。所以，state 先传递给父组件 `<TodoList />`。
+
 ### 敲黑板，处理列表 `<li>`
 
 使用 `map()` 函数。

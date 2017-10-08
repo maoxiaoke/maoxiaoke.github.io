@@ -14,6 +14,10 @@ abbr {text-decoration: none;}
 <li><a href="http://www.jstips.co/" target="_blank"><abbr title="每天提供一个JavaScript小tip">JS TIPS</abbr></a></li>
 <li><a href="http://javascript-puzzlers.herokuapp.com/" target="_blank"><abbr title="也许你并不太懂JavaScript">JavaScript Puzzlers!</abbr></a></li>
 <li><a href="https://jsperf.com/" target="_blank"><abbr title="js性能测试网站">js perf</abbr></a></li>
+<li><a href="http://ecma-international.org/ecma-262/5.1/" target="_blank">ES5 标准协议</a></li>
+<li><a href="http://yanhaijing.com/es5/#about" target="_blank">ES5 标准协议(中文译本)</a></li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/" target="_blank">ES6 标准协议</a></li>
+
 <!--js库-->
 <li><a href="https://threejs.org/" target="_blank">three.js</a></li>
 <li><a href="http://www.jq22.com/" target="_blank">jQuery 插件库</a></li>
@@ -46,6 +50,7 @@ abbr {text-decoration: none;}
 <li><a href="http://www.dcloud.io/docs/api/index.shtml" target="_blank">HTML5+ API Reference</a></li>
 <li><a href="http://cssreference.io/" target="_blank">cssreference.io</a></li>
 <li><a href="http://htmlreference.io/" target="_blank">htmlreference.io</a></li>
+<li><a href="http://screensiz.es/" target="_blank">Screen Siz.es</a></li>
 <li><a href="http://css.doyoe.com/" target="_blank">CSS 参考手册</a></li>
 <li><a href="https://isux.tencent.com/css3/index.html" target="_blank">CSS 动画手册</a></li>
 <!--CSS库/资源-->
