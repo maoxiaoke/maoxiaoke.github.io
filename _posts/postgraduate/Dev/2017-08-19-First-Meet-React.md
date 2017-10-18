@@ -10,13 +10,33 @@ tag: React
 
 > A JAVASCRIPT LIBRARY FOR BUILDING USER INTERFACES. [来源](https://facebook.github.io/react/)
 
-React 就是定义用户界面的 UI 库。有什么特点呢:
+React 就是定义用户界面的 UI 库。
 
-+ 使用可管理的小型组件构造出一个强大的应用。
-+ 不需要花费时间寻找 DOM 节点，而是去维护应用的状态。
-+ 代码更偏向于 声明式。
+接着，我们要从**更高的一个立意**来理解 React。很自然的对比，就是 `jQuery vs React`。在使用 jQuery 时，设计的理念是*通过 CSS 规则找到一个元素，然后操纵这个节点做一些事情*，这是个非常容易理解的理念。但是，打一个比方，我们将一个应用比作建房子。那么如果使用 jQuery，就意味着你必须事无巨细地告诉它“如何去做”，这是很累的，因为 jQuery 是一个没有文化的建筑工人。
+
+**React 专注于 view 层**。 它提供一个新的思维方式，就是关注**视图层的渲染**，将*如何去做*转变为*想要显示什么*。有一个公式可以表现：
+
+<p align="center"><i>UI</i> = render(data)</p>
+
+> 这里的 `render()` 应该是个 **纯函数**，这是个函数式编程的概念。只接收 data，然后进行用户界面的渲染。
+
+所以，想要更新 UI，要做的就是更新 data，对应的就是 React 中的 state 的概念。
 
 <!-- more -->
+
+就像这样：
+
+![jquery-style-vs-react-style]({{ '/styles/images/react/jquery-style-vs-react-style.png' | prepend: site.baseurl }})
+
+> 图片来源: <http://mateoclarke.com/blog/2015/08/26/what-i-learned-react/>
+
+综上，React 有什么特点呢?
+
++ 利用响应式 ([Reactive programming](https://en.wikipedia.org/wiki/Reactive_programming)) 思维来解决 UI 渲染的问题，代码偏向于声明式 (declarative)。
++ 使用可管理的小型组件构造出一个强大的应用。
++ 不需要花费时间寻找 DOM 节点，而是去维护应用的状态。
+
+而如何进行快速渲染，才提出了 Virtual DOM 和 diff 算法。这是一种解决途径，view 层渲染才是目的。好了，在理解这些的基础上，我们可以开始 React 的介绍了。
 
 ## Hello World
 
