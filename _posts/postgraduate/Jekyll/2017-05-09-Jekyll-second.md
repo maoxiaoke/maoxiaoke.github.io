@@ -34,7 +34,7 @@ tags:
 
 + `YAML`官方文档: [http://www.yaml.org/](http://www.yaml.org/)
 + `YAML` wiki百科: [https://zh.wikipedia.org/wiki/YAML](https://zh.wikipedia.org/wiki/YAML)
-+ 廖雪峰博客: [http://www.ruanyifeng.com/blog/2016/07/yaml.html?f=tt](http://www.ruanyifeng.com/blog/2016/07/yaml.html?f=tt)
++ 阮一峰博客: [http://www.ruanyifeng.com/blog/2016/07/yaml.html?f=tt](http://www.ruanyifeng.com/blog/2016/07/yaml.html?f=tt)
 
 当然，这之后还需要在我们的页面中添加这个多个标签。以我的博客为例，我的标签是放在首页(`index.html`)。
 
