@@ -247,7 +247,9 @@ ReactDOM.render() **是渲染 React 元素的方法**。上面就是我们渲染
 
 ## 组件 -- Components
 
-组件是什么东西，很好理解，其实就是用来 *可重用* 的视图。从 React 的角度来讲，组件类似于 JavaScript 的 函数。接收 `props` 参数，返回一个 React 元素。
+> Components let you split the UI into independent, reusable pieces, and think about each piece in isolation<sup>[来源](https://reactjs.org/docs/react-component.html)</sup>.
+
+组件是什么，其实就是用来 *可重用* 的视图。从 React 的角度来讲，组件类似于 JavaScript 的 函数。接收 `props` 参数，返回一个 React 元素。
 
 简单写法:
 
@@ -350,14 +352,105 @@ ReactDOM.render(
 + 在 `tick()` 函数内部，通过 `setState()` 来更新 UI，React 知道 state 已经改变。然后再次调用 `render()` 函数。这时候的 `this.state.date` 已经不同了，相对应地 React 更新 DOM。
 + 如果 Clock 组件从 DOM 移除了，React 调用 `componentWillUnmount()` 钩子，然后清除定时器。
 
-除了上面提到的两个生命周期钩子，我们还有来总结一下。
+至此，我们来总结一下：
 
-+ `componentWillUpdate()` 当组件再次渲染时，在 `render()` 方法前调用(在组件的 props 或 state 发生改变时也会触发该方法)。
-+ `componentDidUpdate()` 在 render() 函数执行完毕，且更新的组件已被同步到 DOM 后立即调用。该方法不会在初始化渲染时触发。
-+ `componentWillMount()` 在新节点插入 DOM 结构之前触发。
-+ `componentDidMount()` 在新节点插入DOM 结构之后触发。
-+ `componentWillUnmount()` 在组件从 DOM 中移除时立刻触发。
-+ `shouldComponentUpdate(newProps, newState)` 这个方法在 componentWillUpdate() 之前触发，给你一个机会返回 false 以取消更新组件，也就是 render() 方法将不会被调用。
+React 组件的声明周期会经历三个过程：**Mounting**、**Updating** 和 **Unmounting**。
+
+### Mounting
+
+在 Mounting 阶段，组件的实例被创建，并插入到 DOM 当中。以下声明周期函数会被**依次**调用：
+
++ `constructor(props)` --- 构造器是 ES6 Class 的一个语法。`super(props)` 会先被调用，否则在 constructor 中 this.props 会得到 `undefined`。
+
+并不是所有的组件都需要 constructor，比如*无状态组件*。目的在于：
+
+1. 初始化 state
+2. 绑定 this
+
+在使用 `React.createClass()` 方法来创建组件类的时候，是需要 `getDefaultProps()` 和 `getInitialState()`。前者的返回值作为 props 的初始值，ES6 中被 `defaultProps`属性替代；后者的返回值用来用来初始化 this.state，ES6 中被 constructor 通过给 this.state 直接赋值替代。即：
+
+```js
+class Clock extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {date: new Date()};
+      }
+}
+Clock.defaultProps = {
+    return {data: new Date()};
+}
+```
+`React.createClass()` 已经逐渐被官方抛弃，所以，请跟随时代。
+
++ `componentWillMount()` --- mounting 发生前一刻，即 `render()` 前一刻立即被调用。
+
+所以，这个时候调用 this.setState() 修改状态也不会引发重新绘制。也因此这个钩子也没有很大的作用，很多事情都可以放到 constructor 去完成。
+
+此外，它有一点需要注意：它是唯一可以在服务器端被调用的生命周期钩子。
+
++ `render()` --- `render()` 是必须的。
+
+render() 是纯函数，调用的时候，完全根据 `this.props` 和 `this.state` 来返回：
+
+1. React elements：通常是 JPX 返回的结构
+2. String and numbers：被渲染成文本节点
+3. Portals：由 ReactDOM.createPortal 创建
+4. null ： 什么都不渲染
+5. Booleans：什么都不渲染
+
+同时，它也不会修改组件的 state，且只返回上述五者之一。
+
++ `componentDidMount()` --- 这个函数在**组件被挂载之后**被调用。注意的是，并不一定是在 `render()` 之后被调用，而是发生在组件被挂载之后。因为 `render()` 本身只返回一些对象而已，并不与浏览器交互，也就是说最后是由 React 库来决定是否挂载组件。
+
+这个钩子的主要用途：
+
+1. 需要 DOM 节点的进行初始化的操作 (什么意思？)
+2. 初始化网络请求，比如 AJAX
+
+需要注意的是，此处修改 state 的值会导致重新渲染。
+
+### Updating
+
+Updating 阶段，props 和 state 值的变化会导致重新渲染，以下生命周期函数会依次调用：
+
++ `componentWillReceiveProps(nextProps)` --- 当组件接收到新的 props 时会被调用。注意措辞，这意味着父组件渲染的时候，子组件也会经历这么一个更新的过程，不管父组件传递给子组件的 props 是否改变，但作为子组件，都有接收一个新的 props，该钩子函数就会被触发。
+
+这个阶段可以处理的内容：
+
+1. 通过比较 `this.props` 和 `nextProps` 来更新 state (调用 this.setState())
+
+注意，调用 this.setState 一般不会触发 `componentWillReceiveProps()`
+
++ `shouldComponentUpdate(nextProps, nextState)` --- 大多数情况下，每次 state 的改变都会引发重新渲染，也就是 `shouldComponentUpdate()` 会返回 `true`。这是一种默认行为，大多数情况你需要依赖这种默认行为。这个钩子不会发生在组件的初次渲染或者 `forceUpdate()` 使用的情况下。
+
+返回 `false` 就会阻止子组件的进一步渲染，后续的 `componentWillUpdate()`、`render()`、`componentDidUpdate()` 一概不会被调用。**但是，React 在未来可能对该周期函数有个较大的修改**。
+
+`shouldComponentUpdate()` 使用得当，会提高 React 组件的性能。
+
++ `componentWillUpdate()` --- 在 `render()` 之前被调用 (初始渲染不会被调用)。
+
+注意的是，你不应该在这里调用 `this.setState()`，也不能在 `shouldComponentUpdate()` 没有 return 之前做一些会使组件更新的操作(比如 redux action 调度)。相反，这些操作你都应该在 `componentWillReceiveProps()` 中进行。
+
++ `render()`
+
++ `componentDidUpdate()` --- 和 `componentDidMount()` 类似，在 updating 发生后执行。在这个生命周期内，可以：
+
+1. 操纵 DOM
+2. 发起网络请求
+
+### Unmounting
+
+Unmounting 对应于组件从 DOM 移除。主要调用 `componentWillUnmount()`。
+
++ `componentWillUnmount()` --- 组件从 DOM 卸载和销毁之前被调用。主要是：
+
+1. 清除定时器
+2. 取消网络请求
+3. 清除在 `componentDidMount()` 阶段创建的 DOM 元素
+
+### Error Handling
+
++ `componenetDidCatch()` --- 在渲染期，生命周期方法期或者 constructor 期间遇到 error 被调用。
 
 ---
 
