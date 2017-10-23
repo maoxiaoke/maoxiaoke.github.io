@@ -48,6 +48,7 @@ abbr {text-decoration: none;}
 <ol class="rounded-list">
 <!--CSS/HTML API-->
 <li><a href="https://www.w3.org/TR/tr-technology-stds" target="_blank">W3C标准协议</a></li>
+<li><a href="https://www.w3.org/TR/CSS22/" target="_blank">CSS 2.2</a></li>
 <li><a href="http://www.w3school.com.cn/index.html" target="_blank">W3school</a></li>
 <li><a href="https://tympanus.net/codrops/css_reference/" target="_blank">CSS reference</a></li>
 <li><a href="http://www.dcloud.io/docs/api/index.shtml" target="_blank">HTML5+ API Reference</a></li>
