@@ -442,7 +442,7 @@ foo(1,2,3);
 //example 01
 let arr1 = [3,5,10];
 let arr2 = [];
-arr2.push([...arr1]);   //[3,4,5]
+arr2.push(...arr1);   //[3,5,10]
 
 //example 02
 let arr1 = ['two', 'three'];
