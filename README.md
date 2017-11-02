@@ -198,7 +198,3 @@ Copyright © 2017 M/J. All rights reserved.
 手动笔芯
 
 ---
-
-## License
-
-[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)

@@ -54,6 +54,9 @@
             },{
                 "quote": "多情只有春庭月<br>犹为离人照落花",
                 "author": "张泌"
+            },{
+                "quote": "我爱你<br>玉儿",
+                "author": "小可嗒嗒"
             }],
 
         /// colors collection

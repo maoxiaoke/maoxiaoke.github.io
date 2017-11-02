@@ -380,6 +380,33 @@ function foo(first,...keys,last){
 
 ---
 
+### name 属性
+
+name 属性主要是由于匿名表达式地大量使用，调试难度增加，从而为所有函数提供 name 属性。
+
+```js
+function foo(){}
+var bar = function(){};
+var yuer = function xiaoke(){};
+
+var person = {
+    get firstName(){
+        return "yuer";
+    },
+    sayName: function(){}
+};
+
+console.log(foo.name);  // "foo"
+console.log(bar.name);  // "bar"
+console.log(yuer.name); // "xiaoke"
+console.log(person.sayName.name);   // "sayName"
+console.log(bar.bind().name);   // "bound bar"
+console.log((new Function()).name); // "anonymous"
+```
+
+
+---
+
 ## Spread 运算符
 
 `...` 运算符作用于数组操作，将数组元素分离成为单独的元素。
