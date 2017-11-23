@@ -47,6 +47,9 @@ abbr {text-decoration: none;}
 <hr><h4 class="btn btn-primary btn-lg">CSS/HTML相关</h4><hr>
 <ol class="rounded-list">
 <!--CSS/HTML API-->
+
+<li><a href="https://spec.whatwg.org/" target="_blank">WHATWG</a></li>
+<li><a href="https://www.w3.org/standards/webdesign/" target="_blank">W3C标准</a></li>
 <li><a href="https://www.w3.org/TR/tr-technology-stds" target="_blank">W3C标准协议</a></li>
 <li><a href="https://www.w3.org/TR/CSS22/" target="_blank">CSS 2.2</a></li>
 <li><a href="http://www.w3school.com.cn/index.html" target="_blank">W3school</a></li>
