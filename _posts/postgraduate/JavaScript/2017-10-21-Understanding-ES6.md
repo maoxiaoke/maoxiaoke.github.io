@@ -404,7 +404,6 @@ console.log(bar.bind().name);   // "bound bar"
 console.log((new Function()).name); // "anonymous"
 ```
 
-
 ---
 
 ## Spread 运算符
@@ -493,3 +492,47 @@ console.log(arr2);  //[1,2,3,4]
 尝试比较例子 3 和例子 4，分别是深度拷贝和浅拷贝。
 
 ### 解构
+
+---
+
+## 箭头函数
+
+箭头函数的特点：
+
++ 没有 this/super/arguments/new.target。都是由最外一层非箭头函数决定
++ 不能更改 this 的绑定 - 函数内部的 this 值不可以更改，这一点贯穿函数的整个周期。
++ 不能通过 `new` 关键字调用 - 没有`[[Construct]]`方法
++ 没有原型 - 不能通过 `new` 来关键字调用，因而也没有构建原型的需求，没有 `prototype` 属性
++ 不支持 `arguments` 对象，所以只能通过命名参数和不定参数来访问函数的参数
+
+> 箭头函数内部当然能使用 `call()`、`apply()` 和 `bind()` 函数，但是对 `this` 毫无影响。
+
+### 箭头函数的写法
+
+```js
+// 只有一个参数
+let reflect = value => value;
+
+//  多个参数
+let sum = (num1, num2) => num1 + num2;
+
+// 没有参数
+let name = () => "yuer";
+
+// 函数体包含多个语句
+let sum = (num1, num2) => {
+    return num1 + num2;
+}
+
+// 空函数
+let doNothing = () => {}
+
+//匿名函数的箭头函数
+let person = ((name) => {
+    return {
+        getName: function() {
+            return name;
+        }
+    }
+})('yuer')
+``` 
