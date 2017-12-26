@@ -491,7 +491,9 @@ console.log(arr2);  //[1,2,3,4]
 
 尝试比较例子 3 和例子 4，分别是深度拷贝和浅拷贝。
 
-### 解构
+### 解构中的不定参数
+
+### 将 Set 集合转换为数组
 
 ---
 
@@ -867,3 +869,90 @@ function setCookie (name, value,{
 }
 ```
 
+---
+
+## Set 和 Map
+
+What is Set and Map for...
+
+Set 和 Map 的语义性非常强，Set 是一种**无序**元素的集合，检测某个元素是否存在； Map 是一种键值对集合，经常用来缓存经常取用的数据。
+
+Set 的一些方法和属性：
+
++ new Set() - 创建 Set 集合
++ add() - 添加元素
++ size - 元素数量
++ delete() - 移除某个元素
++ clear() - 移除所有元素
++ forEach() - 遍历元素
+
+就算 Set 有 `forEach()` 法可以操作集合中的每一个元素，但是不能通过索引进行访问。
+
+可以转换成数组。采用的是 spread 扩展符
+
+```js
+let set = new Set([1, 2, 3, 3, 4, 6]) // 初始化
+let array = [...set]
+```
+
+### WeakSet
+
+What is WeakSet for...
+
+针对 Set 中存储对象的情况，垃圾回收器机制不能释放改对象的内存空间，是一个**强引用**。
+
+```js
+let set = new Set()
+let key = {}
+set.add(key);
+console.log(set.size) // 1
+
+//移除原始引用
+key = null
+console.log(set.size) //1
+
+//重新取回
+key = [...set][0]
+```
+
+WeakSet 就是针对这个问题提出来的，支持三个方法：
+
++ add()
++ has()
++ delete()
+
+和普通 Set 集合有几个不同点：
+
++ 向 `add()`、`has()` 和 `delete()` 三个方法传入非对象参数会报错
++ WeakSet 集合不可被迭代
++ 不支持 size 属性
+
+Map 集合存储的是键值对集合。方法和属性：
+
++ set() - 传入键名和对应值
++ get()
++ has()
++ delete()
++ clear()
++ forEach()
+
+初始化。
+
+```js
+let map = new map([['name', 'xiaoke'], ['title', 'love yuer']]) // 二维数组
+```
+
+Map 集合和传统对象的区别：
+
++ Map 键和值可以是任意类型，Object 只是字符串和 Symbol 类型
++ Object 和 Map 迭代方式不一致
+
+### WeakMap
+
+WeakMap 的引入和 WeakSet 类似，其键名必须是一个对象。WeakMap 集合目前最大的用途是保存 Web 页面中的 DOM 元素。
+
+---
+
+## 改进数组功能
+
+### Array.of() 和 Array.from()
