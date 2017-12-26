@@ -101,6 +101,22 @@ let max = arr[arr.length-1]; //23
 
 >参考: [Math.max()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max)
 
+## 1.2. 数组的拷贝
+
+### 1.2.1. concat() 的实现
+
+```js
+let colors = ['red', 'green', 'blue']
+let cloneColors = colors.concat()
+```
+
+### 1.2.2. spread 元素符的实现
+
+```js
+let colors = ['red', 'green', 'blue']
+let [...clonedColors] = colors
+```
+
 ---
 
 # 2. 对象操作
@@ -189,3 +205,4 @@ lodash -- `_.clone()` 和 `_.cloneDeep()`，这个库效果要更好。
 参考:
 + [深入剖析 JavaScript 的深复制](https://segmentfault.com/a/1190000002801042)
 + [How to Deep clone in javascript](https://stackoverflow.com/questions/4459928/how-to-deep-clone-in-javascript)
+

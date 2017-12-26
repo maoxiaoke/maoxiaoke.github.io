@@ -719,3 +719,151 @@ function shareGreeting() {
 
  `super` 引用指向对象原型。必须在简写方法的对象中使用 `super` 。
 
+---
+
+## 解构
+
+what is Destructuring for...
+
+编码过程中定义很多数组和对象，需要有组织地从中提取相关的信息片段 - 解构就是朝着这一目的出发，打破数据结构，将其拆分为更小部分的过程。
+
+> 注意，解构都放在赋值语句的左侧，且需要提供初始化
+### 对象解构
+
+```js
+let lover = {
+    name: 'yuer',
+    age: 18
+}
+let {name, age} = lover
+
+//or 
+let lover = {
+    name: 'yuer',
+    age: 18
+},
+    name = 'xiaoke',
+    age = 20
+({name, age} = lover)  //需要括号，这很好理解。
+
+// 默认值
+let lover = {
+    name: 'yuer',
+    age: 18
+}
+let {name, age, value = true } = lover
+```
+
+> 右侧如果是 null 或 undefined 就会抛出错误
+
+#### 为非同名局部变量赋值
+
+```js
+let lover = {
+    name: 'yuer',
+    age: 18
+}
+let {name: localName, age: localAge} = lover;
+console.log(localName) // 'yuer'
+console.log(localAge) // 18
+```
+
+#### 嵌套对象解构
+
+```js
+let lover = {
+    name: 'yuer',
+    age: 18,
+    loc: {
+        start: {
+            line: 1,
+            column: 1
+        },
+        end: {
+            line: 1,
+            column: 4
+        }
+    }
+}
+
+let {loc: {start}} = lover
+
+// 还可以替换名称
+let {loc: {start: localStart}} = lover
+```
+
+### 数组解构
+
+```js
+let colors = ['red', 'yellow', 'blue']
+let [ , secondColor, thirdColor] = colors
+
+//or
+let colors = ['red', 'yellow', 'blue']，
+    secondColor = 'black',
+    third = 'purple'
+[, secondColor, thirdColor] = colors //注意，不需要大括号
+```
+
+#### 交换
+
+es6 中交换变量。
+
+```js
+let a = 1,
+    b = 2
+[a, b] = [b, a]
+```
+
+注意，左边是一个解构模式，右侧是一个临时创建的数组字面量。
+
+默认值和嵌套数组解构 和 对象解构都差不多。
+
+#### 不定参数和不定元素
+
+数组解构中又一个不定元素的概念与函数参数中的不定参数的概念有点类似，都是使用 spread 运算符 (`...`) 来实现。
+
+```js
+let colors = ['red', 'green', 'blue']
+let [firstColor, ...restColors] = colors
+```
+
+### 解构用在函数参数传递
+
+当定义接受大量可选参数的时候，可采用解构。
+
+```js
+//一般，有一个问题，如果setCookie不提供第三个参数会报错，这是因为解构的右侧为 null 和 undefined 会报错
+function setCookie(name, value, { secure, path, domain, expires}) {
+    //...
+}
+setCookie('type', 'js', {
+    secure: true,
+    expires: 600000
+})
+
+//可以改成这样
+function setCookie(name, value, { secure, path, domain, expires} = {}) {
+    //...
+}
+```
+
+解构参数含有默认值时的写法如何？
+
+```js
+const setCookieDefaults = {
+    secure: false,
+    path: "/",
+    domain: "xiaokedada.com",
+    expires: new Date(Data.now() + 360000000)
+}
+function setCookie (name, value,{
+    secure = setCookieDefaults.secure,
+    path = setCookieDefaults.path,
+    domain = setCookieDefaults.domain,
+    expires = setCookieDefaults.expires
+} = setCookieDefauts) {
+    //...
+}
+```
+
