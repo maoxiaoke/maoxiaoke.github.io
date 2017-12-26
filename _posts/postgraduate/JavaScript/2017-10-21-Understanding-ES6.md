@@ -536,3 +536,186 @@ let person = ((name) => {
     }
 })('yuer')
 ``` 
+
+---
+
+## 对象的扩展
+
+### 对象字面量的扩展
+
+**属性初始值的简写**- 有时候，对象的属性名和函数的参数相同，可以使用简写方式。比如：
+
+```js
+function createPerson(name, age) {
+    return {
+        name: name,
+        age: age
+    }
+}
+
+// 简写
+function createPerson(name, age) {
+    return {
+        name,
+        age
+    }
+}
+```
+
+**对象方法的简写**- es6 中可以消除冒号和 `function` 关键字。简写方式可以使用 `super` 关键字
+
+```js
+var person = {
+    name: 'xiaoke',
+    sayName: function() {
+        // do something
+    }
+}
+
+// 简写
+var person = {
+    name: 'xiaoke',
+    sayName() {
+        // do something
+    }
+}
+```
+
+**可计算属性**- es6 中属性可以通过计算得到，即使用一个方括号 `[]`
+
+```js
+let suffix = 'name'
+let person = {
+    ['first' + suffix] : 'yuer',
+    ['last' + suffix] : 'mao'
+}
+```
+
+### Object.prototype的新增方法
+
+`Object.is()` - 用来解决 `===` 误判的情况
+
+```js
+console.log(+0 === -0) // true 实际上是两个完全不同的实体
+console.log(Object.is(+0, -0)) // false
+
+console.log(NaN === NaN) // false 实际上是完全一样的
+console.log(Object.is(NaN, NaN)) // true
+```
+
+> NaN 还可以使用 `isNaN()` 来进行判断
+
+`Object.assign()` - 混合(mixin)操作，即一个对象接收来自另一个对象的属性和方法
+
+```js
+var receiver = {}
+Object.assign(receiver, {
+    type: 'js',
+    name: 'yuer'
+}, {
+    type: 'css'
+})
+console.log(receiver.type) // css 注意，同名属性，前者被覆盖
+console.log(receiver.name) // yuer
+```
+
+`Object.assign` 进行的是**浅拷贝**，如果源对象的属性值是一个指向对象的引用，只拷贝引用值。
+
+实际上，也不是一个一般的“浅拷贝”，只是一级属性的拷贝，而没有继续递归做下一层拷贝。因此，用来“深拷贝”对象是不可以的。
+
+```js
+let supplier = {
+    sex: 'male',
+    name: 'yuer',
+    lover: {
+        name: 'xiaoke',
+        age: 22
+    },
+    favorite: ['junk food', 'meat']
+}
+let cloneReceiver = supplier
+let DeepCloneReceiver = Object.assign({},supplier)
+
+supplier.sex = 'female'
+console.log(supplier.sex, cloneReceiver.sex, DeepCloneReceiver.sex,)
+
+supplier.lover.age = 23
+console.log(supplier.lover.age, cloneReceiver.lover.age, DeepCloneReceiver.lover.age)
+
+supplier.favorite.push('yogurt')
+console.log(supplier.favorite, cloneReceiver.favorite, DeepCloneReceiver.favorite)
+/*
+female female male
+23 23 23
+[ 'junk food', 'meat', 'yogurt' ] [ 'junk food', 'meat', 'yogurt' ] [ 'junk food', 'meat', 'yogurt' ]
+*/
+```
+
+`Object.assign` 还有一个语义化功能是合并对象：
+
+```js
+let o1 = { a: 1 };
+let o2 = { b: 2 };
+let o3 = { c: 3 };
+let obj = Object.assign(o1, o2, o3);
+console.log(obj); // { a: 1, b: 2, c: 3 }
+console.log(o1);  // { a: 1, b: 2, c: 3 }
+```
+
+### 允许重复的对象字面量属性
+
+这一点，在之前的标准在严格模式下是不允许的，现在是可以了。
+
+
+### 自有属性的枚举顺序
+
+es5 未定义对象属性的枚举顺序，而由厂商自行决定。现在做了如下规定：
+
+1. 所有数字键按升序
+2. 所有字符串按照它们被加入对象的顺序
+3. 所有 `symbol` 键按照它们被加入对象的顺序
+
+这会影响到 `Object.getOwnPropertyName()` 和 `Refect.ownkeys` 返回属性的方式。
+
+> `for...in` 的枚举顺序并未明确，而 `Object.keys()` 和 `JSON.stringfy()` 方法都依赖 `for...in` 的枚举顺序，因此也未明确。
+
+### 方法的定义
+
+在 es6 之前，没有**方法**这个标准的定义，社区对方法的定义是：一个具有功能而非数据的属性。
+
+es6 正式将方法定义为一个函数，使用内部属性 `[[HomeObject]]` 来容纳这个方法从属的对象。
+
+```js
+let person = {
+    //method
+    getGreeting() {
+        return "hello"
+    }
+};
+//function
+function shareGreeting() {
+    return "hi!"
+}
+```
+
+上面的代码中，`getGreeting()` 有内部属性 `[[HomeObject]]` 的值为 `person`，而 `shareGreeting()` 不是方法，没有这个内部属性。
+
+这个内部属性关系到 `super` 的使用。
+
++ 首先，在 `[[HomeObject]]` 属性上调用 `Object.getPrototypeOf()` 来检索原型的引用
++ 然后，搜寻原型找到同名函数
++ 最后，设置 `this` 绑定并且调用相应的方法
+
+---
+
+## 增强对象原型
+### 改变对象的原型
+
+ es6 允许通过 `Object.setPrototypeOf()` 方法来改变指定对象的原型。
+
+ > 对象原型的真实值存放在内部属性 [[Prototype]] 中，调用 `Object.getPrototypeOf()` 返回
+
+ ### super 引用：简化原型访问
+
+ `super` 引用指向对象原型。必须在简写方法的对象中使用 `super` 。
+
