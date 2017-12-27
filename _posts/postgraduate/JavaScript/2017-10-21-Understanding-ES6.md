@@ -956,3 +956,275 @@ WeakMap 的引入和 WeakSet 类似，其键名必须是一个对象。WeakMap �
 ## 改进数组功能
 
 ### Array.of() 和 Array.from()
+
+What is Array.of() for...
+
+解决使用 `new Array()` 怪异之处。`Array.of()` 只包含括号内的元素。
+
+```js
+let items = new Array(2) // 包含两个元素的数组，2 赋值给 length
+let items = new Array(1, 2) // 包含元素1 和 2的数组
+let items = new Array('2') // 包含元素 '2' 的数组
+
+//不怪异的 Array.of()
+let items = Array.of(2) // 包含元素2 的数组
+let items = Array.of(1, 2) //包含元素 1 和 2的数组
+let items = Array.of('2') //包含元素 '2' 的数组
+```
+
+What is Array.from() for...
+
+解决类数组转换为数组的问题。当然，这个方法也接受可迭代的对象
+
+```js
+// 传统的解决方法
+Array.prototype.slice.call(arrayLike)
+
+//语义清晰的方法
+Array.from(arrayLike)
+```
+
+Array.from() 的第二个参数还能提供一个**映射函数**。
+
+```js
+function translate() {
+    return Array.from(arguments, (value) => value + 1)
+}
+let numbers = translate(1, 2, 3) // 2, 3, 4
+```
+
+如果传入一个可迭代对象，Array.from() 可提供参数来指定 this 的值。
+
+### 其他方法
+
+#### find() 和 findIndex()
+
+函数的语义： 在数组中根据某个条件查找匹配的元素
+
+函数接受两个参数：一个回调函数和一个可选参数，指定回调函数的 this 的值
+
+```js
+let numbers = [25, 30, 35, 40, 45]
+
+console.log(numbers.find( n => n > 33)) // 35
+console.log(numbers.findIndex( n => n > 33)) //2
+```
+
+> indexOf() 和 lastIndexOf() 的语义：查找与某个值匹配的元素
+
+#### fill()
+
+填充一个或多个数组元素。接收三个参数：要填充的元素、起始索引和结束索引。后两者都是可选的，标记方式是前闭后开。
+
+```js
+let numbers = [1, 2, 3, 4]
+numbers.fill(0, 1, 3) // 1, 0, 0, 4
+```
+
+#### copyWithin()
+
+从数组中复制元素。接受两个参数：填充值的索引位置，复制值的索引位置
+
+```js
+let numbers = [1, 2, 3, 4]
+numbers.copyWithin(2, 0) //1,2,1,2
+```
+
+### 定型数组
+
+What is 定型数组 for...
+
+定型数组是 WebGL 引入的，由于 JavaScript 中，数字是以 64 位浮点格式存储的，然后进行 `ToInt32` 操作，所以算术运算很慢，无法满足计算需求。
+
+定型数组： 将任意数字转换为一个包含数字比特的数组。专门用来处理数值类型的。
+
+---
+
+## Class
+
+### 类的声明
+
+```js
+class PersonClass {
+    constructor(name) {
+        this.name = name
+    }
+    sayName() {
+        // do something
+    }
+}
+let person = new PersonClass('yuer')
+person.sayName()
+```
+
+特点。
+
++ 函数声明可以被提升。而类声明和 let 类似，存在暂时性死区的问题
++ 类声明中的语句强制运行在严格模式下
++ 类中的方法都是不可枚举的
++ 类中都有一个 `[[Construct]]` 的内部方法
++ 在类中修改类名会报错
++ 类也是一等公民
+
+有意思的是，我们看一下如下代码：
+
+```js
+console.log(typeof PersonClass) // function
+console.log(typeof PersonClass.prototype.sayName) // function
+```
+
+### 类的表达式
+
+即字面量形式。
+
+```js
+let PersonClass = class {
+    constructor(name) {
+        this.name = name
+    }
+    sayName() {
+        // do something
+    }
+}
+let person = new PersonClass('yuer')
+person.sayName()
+```
+
+还有一种类似 IIFE 的写法。
+
+```js
+let person = new class {
+    constructor(name) {
+        this.name = name
+    }
+    sayName() {
+        // do something
+    }
+}('yuer')
+person.sayName() 
+```
+
+### 其他特点
+
+#### 访问器属性
+
+```js
+class PersonClass {
+    constructor(name) {
+        this.name = name
+    }
+    get name() {
+        return this.name
+    }
+    set name(value) {
+        this.name = value
+    }
+}
+```
+
+#### 可计算成员
+
+```js
+let methodName = 'sayName'
+class PersonClass {
+    constructor(name) {
+        this.name = name
+    }
+    [methodName]() {
+        // do something
+    }
+}
+```
+
+#### 定义生成器
+
+```js
+class MyClass {
+    *createIterator() {
+        yield 1
+        yield 2
+        yield 3
+    }
+ }
+```
+
+#### 静态成员
+
+实例中不可访问静态成员，只能直接在类中访问静态成员。static 关键字可用于类中所有的方法和访问器属性。
+
+```js
+class PersonClass {
+    constructor(name) {
+        this.name = name
+    }
+    sayName() {
+        // do something
+    }
+    static create(name) {
+        return new PersonClass(name)
+    }
+}
+let person = PersonClass.create('yuer')
+```
+
+### 继承和派生
+
+`extends`关键字指定类继承的函数，`super()` 方法可访问基类的构造函数。
+
+```js
+class Rectangle {
+    constructor(length, width) {
+        this.length = length
+        this.length = width
+    }
+    getArea() {
+        return this.length * this.width
+    }
+}
+class Square extends Rectangle {
+    constructor(length) {
+        super(length, length)
+    }
+}
+
+let square = new Square(3)
+square.getArea()
+```
+
+`super()`：
+
++ 只能在派生类的构造函数中定义 `super()`
++ 在构造函数中访问 `this` 之前一定要调用 `super()`，它负责初始化 `this`
++ 不想调用 `super()`，唯一的方法是让类的构造函数返回一个对象
+
+class 还能继承基于原型的方式。如下：
+
+```js
+function Rectangle(length, width) {
+    this.length = length
+    this.width = width
+}
+Rectangle.prototype.getArea = function() {
+    return this.length * this.width
+}
+class Square extends Rectangle {
+    constructor(length) {
+        super(length, length)
+    }
+}
+```
+
+Rectangle 具有 `[[Construct]]` 属性和原型，因此 Square 类可以直接继承它。
+
+#### 内建对象的继承
+
+```js
+class MyArray extends Array {
+    // 空
+}
+```
+
+---
+
+## Iterator and Generator
+
