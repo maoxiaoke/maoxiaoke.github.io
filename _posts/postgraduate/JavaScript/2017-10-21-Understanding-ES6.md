@@ -1228,3 +1228,84 @@ class MyArray extends Array {
 
 ## Iterator and Generator
 
+第一个问题，Iterator and Generator 是什么？
+第二个问题，Iterator and Generator 解决了什么问题？即来自何方？
+第三个问题，Iterator and Generator 未来如何？
+
+暂时，我还没办法完整解答。
+
+### 是什么？
+
+Iterator 是一个特殊对象，专门为迭代设计的接口，都有一个 `next()` 方法，该方法返回一个包含两个属性的结果对象：
+
++ `value` - 下一个将要返回的值
++ `done` - 布尔类型值，没有更多可返回的数据时返回 true
+
+Generator 是一种返回迭代器的函数。生成器和其他函数一样，只不过返回的是一个迭代器。关键字 `yield` 用来指定调用迭代器的 `next()` 方法时的返回值及返回顺序。
+
+```js
+function *createIterator() {
+    yield 1;
+    yield 2;
+    yield 3;
+}
+let iterator = createIterator();
+console.log(iterator.toString()) // [object Generator]
+iterator.next().value  //1
+iterator.next().value  //2
+iterator.next().value //3
+```
+
+关键是，每执行完一条 `yield` 语句之后函数会自动停止运行，直到再次调用 `next()` 方法。这样，就可以打断函数的顺序执行。
+
+`yield` 的特点。
+
++ Generator 内部的 return 无效
++ yield 只可在 Generator 内部，嵌套函数内部也会导致错误
+
+```js
+function *createIterator(items) {
+    items.forEach(function(item) {
+        yield item + 1 // 语法错误
+    })
+}
+```
+
+Generator 表达式形式。
+
+```js
+let createIterator = function *() {
+
+}
+//or
+let createIterator = function *createIterator2() {
+
+}
+```
+
+Generator 本质是函数，因此可添加到对象中作为方法。
+
+```js
+//es5
+let o = {
+    createIterator: function *() {
+        //
+    }
+}
+//es6
+let o = {
+    *createIterator() {
+
+    }
+}
+```
+
+### 可迭代对象
+
++ 可迭代对象具有 `Symbol.iterator` 属性
++ 所有的集合对象(数组、Set 集合及 Map集合)和字符串都是可迭代对象，这些对象有默认的迭代器。
++ Generator 默认为 Symbol.iterator 属性赋值，所有通过 Generator 创建的迭代器都是可迭代对象
+
+可迭代对象的 `for...of` 循环
+
+es6 对 for...of 循环进行了重新设计，每执行一次调用可迭代对象的 `next()` 方法，将返回结果的 `value` 属性存储在一个变量中，循环持续这一过程直到返回结果的 `done` 属性的值为 `true`。
