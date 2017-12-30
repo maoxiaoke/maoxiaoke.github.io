@@ -1260,7 +1260,6 @@ iterator.next().value //3
 
 `yield` 的特点。
 
-+ Generator 内部的 return 无效
 + yield 只可在 Generator 内部，嵌套函数内部也会导致错误
 
 ```js
@@ -1309,3 +1308,146 @@ let o = {
 可迭代对象的 `for...of` 循环
 
 es6 对 for...of 循环进行了重新设计，每执行一次调用可迭代对象的 `next()` 方法，将返回结果的 `value` 属性存储在一个变量中，循环持续这一过程直到返回结果的 `done` 属性的值为 `true`。
+
+```js
+let values = [1, 2, 3]
+for (let item of values) {
+    //
+}
+```
+
+`for...of` 循环通过调用 values 的 `Symbol.iterator` 方法来获取迭代器。
+
+`for...of` 可用于不可迭代对象、null 和 undefined。
+
+默认迭代器 `Symbol.iterator` 属性
+
+```js
+let values = [1, 2, 3]
+let iterator = values[Symbol.iterator]()  // 迭代器
+```
+
+因此可以使用 `Symbol.iterator` 属性来检测**可迭代对象**
+
+```js
+function isIterable(obj) {
+    return typeof object[Symbol.iterator] === 'function'
+}
+```
+
+创建可迭代对象 `Symbol.iterator` 属性
+
+```js
+let collection = {
+    items: [],
+    *[Symbol.iterator]() {
+        for (let item of this.items) {
+            yield item;
+        }
+    }
+}
+collection.items.push(1)
+collection.items.push(2)
+for (let x of collection) {
+    //
+}
+```
+
+### 内建迭代器
+
+es6 中为数组、Map 和 Set 三种集合内建了三种迭代器。
+
++ entries() - 返回一个迭代器，多个键值对
++ values() - 返回一个迭代器，集合的值
++ keys() - 返回一个迭代器，集合中所有的键名
+
+当使用的 `for...of` 时，没有显示指定则使用默认迭代器。数组和 Set 集合默认的迭代器是 `values()` 方法，Map 的默认迭代器是 `entries()` 方法。
+
+> 当直接使用 yield * 'hello' 代码，会直接使用字符串的默认迭代器。
+
+### NodeList 迭代器
+
+HTML 标准(不是 ECMAScript 6标准)也拥有默认迭代器，其默认迭代器和数组的默认迭代器一致。也就是说，NodeList 也支持 for...of 循环操作。
+
+### spread 运算符的本质
+
+spread 可以将 Set 集合转换成一个数组。
+
+```js
+let set = new Set([1, 2, 3, 4])
+let arr = [...set]
+```
+
+在这里，spread 扩展符就是利用默认迭代器，读取 values 属性然后依次插入到数组中。
+
+### 迭代器的高级功能
+
+#### 给 next() 传递参数，使用 yield 来生成值
+
++ 给 next() 传递参数 - 结果：这个参数会替代 Generator 生成器内部 yield 的返回值 ---> 对异步编程至关重要
+
+```js
+function *createIterator() {
+    let first = yield 1
+    let second = yield first + 2
+    yield second + 3
+}
+let iterator = createIterator()
+
+iterator.next() // {value: 1, done: false}
+iterator.next(4) // {value: 6, done: false}
+iterator.next(5) // {value: 8, done: false}
+iterator.next()
+```
+
+有一个例外是，第一次调用 next() 方法时，无论传入什么参数都会被丢弃。
+
+这样的结果是为什么呢？调用第一个 `next()`，执行的操作是：`yield 1` (因为遇到 yield 关键字要暂停)。
+
+调用第二个 `next(4)` 执行的是 `let first = ` 赋值操作，然后暂停到 `yield first + 2`。
+
+调用第三个 `next(5)` 执行的是 `let second =` 赋值操作，然后结束在 `yield second + 3`。
+
+#### Generator return 语句
+
+```js
+function *createIterator() {
+    yield 1;
+    return 42;
+    yield 2;
+}
+let iterator = createIterator()
+iterator.next() //{ value: 1, done: false }
+iterator.next() //{ value: 42, done: true }
+iterator.next() //{ value: undefined, done: true }
+```
+
+`return` 可以指定一个返回值，这个值会作为 `value` 属性返回。其后的代码将不会执行。
+
+### 生成器委托
+
+委托的概念和好理解。
+
+```js
+function *createNumberIterator() {
+    yield 1
+    yield 2
+}
+function *createColorIterator() {
+    yield 'red'
+    yield 'green'
+}
+function *createCombinedIterator() {
+    yield *createNumberIterator
+    yield *createColorIterator
+}
+let iterator = createCombinedIterator()
+iterator.next() //{value: 1, done: false}
+iterator.next() //{value: 2, done: false}
+iterator.next() //{value: 'red', done: false}
+iterator.next() //{value: 'green', done: false}
+iterator.next() //{value: undefined, done: true}
+```
+
+
+
