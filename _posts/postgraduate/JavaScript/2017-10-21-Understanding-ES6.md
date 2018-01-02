@@ -1380,6 +1380,13 @@ let arr = [...set]
 
 在这里，spread 扩展符就是利用默认迭代器，读取 values 属性然后依次插入到数组中。
 
+将这种想法往 Map 集合扩展。
+
+```js
+let map = new Map([['name', 'yuer'], ['sex', 'female']])
+let arr = [...[...map]] //转换成一个二维数组
+```
+
 ### 迭代器的高级功能
 
 #### 给 next() 传递参数，使用 yield 来生成值
@@ -1448,6 +1455,137 @@ iterator.next() //{value: 'red', done: false}
 iterator.next() //{value: 'green', done: false}
 iterator.next() //{value: undefined, done: true}
 ```
+
+### Generator 的异步操作
+
+
+---
+
+## 模块
+
+es6 对模块进行了规范。
+
+### 两个关键字
+
+`export` - 向其他模块暴露接口
+
+```js
+//暴露变量
+export let name = 'yuer'
+
+//暴露函数
+export function sum(acc, val) {
+    return acc + val
+}
+
+//暴露 class
+export class Rectangle() {
+    //
+}
+
+//定义一个变量，然后随后暴露
+function multiply(num1, num2) {
+    return num1 * num2
+}
+export { multiply }
+```
+
++ 无法暴露匿名函数
+
+`import` - 导入模块接口
+
+```js
+import { identifier1, identifier2 } from './xxx.js'
+```
+
++ 这和对象解构不是一码事
++ 尽量使用 `/`、`./`、`../`，保证跨浏览器和 Node.js 兼容性。 `/` - 根目录；`./` - 当前目录；'../' - 父级目录
++ 这种绑定类似于 const 定义变量，identifier1 和 identifier2 无法被重新定义，也不可被重新赋值
++ `import` 和 `export` 是静态的，**独立于语句和函数之外**
++ `import` 建立的是变量、函数、类等的**只读**绑定。
++ 只执行一次
+
+```js
+import { sum } from './example.js'
+import { multiply } from './example.js'
+```
+
+'./example.js' 只执行一次。
+
+导入所有。
+
+```js
+import * as example from './example.js'
+```
+
+### export 和 import 导入接口的重命名
+
+`as` 关键字
+
+```js
+function sum(acc, val) {
+    return acc + val
+}
+export { sum as add }
+``` 
+
+在另一个文件中，`import` 需要后一个：
+
+```js
+import { add } from './example.js/
+```
+
+同样，`import` 也可使用 `as` 关键字。
+
+```js
+import { add as sum } from './example.js'
+```
+
+### export default
+
+`default` 关键字用来 export 默认的接口。用法：
+
+```js
+// 1
+export default function(acc, val) {
+    return acc + val
+}
+// 2
+function sum(acc, val) {
+    return acc + val
+}
+export default sum
+// 3
+function sum(acc, val) {
+    return acc + val
+}
+export { sum as default }
+```
+
+导入默认接口。
+
+```js
+import sum from './example.js'
+```
+
+> 注意没有大括号包裹，sum 是默认 export 接口的“引用”。
+
+#### 导出默认绑定和导出一个或多个非默认绑定
+
+```js
+export let name = 'yuer'
+export default function(acc, val) {
+    return acc + val
+}
+```
+
+`import` 的代码
+
+```js
+import sum, { color } from './example.js'
+```
+
+## 再次
 
 
 
