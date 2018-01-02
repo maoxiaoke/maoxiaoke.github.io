@@ -1585,7 +1585,54 @@ export default function(acc, val) {
 import sum, { color } from './example.js'
 ```
 
-## 再次
+#### 再次 export
+
+在一个模块中引入接口后，可以再次被 export。
+
+```js
+import { sum } from './example.js'
+export { sum }
+```
+
+上面这两个语句可并成一句：
+
+```js
+export { sum } from './example.js'
+```
+
+### 没有 export 的接口导出
+
+有一些方法，在全局范围内对对象做一些修改。比如，为内建对象 `Array` 增加一个 `pushAll()` 的方法。
+
+```js
+Array.prototype.pushAll = functio9(items) {
+    if (!Array.isArray(items)) {
+        throw new TypeError("Argument must be an array.")
+    }
+    return this.push(...items)
+}
+```
+
+这是一个有效的模块。可以作为模块和脚本引入。
+
+```js
+import './example.js'
+
+let  colors = ['red', 'green']
+let items = []
+items.pushAll(colors)
+```
+
+> 这种常见于创建 polyfills 或 shims
+
+### 模块和脚本的区别
+
++ 模块自动运行在严格模式下，无法逃离
++ 在模块顶部创建的变量不会自动共享到全局，存在于模块的最高级作用域
++ 模块顶层的 `this` 值是 undefined
++ 不允许 HTML 格式的注释
+
+
 
 
 
