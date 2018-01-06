@@ -1532,7 +1532,7 @@ export { sum as add }
 在另一个文件中，`import` 需要后一个：
 
 ```js
-import { add } from './example.js/
+import { add } from './example.js/'
 ```
 
 同样，`import` 也可使用 `as` 关键字。
