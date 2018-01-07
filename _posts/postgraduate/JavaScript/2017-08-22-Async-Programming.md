@@ -399,3 +399,36 @@ yuer
 ### Promise 不可撤销
 
 一旦创建了 Promise 并且注册了一个 完成/拒绝 的回调函数，就没有什么可以从外部取停止这个过程。
+
+---
+
+## async 和 await
+
+`async` 和 `await` 将 Generator 和 Promise 结合起来，以一种更为“优雅”的方式进行异步调用。
+
+`async` 用在 `function` 关键字前面(并不一定非在 function 前面，对象的方法前面也是可以的)。表达一个意思：**函数总是返回的一个promise**。如果函数返回一个 `<non-promise>` 的代码，会被自动包装成一个 resolved promise。
+
+```js
+async function foo() {
+    return 1
+}
+foo().then(console.log) // 1
+
+//显式
+async function foo() {
+    return Promise.resolve(1)
+}
+```
+
+`await` 只能用在 `async function` 内部，使代码停止运行直到 Promise 完成(解析成功或被拒绝)并返回一个结果。
+
+```js
+async function foo() {
+    let promise = new Promise((resolve, reject) => setTimeout(() => resolve("done!"), 1000))
+    let result = await promise // *
+    console.log(result)
+}
+foo() // "done!"
+```
+
+代码运行到 * 处暂停，然后等待 Promise 完成。
