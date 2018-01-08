@@ -431,4 +431,20 @@ async function foo() {
 foo() // "done!"
 ```
 
-代码运行到 * 处暂停，然后等待 Promise 完成。
+代码运行到 * 处暂停，然后等待 Promise 完成。在等待期间，`await` 不占用 CPU 资源，CPU 可以处理其他事情。
+
+`async` 和 `await` 的优雅之处是，以同步的方式书写异步代码。在之前的介绍中，Promise 可以解决回调函数 “回调地狱” 问题，但是同样带来了 “链式地狱” 的问题。
+
+先写一个 Promise 的例子，使用 Github 的 API。
+
+```js
+fetch('https://api.github.com/users/maoxiaoke')
+.then(response => response.json())
+.then(githubUser => {
+    let img = document.createElement('img')
+    img.src = githubUser.avatar_url
+    img.className = 'maoxiaoke'
+    document.body.appendChild(img)
+    setTimeout(() => document.body.removeChild(img), 3000)
+})
+```
