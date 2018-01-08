@@ -13,6 +13,7 @@ abbr {text-decoration: none;}
 <li><a href="http://react-china.org/" target="_blank">React China</a></li>
 <li><a href="http://www.jstips.co/" target="_blank"><abbr title="每天提供一个JavaScript小tip">JS TIPS</abbr></a></li>
 <li><a href="http://javascript-puzzlers.herokuapp.com/" target="_blank"><abbr title="也许你并不太懂JavaScript">JavaScript Puzzlers!</abbr></a></li>
+<li><a href="https://javascript.info/" target="_blank">React China</a></li>
 <li><a href="https://jsperf.com/" target="_blank"><abbr title="js性能测试网站">js perf</abbr></a></li>
 <li><a href="http://ecma-international.org/ecma-262/5.1/" target="_blank">ES5 标准协议</a></li>
 <li><a href="http://yanhaijing.com/es5/#about" target="_blank">ES5 标准协议(中文译本)</a></li>
