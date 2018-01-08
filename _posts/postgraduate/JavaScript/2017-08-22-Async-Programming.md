@@ -438,7 +438,7 @@ foo() // "done!"
 先写一个 Promise 的例子，使用 Github 的 API。
 
 ```js
-fetch('https://api.github.com/users/maoxiaoke')
+fetch('https://api.github.com/users/maoxiaoke') //获取用户 maoxiaoke 的 github 信息
 .then(response => response.json())
 .then(githubUser => {
     let img = document.createElement('img')
@@ -447,4 +447,85 @@ fetch('https://api.github.com/users/maoxiaoke')
     document.body.appendChild(img)
     setTimeout(() => document.body.removeChild(img), 3000)
 })
+```
+
+现在用 `async` 和 `await` 改写。首先用 `async` 声明一个函数，然后在函数中使用 `await`。
+
+```js
+async function showAvatar() {
+    let response = await fetch('https://api.github.com/users/maoxiaoke') 
+    let githubUser = await response.json()
+
+    let img = document.createElement('img');
+    img.src = githubUser.avatar_url;
+    img.className = "promise-avatar-example";
+    document.body.appendChild(img)
+
+    await new Promise((resolve, reject) => setTimeout(resolve, 3000));
+
+    document.body.removeChild(img)
+}
+showAvatar()
+```
+
+**处理异常情况**：Promise 使用 reject() 来处理拒绝的情况，`async` 和 `await` 采用 `try...catch...` 来处理。
+
+```js
+async function showAvatar() {
+    try {
+        let response = await fetch('...') //获取用户 maoxiaoke 的 github 信息
+        let githubUser = await response.json()
+
+        let img = document.createElement('img');
+        img.src = githubUser.avatar_url;
+        img.className = "promise-avatar-example";
+        document.body.appendChild(img)
+
+        await new Promise((resolve, reject) => setTimeout(resolve, 3000));
+
+        document.body.removeChild(img)
+    } catch (e) {
+        alert(e)
+    }
+}
+showAvatar()
+```
+
+也可以这样：
+
+```js
+async function showAvatar() {
+    let response = await fetch('...') //获取用户 maoxiaoke 的 github 信息
+    let githubUser = await response.json()
+
+    let img = document.createElement('img');
+    img.src = githubUser.avatar_url;
+    img.className = "promise-avatar-example";
+    document.body.appendChild(img)
+
+    await new Promise((resolve, reject) => setTimeout(resolve, 3000));
+
+    document.body.removeChild(img)
+}
+showAvatar().catch(alert)
+```
+
+`await` 还支持 `thenable`。所有的 Promise 都是 thenable，但不是所有的 thenable 是 Promise。这样的一些 thenable 对象(一般包含可调用的 then 方法)如果支持可调用的 then 方法，就能使用 `await`。
+
+```js
+class Thenable {
+  constructor(num) {
+    this.num = num;
+  }
+  then(resolve, reject) {
+    alert(resolve); 
+    setTimeout(() => resolve(this.num * 2), 1000); // (*)
+  }
+};
+
+async function f() {
+  let result = await new Thenable(1);
+  alert(result);
+}
+f();
 ```
