@@ -206,3 +206,15 @@ lodash -- `_.clone()` 和 `_.cloneDeep()`，这个库效果要更好。
 + [深入剖析 JavaScript 的深复制](https://segmentfault.com/a/1190000002801042)
 + [How to Deep clone in javascript](https://stackoverflow.com/questions/4459928/how-to-deep-clone-in-javascript)
 
+# 2. Date 对象相关的操作
+
+## 2.1. 某个日期的前/后多少日
+
+```js
+function getNdaysDate(days) {
+    var date = new Date();
+    date.setDate(date.getDate() + days);
+    return date;
+}
+```
+
