@@ -106,6 +106,7 @@ abbr {text-decoration: none;}
 <li><a href="http://en.cppreference.com/w/" target="_blank">C++ 参考手册</a></li>
 <li><a href="https://developers.google.com/web/tools/chrome-devtools/" target="_blank">Chrome DevTools</a></li>
 <li><a href="http://code.flickr.net/" target="_blank">Flickr 技术博客</a></li>
+<li><a href="http://gen.lib.rus.ec/#" target="_blank">Library Genesis</a></li>
 
 </ol>
 <hr><h4 class="btn btn-info btn-lg">算法网站</h4><hr>
